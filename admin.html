@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DIBA Deck -> Intelligence Admin</title>
+  <style>
+    :root {
+      --bg: #09090b; /* Very dark background */
+      --card-bg: #18181b; /* Slightly lighter card background */
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --gold: #D4AF37;
+      --gold-light: #F3E5AB;
+      --accent: rgba(212, 175, 55, 0.1);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--accent); }
+
+    .email-cell { font-weight: 500; color: var(--gold-light); }
+    .date-cell { color: var(--text-muted); font-size: 0.9rem; }
+    .time-cell { font-family: monospace; }
+    
+    .pages-cell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    
+    .page-tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .page-tag-num {
+      background: rgba(212, 175, 55, 0.15); /* gold accent bg */
+      color: var(--gold-light);
+      padding: 4px 6px;
+      font-weight: 700;
+      border-right: 1px solid var(--border);
+    }
+    
+    .page-tag-time {
+      padding: 4px 6px;
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .actions { margin-top: 1rem; text-align: right; }
+    
+    button {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    
+    button:hover { opacity: 0.9; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Intelligence Dashboard</h1>
+        <p class="subtitle">Real-time viewer analytics for Institutional Deck v3</p>
+      </div>
+      <button onclick="loadData()">Refresh Data</button>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="totalViews">0</div>
+        <div class="stat-label">Total Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="uniqueEmails">0</div>
+        <div class="stat-label">Unique Leads</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="avgTime">0m</div>
+        <div class="stat-label">Avg. Session Time</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="analyticsTable">
+        <thead>
+          <tr>
+            <th>Email / Viewer</th>
+            <th>Date Started</th>
+            <th>Total Time</th>
+            <th>Slides Viewed</th>
+            <th>Top Slide (Time spent)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const SESSIONS_KEY = 'deck_sessions';
+
+    function formatTime(ms) {
+      if (!ms) return '0s';
+      const seconds = Math.floor(ms / 1000);
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      if (m > 0) return `${m}m ${s}s`;
+      return `${s}s`;
+    }
+    
+    function formatDate(isoString) {
+      if (!isoString) return 'Unknown';
+      const d = new Date(isoString);
+      return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+
+    function loadData() {
+      // Because we are running locally, the pitch deck saves tracking data to localStorage
+      // We will read it from there. If this were deployed, we'd fetch from an API.
+      const rawData = localStorage.getItem(SESSIONS_KEY);
+      let sessions = [];
+      if (rawData) {
+        try {
+          sessions = JSON.parse(rawData);
+        } catch(e) { console.error("Error parsing sessions", e); }
+      }
+      
+      // Sort newest first
+      sessions.sort((a, b) => new Date(b.started) - new Date(a.started));
+
+      renderDashboard(sessions);
+    }
+
+    function renderDashboard(sessions) {
+      // Calculate Aggregates
+      document.getElementById('totalViews').innerText = sessions.length;
+      
+      const uniqueEmils = new Set(sessions.map(s => s.email).filter(e => e));
+      document.getElementById('uniqueEmails').innerText = uniqueEmils.size;
+
+      let totalTimeSum = 0;
+      let timeCount = 0;
+      sessions.forEach(s => {
+        if (s.totalTimeSpentMs > 0) {
+          totalTimeSum += s.totalTimeSpentMs;
+          timeCount++;
+        }
+      });
+      
+      if (timeCount > 0) {
+        const avgMs = totalTimeSum / timeCount;
+        document.getElementById('avgTime').innerText = formatTime(avgMs);
+      } else {
+        document.getElementById('avgTime').innerText = '0s';
+      }
+
+      // Render Table
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      if (sessions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No sessions recorded yet. View the deck to generate data!</td></tr>';
+        return;
+      }
+
+      sessions.forEach(s => {
+        const tr = document.createElement('tr');
+        
+        // Find most viewed slide
+        let topSlideStr = 'None';
+        if (s.slideTimeMs && Object.keys(s.slideTimeMs).length > 0) {
+          let maxSlide = null;
+          let maxTime = -1;
+          for (const [slideIndex, time] of Object.entries(s.slideTimeMs)) {
+            if (time > maxTime) {
+              maxTime = time;
+              maxSlide = slideIndex;
+            }
+          }
+          if (maxSlide) {
+            topSlideStr = `Slide ${maxSlide} (${formatTime(maxTime)})`;
+          }
+        }
+
+        // Generate pages HTML
+        let pagesHtml = '';
+        if (s.slidesViewed && s.slidesViewed.length > 0) {
+            // Sort viewed slides numerically
+            const sortedSlides = [...s.slidesViewed].sort((a,b) => a-b);
+            pagesHtml = `<div class="pages-cell">` + 
+              sortedSlides.map(num => {
+                const timeStr = (s.slideTimeMs && s.slideTimeMs[num]) ? formatTime(s.slideTimeMs[num]) : '0s';
+                return `<span class="page-tag"><span class="page-tag-num">S${num}</span><span class="page-tag-time">${timeStr}</span></span>`;
+              }).join('') + 
+              `</div>`;
+        } else {
+            pagesHtml = '<span class="text-muted">No data</span>';
+        }
+
+        tr.innerHTML = `
+          <td class="email-cell">${s.email || '<i>Anonymous</i>'}</td>
+          <td class="date-cell">${formatDate(s.started)}</td>
+          <td class="time-cell">${formatTime(s.totalTimeSpentMs)}</td>
+          <td>${pagesHtml}</td>
+          <td class="time-cell">${topSlideStr}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Auto-load on start
+    window.addEventListener('load', loadData);
+    
+    // Listen for storage changes in other tabs
+    window.addEventListener('storage', (e) => {
+        if (e.key === SESSIONS_KEY) {
+            loadData();
+        }
+    });
+
+  </script>
+</body>
+</html>
