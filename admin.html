@@ -3,27 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>DIBA Deck -> Intelligence Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #09090b; /* Very dark background */
-      --card-bg: #18181b; /* Slightly lighter card background */
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #f4f4f5;
-      --text-muted: #a1a1aa;
+      /* Dark Palette */
+      --bg-primary: #0A0E1A;
+      --bg-secondary: #0F1528;
+      --bg-card: rgba(15, 21, 40, 0.7);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --bg-glass-strong: rgba(255, 255, 255, 0.08);
+
+      /* Text */
+      --text-primary: #FFFFFF;
+      --text-secondary: #B8C4D6;
+      --text-muted: #6B7A90;
+
+      /* Accent — Gold */
       --gold: #D4AF37;
-      --gold-light: #F3E5AB;
-      --accent: rgba(212, 175, 55, 0.1);
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --gold-light: #F4D03F;
+      --gold-subtle: rgba(212, 175, 55, 0.08);
+
+      /* Borders */
+      --border: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --border-gold: rgba(212, 175, 55, 0.3);
+
+      /* Typography */
+      --font-heading: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      line-height: 1.5;
-      padding: 2rem;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      padding: 3rem 2rem;
+      min-height: 100vh;
+      background-image: radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(96, 165, 250, 0.02) 0%, transparent 50%);
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
@@ -32,59 +53,79 @@
     }
 
     header {
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1rem;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border-strong);
+      padding-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
     }
 
     h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--gold);
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.15;
     }
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .glass {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
     }
 
     .stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
       text-align: center;
+      padding: 2rem 1.5rem;
+      border-top: 2px solid var(--gold);
+      border-radius: 0 0 12px 12px;
+    }
+    
+    .stat-card:hover {
+      background: var(--bg-glass-strong);
+      border-color: var(--border-strong);
+      border-top-color: var(--gold-light);
+      transform: translateY(-2px);
     }
 
     .stat-value {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-family: var(--font-heading);
+      font-size: 3rem;
       color: var(--gold-light);
+      line-height: 1;
       margin-bottom: 0.5rem;
     }
 
     .stat-label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.15em;
       color: var(--text-muted);
+      font-weight: 700;
     }
 
     .table-container {
-      background: var(--card-bg);
+      background: var(--bg-glass);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow-x: auto;
+      backdrop-filter: blur(20px);
     }
 
     table {
@@ -94,70 +135,84 @@
     }
 
     th, td {
-      padding: 1rem;
+      padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
     }
 
     th {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
-      background: rgba(255,255,255,0.02);
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-strong);
     }
 
     tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--accent); }
+    tr:hover td { background: var(--bg-glass-strong); }
 
-    .email-cell { font-weight: 500; color: var(--gold-light); }
-    .date-cell { color: var(--text-muted); font-size: 0.9rem; }
-    .time-cell { font-family: monospace; }
+    .email-cell { font-weight: 500; color: var(--text-primary); font-size: 1.05rem; }
+    .date-cell { color: var(--text-secondary); font-size: 0.95rem; }
+    .time-cell { font-family: monospace; color: var(--gold-light); font-size: 0.95rem; }
     
     .pages-cell {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 0.5rem;
     }
     
     .page-tag {
-      background: var(--bg);
+      background: var(--bg-secondary);
       border: 1px solid var(--border);
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       display: inline-flex;
       align-items: center;
       overflow: hidden;
+      transition: all 0.2s ease;
     }
     
+    .page-tag:hover {
+      border-color: var(--border-gold);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+    }
+
     .page-tag-num {
-      background: rgba(212, 175, 55, 0.15); /* gold accent bg */
+      background: var(--gold-subtle);
       color: var(--gold-light);
-      padding: 4px 6px;
+      padding: 4px 8px;
       font-weight: 700;
       border-right: 1px solid var(--border);
     }
     
     .page-tag-time {
-      padding: 4px 6px;
-      color: var(--text-muted);
+      padding: 4px 8px;
+      color: var(--text-secondary);
       font-family: monospace;
       font-size: 0.8rem;
     }
-
-    .actions { margin-top: 1rem; text-align: right; }
     
     button {
-      background: var(--gold);
-      color: #000;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
+      background: var(--gold-subtle);
+      color: var(--gold-light);
+      border: 1px solid var(--border-gold);
+      padding: 0.5rem 1.5rem;
+      border-radius: 100px;
       font-weight: 600;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
     }
     
-    button:hover { opacity: 0.9; }
+    button:hover { 
+      background: rgba(212, 175, 55, 0.15);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+      color: #FFFFFF;
+    }
 
   </style>
 </head>
@@ -172,16 +227,16 @@
     </header>
 
     <div class="stats-grid">
-      <div class="stat-card">
+      <div class="stat-card glass">
         <div class="stat-value" id="totalViews">0</div>
         <div class="stat-label">Total Sessions</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card glass">
         <div class="stat-value" id="uniqueEmails">0</div>
         <div class="stat-label">Unique Leads</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value" id="avgTime">0m</div>
+      <div class="stat-card glass">
+        <div class="stat-value" id="avgTime">0s</div>
         <div class="stat-label">Avg. Session Time</div>
       </div>
     </div>
@@ -194,11 +249,11 @@
             <th>Date Started</th>
             <th>Total Time</th>
             <th>Slides Viewed</th>
-            <th>Top Slide (Time spent)</th>
+            <th>Top Slide (Time)</th>
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading data...</td></tr>
+          <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">Loading data...</td></tr>
         </tbody>
       </table>
     </div>
@@ -223,8 +278,6 @@
     }
 
     function loadData() {
-      // Because we are running locally, the pitch deck saves tracking data to localStorage
-      // We will read it from there. If this were deployed, we'd fetch from an API.
       const rawData = localStorage.getItem(SESSIONS_KEY);
       let sessions = [];
       if (rawData) {
@@ -267,14 +320,13 @@
       tbody.innerHTML = '';
 
       if (sessions.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No sessions recorded yet. View the deck to generate data!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">No sessions recorded yet. View the deck to generate data!</td></tr>';
         return;
       }
 
       sessions.forEach(s => {
         const tr = document.createElement('tr');
         
-        // Find most viewed slide
         let topSlideStr = 'None';
         if (s.slideTimeMs && Object.keys(s.slideTimeMs).length > 0) {
           let maxSlide = null;
@@ -290,10 +342,8 @@
           }
         }
 
-        // Generate pages HTML
         let pagesHtml = '';
         if (s.slidesViewed && s.slidesViewed.length > 0) {
-            // Sort viewed slides numerically
             const sortedSlides = [...s.slidesViewed].sort((a,b) => a-b);
             pagesHtml = `<div class="pages-cell">` + 
               sortedSlides.map(num => {
@@ -316,16 +366,13 @@
       });
     }
 
-    // Auto-load on start
     window.addEventListener('load', loadData);
     
-    // Listen for storage changes in other tabs
     window.addEventListener('storage', (e) => {
         if (e.key === SESSIONS_KEY) {
             loadData();
         }
     });
-
   </script>
 </body>
 </html>
