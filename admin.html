@@ -330,9 +330,20 @@
       return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }
 
-    function loadData() {
-      const rawData = localStorage.getItem(SESSIONS_KEY);
+    async function loadData() {
       let sessions = [];
+      try {
+        const response = await fetch('/api/sessions');
+        if (response.ok) {
+           sessions = await response.json();
+           renderDashboard(sessions);
+           return;
+        }
+      } catch (e) {
+        console.error("Error fetching from API, falling back to local storage", e);
+      }
+
+      const rawData = localStorage.getItem(SESSIONS_KEY);
       if (rawData) {
         try {
           sessions = JSON.parse(rawData);
