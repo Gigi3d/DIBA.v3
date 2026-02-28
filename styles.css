@@ -1313,20 +1313,23 @@ body {
 
 /* Mobile (<= 900px) */
 @media (max-width: 900px) {
-  /* Let slides expand vertically and enable scrolling if necessary */
+  /* Mobile slide wrappers: Let content breathe and scroll naturally */
   .slide {
-    padding: 1.5rem;
-    height: 100%;
-    align-items: flex-start;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: auto !important;
+    min-height: 100vh; /* Allow it to be taller than viewport */
+    padding: 1rem 0 !important; /* Minimal vertical padding so top-bars fit */
+    align-items: flex-start; /* Start from top, not center */
+    overflow-y: visible !important; /* Never obscure content */
   }
   
   .slide-inner {
-    height: auto;
-    min-height: 100%;
-    justify-content: flex-start;
-    padding: 1rem 0 3rem 0;
+    height: auto !important;
+    min-height: 100vh; 
+    justify-content: flex-start; /* Align content to the top */
+    padding: 2rem 1.5rem 6rem 1.5rem !important; /* Padding matches breathing room */
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Large gap between major elements */
   }
 
   /* Force standard grid structures into a single column */
@@ -1391,21 +1394,21 @@ body {
   }
 
   /* Typography Scaling for Mobile */
-  h1, .h1 { font-size: 2.2rem !important; }
-  h2, .h2 { font-size: 1.6rem !important; }
-  h3, .h3 { font-size: 1.3rem !important; }
-  .heading-display { font-size: 2.5rem !important; line-height: 1.1; }
+  h1, .h1 { font-size: 2.5rem !important; }
+  h2, .h2 { font-size: 1.8rem !important; }
+  h3, .h3 { font-size: 1.5rem !important; }
+  .heading-display { font-size: clamp(3rem, 10vw, 4rem) !important; line-height: 1.05; }
 
   /* Ensure text doesn't overflow */
   p, li, .feature-text {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 1.05rem; /* slightly larger body text for legibility */
+    line-height: 1.6;
   }
 
   /* Header adjustments */
   .slide-header {
-    margin-bottom: 1.5rem !important;
-    padding-bottom: 1rem !important;
+    margin-bottom: 0 !important; /* Managed by the new slide gap */
+    padding-bottom: 0 !important;
   }
 
   /* Intelligent Mobile Storytelling / Re-ordering */
@@ -1473,11 +1476,9 @@ body {
     left: 50%;
     transform: translateX(-50%);
     right: auto;
-    bottom: 1.5rem; /* Lift it up a bit for breathing room */
-    background: rgba(15, 21, 40, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 0.5rem 1rem;
+    bottom: 2rem; /* Better lift */
+    background: rgba(15, 21, 40, 0.85); /* Slightly darker for better contrast */
+    padding: 0.75rem 1.25rem;
     border-radius: 100px;
     border: 1px solid var(--gold-light);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
@@ -1490,10 +1491,10 @@ body {
   }
 
   .nav-btn {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important; /* Fixes horizontal squashing */
-    min-height: 44px !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important; 
+    min-height: 52px !important;
     border-radius: 50% !important;
     background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid var(--border-strong) !important;
