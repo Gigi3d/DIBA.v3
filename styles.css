@@ -263,15 +263,15 @@ body {
   display: none;
 }
 
-/* --- Slide Body — fills remaining space --- */
+/* --- Slide Body --- */
 .slide-body {
-  flex: 1;
+  flex: 1; /* Stretch to fill the bottom of the bounded canvas */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Center the payload naturally in the remaining space */
   align-items: center;
-  min-height: 0;
   width: 100%;
+  gap: 2rem; /* Give internal flex bodies consistent spacing */
 }
 
 /* --- Glass Card --- */
@@ -303,6 +303,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-lg);
   align-items: center;
+  width: 100%;
 }
 
 .grid-3 {
@@ -310,6 +311,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--sp-lg);
   align-items: center;
+  width: 100%;
 }
 
 .grid-4 {
@@ -317,6 +319,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: var(--sp-md);
   align-items: center;
+  width: 100%;
 }
 
 .grid-60-40 {
