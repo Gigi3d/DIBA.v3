@@ -562,7 +562,8 @@ body {
 .team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-lg);
+  gap: 2rem;
+  width: 100%;
 }
 
 .team-card {
