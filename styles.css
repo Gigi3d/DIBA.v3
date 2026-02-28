@@ -456,14 +456,20 @@ body {
   font-weight: 500;
 }
 
+/* =========================================
+   SCREENS / SLIDES
+   ========================================= */
+
 /* --- Cover Slide --- */
 .cover {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
   height: 100%;
+  width: 100%;
+  flex: 1; /* Consume all vertical balance space in the bounded inner block */
 }
 
 .cover-logo {
