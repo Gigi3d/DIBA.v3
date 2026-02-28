@@ -1364,16 +1364,19 @@ body {
     padding-bottom: 1.5rem !important;
     padding-right: 0 !important;
     padding-left: 0 !important;
+    border-left: none !important; /* Ensure it's not gaining left borders */
+    border-image: none !important; /* wipe out border images/custom borders */
   }
   
   /* Remove bottom border on the last item */
   .slide-body div[style*="border-right"]:last-child {
     border-bottom: none !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 1.5rem !important; /* Keep padding consistent on last item */
   }
 
-  /* Hide custom connection lines passing through timelines */
-  .slide-body [style*="height: 2px"][style*="background: linear-gradient"] {
+  /* Hide custom connection lines passing through timelines and stat separators */
+  .slide-body [style*="height: 2px"][style*="background: linear-gradient"],
+  #slide-3 [style*="width: 1px"][style*="background: linear-gradient"] {
     display: none !important;
   }
 
@@ -1411,6 +1414,27 @@ body {
     flex-direction: column-reverse !important;
   }
   
+  /* Slide 5 Specific Spacing Fixes */
+  #slide-5 .slide-body {
+    flex-direction: column-reverse !important;
+  }
+  
+  #slide-5 .slide-body .glass {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    padding: 2rem 1.5rem !important; /* Restore clean padding */
+    gap: 1rem !important; /* Control spacing between icon/number and text */
+  }
+  
+  #slide-5 .slide-body .glass > div {
+    margin-right: 0 !important; /* Strip original horizontal margins */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Reorder Competitive Moat (Slide 11): "Why Competitors Struggle" first, "Our Moat" second */
   #slide-11 .grid-60-40 {
     display: flex !important;
@@ -1439,6 +1463,9 @@ body {
   #slide-3 .grid-2 > div:first-child > div:last-child {
     margin-top: 2rem !important;
     margin-bottom: 2rem !important;
+  }
+  #slide-3 .tam-visual {
+    transform: scale(1) !important; /* Scale back the massive glowing ring constraint on thin phones */
   }
 
   /* Premium Mobile UI Adjustments */
@@ -1503,6 +1530,20 @@ body {
   }
   .comp-table th, .comp-table td {
     padding: 0.5rem 0.25rem;
+  }
+
+  /* Slide 12 (Competitive Analysis) Mobile Scroll */
+  #slide-12 .slide-body > div:first-child {
+    overflow-x: auto !important;
+    padding-bottom: 1rem !important; /* give room for the scrollbar */
+  }
+  #slide-12 table {
+    min-width: 800px !important; /* forces the table to scroll rather than crush */
+  }
+
+  /* Slide 6 Mobile Adjustments */
+  #slide-6 .slide-body .glass > div[style*="font-size: 8rem"] {
+    font-size: 5rem !important; /* Shrink the large watermarks slightly on mobile */
   }
 }
 
