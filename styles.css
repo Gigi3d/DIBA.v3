@@ -1417,21 +1417,77 @@ body {
     flex-direction: column-reverse !important;
   }
   
+  /* Slide 4 Mobile Overrides */
+  #slide-4 .slide-body > div:last-child,
+  #slide-10 .slide-body > div:last-child {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    text-align: center;
+    padding: 1.5rem !important;
+  }
+  
+  #slide-4 .slide-body > div:last-child > div:first-child,
+  #slide-10 .slide-body > div:last-child > div:first-child {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3) !important;
+    padding-right: 0 !important;
+    padding-bottom: 1rem !important;
+  }
+
   /* Reorder Market Size (Slide 3): Ensure chart data is prominent, but stat rows don't get buried */
-  #slide-3 .grid-60-40 > div:first-child .stat-row {
+  #slide-3 .grid-2 > div:first-child > div:last-child {
     margin-top: 2rem !important;
     margin-bottom: 2rem !important;
   }
 
-  /* UI Adjustments */
+  /* Premium Mobile UI Adjustments */
   .nav-controls {
-    right: 50%;
-    transform: translateX(50%);
-    bottom: 0.5rem;
-    background: rgba(10, 14, 26, 0.9);
-    padding: 0.2rem 1rem;
-    border-radius: 20px;
-    border: 1px solid var(--border-strong);
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: 1.5rem; /* Lift it up a bit for breathing room */
+    background: rgba(15, 21, 40, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--gold-light);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row !important;
+    gap: 1.5rem;
+    width: max-content !important;
+  }
+
+  .nav-btn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important; /* Fixes horizontal squashing */
+    min-height: 44px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--border-strong) !important;
+    color: var(--gold-light) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .nav-btn:active {
+    background: var(--gold-light) !important;
+    color: var(--bg-primary) !important;
+    transform: scale(0.95);
+  }
+  
+  .nav-counter {
+    font-size: 1.1rem !important;
+    font-family: var(--font-heading) !important;
+    color: #ffffff !important;
+    letter-spacing: 0.05em;
   }
   .fullscreen-btn {
     top: 1rem;
