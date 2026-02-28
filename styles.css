@@ -59,8 +59,9 @@
   --sp-xl: 2.5rem;
   --sp-2xl: 4rem;
 
-  /* Layout */
-  --slide-max-width: 1200px;
+  /* Layout - Bounded Perfect Alignment */
+  --slide-max-width: 1400px;  /* Widen for larger desktop screens */
+  --slide-max-height: 800px;  /* Cap vertical height to prevent stretching on ultrawides */
   --footer-height: 3rem;
   --nav-height: 0rem;
 
@@ -153,16 +154,18 @@ body {
   z-index: 0;
 }
 
-/* --- Slide Inner --- */
+/* --- Slide Inner (The Perfect Bounded Container) --- */
 .slide-inner {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: var(--slide-max-width);
   height: 100%;
+  max-width: var(--slide-max-width);
+  max-height: var(--slide-max-height); /* Keeps vertical distance tight on large setups */
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  justify-content: center; /* Auto-balances all space vertically inside the maximum height */
+  margin: auto; /* Absolute center alignment within `.slide` viewport */
 }
 
 /* --- Typography --- */
