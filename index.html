@@ -320,120 +320,178 @@
     </div>
   </div>
 
-  <!-- ============ SLIDE 5 -> ARCHITECTURE ============ -->
+  <!-- ============ SLIDE 5 -> BITMASK WALLET ============ -->
   <div class="slide" id="slide-5" data-slide="5">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
         <div class="slide-number" style="margin-bottom: 0.5rem;">03</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
-          <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Architecture</h2>
+          <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">BitMask Wallet</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
-            RGB Protocol: Client side validated smart contracts anchored to Bitcoin's proof of work security.
+            The premier non-custodial wallet for Bitcoin and RGB assets.
           </p>
         </div>
       </div>
-      <div class="slide-body" style="flex-direction: row; gap: 3rem; align-items: stretch; justify-content: center; width: 100%;">
+      <div class="slide-body" style="flex-direction: row; gap: 4rem; align-items: center; justify-content: center; width: 100%; height: 100%;">
         
-        <!-- Left Side: The Stack visualization -->
-        <!-- Left Side: The Stack visualization -->
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 1.25rem; position: relative;">
-          <!-- Connection line removed -->
-
-          <div class="glass" style="position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateX(8px)'; this.style.borderColor='var(--gold-light)';" onmouseout="this.style.transform='translateX(0)'; this.style.borderColor='var(--border)';">
-            <div style="width: 48px; height: 48px; border-radius: 8px; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-gold); flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"></path><path d="m21 2-9.6 9.6"></path><circle cx="7.5" cy="15.5" r="5.5"></circle></svg>
-            </div>
-            <div>
-              <div style="color: var(--text-primary); font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Infrastructure <span style="font-weight: 400; color: #aaa; font-size: 0.85rem; margin-left: 0.5rem;">| BitMask</span></div>
-              <div style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 0.25rem;">Non-custodial wallet & SDK for atomic swaps</div>
-            </div>
-          </div>
+        <!-- Left Side: Massive Wallet Image -->
+        <div style="flex: 1.3; display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Glowing background behind phone -->
+          <div style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(212,175,55,0.2) 0%, transparent 60%); z-index: 0; filter: blur(60px);"></div>
           
-          <div class="glass" style="position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateX(8px)'; this.style.borderColor='var(--gold-light)';" onmouseout="this.style.transform='translateX(0)'; this.style.borderColor='var(--border)';">
-            <div style="width: 48px; height: 48px; border-radius: 8px; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-gold); flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="20" width="20" height="2"></rect><rect x="4" y="10" width="4" height="10"></rect><rect x="10" y="10" width="4" height="10"></rect><rect x="16" y="10" width="4" height="10"></rect><polygon points="12 2 2 8 22 8 12 2"></polygon></svg>
-            </div>
-            <div>
-              <div style="color: var(--text-primary); font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Marketplace <span style="font-weight: 400; color: #aaa; font-size: 0.85rem; margin-left: 0.5rem;">| DIBA</span></div>
-              <div style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 0.25rem;">Primary issuance & secondary trading</div>
-            </div>
+          <!-- Image container with very minimal border to let image shine -->
+          <div style="position: relative; z-index: 1; border-radius: 40px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.15), inset 0 2px 2px rgba(255,255,255,0.2); width: 100%; max-width: 520px; overflow: hidden; transform: perspective(1000px) rotateY(-5deg) scale(1.05); transition: transform 0.5s ease;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.08)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg) scale(1.05)'">
+            <img src="images/bitmask-app.png" alt="BitMask Wallet Interface" style="width: 100%; height: auto; display: block; object-fit: cover;">
           </div>
-
-          <div class="glass" style="position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateX(8px)'; this.style.borderColor='var(--gold-light)';" onmouseout="this.style.transform='translateX(0)'; this.style.borderColor='var(--border)';">
-            <div style="width: 48px; height: 48px; border-radius: 8px; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-gold); flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
-            </div>
-            <div>
-              <div style="color: var(--text-primary); font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Storage <span style="font-weight: 400; color: #aaa; font-size: 0.85rem; margin-left: 0.5rem;">| Carbonado</span></div>
-              <div style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 0.25rem;">Decentralized DA & encrypted RGB stash</div>
-            </div>
-          </div>
-
-          <div class="glass" style="position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateX(8px)'; this.style.borderColor='var(--gold-light)';" onmouseout="this.style.transform='translateX(0)'; this.style.borderColor='var(--border)';">
-            <div style="width: 48px; height: 48px; border-radius: 8px; background: rgba(212, 175, 55, 0.1); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-gold); flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            </div>
-            <div>
-              <div style="color: var(--text-primary); font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Contracts <span style="font-weight: 400; color: #aaa; font-size: 0.85rem; margin-left: 0.5rem;">| RGB Phase</span></div>
-              <div style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 0.25rem;">Turing complete client-side validation</div>
-            </div>
-          </div>
-
-          <div class="glass" style="position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 1rem; transition: transform 0.3s ease, border-color 0.3s ease; cursor: default; background: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.3);" onmouseover="this.style.transform='translateX(8px)'; this.style.borderColor='var(--gold-light)';" onmouseout="this.style.transform='translateX(0)'; this.style.borderColor='rgba(212, 175, 55, 0.3)';">
-            <div style="width: 48px; height: 48px; border-radius: 8px; background: rgba(212, 175, 55, 0.15); display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold-light); flex-shrink: 0; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2v20"/><path d="M14.5 2v20"/><path d="M6 6h8.5a3.5 3.5 0 0 1 0 7H6"/><path d="M6 13h9a4 4 0 0 1 0 8H6"/></svg>
-            </div>
-            <div>
-              <div style="color: var(--gold-light); font-weight: 700; font-size: 1.1rem; line-height: 1.2;">Settlement <span style="font-weight: 400; color: #ccc; font-size: 0.85rem; margin-left: 0.5rem;">| Bitcoin base layer</span></div>
-              <div style="color: var(--text-secondary); font-size: 0.85rem; padding-top: 0.25rem;">PoW security with single use seal anchoring</div>
-            </div>
-          </div>
-
         </div>
 
-        <!-- Right side: Metrics and Insight -->
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 1.25rem;">
-          <!-- Premium horizontal metric cards -->
-          <div class="glass" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 2rem; border-right: 4px solid var(--gold-light); background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(212, 175, 55, 0.05) 100%);">
-            <div style="font-family: var(--font-heading); font-size: 3rem; color: var(--gold-light); line-height: 1;">0</div>
-            <div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; letter-spacing: 0.05em; text-transform: uppercase;">MEV Attacks</div>
-              <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Completely immune due to client-side validation.</div>
-            </div>
-          </div>
-
-          <div class="glass" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 2rem; border-right: 4px solid var(--text-primary); background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255, 255, 255, 0.05) 100%);">
-            <div style="font-family: var(--font-heading); font-size: 3rem; color: var(--text-primary); line-height: 1;">100<span style="font-size: 1.5rem;">%</span></div>
-            <div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; letter-spacing: 0.05em; text-transform: uppercase;">Bitcoin PoW Security</div>
-              <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Inheriting the world's most decentralized base layer.</div>
-            </div>
-          </div>
-
-          <div class="glass" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 2rem; border-right: 4px solid var(--gold); background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(212, 175, 55, 0.03) 100%);">
-            <div style="font-family: var(--font-heading); font-size: 2.1rem; color: var(--gold); line-height: 1; letter-spacing: -0.02em;">Private</div>
-            <div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; letter-spacing: 0.05em; text-transform: uppercase;">By Default State</div>
-              <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Zero-knowledge selective disclosure built in.</div>
-            </div>
-          </div>
+        <!-- Right Side: Bold Content -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;">
           
-          <div class="insight-box" style="margin-top: 1rem; border: none; background: rgba(15, 21, 40, 0.6); border-left: 4px solid var(--gold-light); border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem; text-align: left; display: flex; flex-direction: column; gap: 0.5rem; width: auto;">
-            <div class="insight-label" style="font-size: 0.75rem; letter-spacing: 0.15em; margin: 0; text-align: left;">Structural Advantage</div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
-              By shifting contract logic off chain, RGB eliminates the <em>"global state"</em> bottleneck of EVM networks, providing a <span style="color: #fff; font-weight: 500;">private by default</span>, highly scalable sandbox for regulated infrastructure.
-            </p>
+          <!-- Key Value Prop -->
+          <div>
+             <h3 style="color: var(--gold-light); font-family: var(--font-heading); font-size: 3rem; margin: 0 0 1rem 0; line-height: 1.1; text-shadow: 0 0 30px rgba(212,175,55,0.3);">Bitcoin<br><span style="color: var(--text-primary);">Swiss Army Knife</span></h3>
+             <div style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.6;">
+               The first non-custodial wallet infrastructure and chrome extension for Bitcoin, Lightning, and RGB assets. Built Rust & compiled to web assembly that ensures military-grade security with Client-side Validation.
+             </div>
           </div>
+
+          <!-- Highlight Cards -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem;">
+            
+            <div class="glass" style="padding: 1.5rem 2rem; border-left: 4px solid var(--text-primary); background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(15,21,40,0.5) 100%); display: flex; align-items: center; gap: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">
+              <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight: 700; color: var(--text-primary); font-size: 1.25rem; font-family: var(--font-heading);">Scriptless Atomic Swaps</div>
+                <div style="color: var(--text-secondary); font-size: 1rem; margin-top: 0.25rem;">Trustless, peer-to-peer exchange of Bitcoin and digital assets without intermediaries or counterparty risk.</div>
+              </div>
+            </div>
+
+            <div class="glass" style="padding: 1.5rem 2rem; border-left: 4px solid var(--gold-light); background: linear-gradient(90deg, rgba(212,175,55,0.05) 0%, rgba(15,21,40,0.5) 100%); display: flex; align-items: center; gap: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">
+              <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div style="font-weight: 700; color: var(--text-primary); font-size: 1.25rem; font-family: var(--font-heading);">Global Community</div>
+                <div style="color: var(--text-secondary); font-size: 1rem; margin-top: 0.25rem;">Backed by key RGB protocol contributors, developers, and 60k+ twitter followers</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bold Metrics -->
+          <div style="display: flex; gap: 3.5rem; margin-top: 0.5rem; padding-top: 2rem; border-top: 1px solid rgba(212,175,55,0.2);">
+            
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+              <div style="font-family: var(--font-heading); font-size: 4rem; color: var(--text-primary); line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 0.25rem;">10<span style="font-size: 2.5rem;">k+</span></div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem;">Global Downloads</div>
+            </div>
+            
+            <div style="width: 1px; background: linear-gradient(180deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.5) 50%, rgba(212,175,55,0) 100%);"></div>
+
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+              <div style="font-family: var(--font-heading); font-size: 4rem; color: var(--text-primary); line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 0.25rem;">300<span style="font-size: 2.5rem;">M sats</span></div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem;">Revenue ARR</div>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ============ SLIDE 6 -> PRODUCT SUITE ============ -->
+  <!-- ============ SLIDE 5B -> DIBA MARKETPLACE ============ -->
   <div class="slide" id="slide-6" data-slide="6">
     <div class="slide-inner">
+      <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
+        <div class="slide-number" style="margin-bottom: 0.5rem;">04</div>
+        <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
+          <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">DIBA Marketplace</h2>
+          <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
+            Digital Bitcoin Assets: Issuance & trading rails.
+          </p>
+        </div>
+      </div>
+      <div class="slide-body" style="flex-direction: row; gap: 4rem; align-items: center; justify-content: center; width: 100%; height: 100%;">
+        
+        <!-- Left Side: Bold Content -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;">
+          
+          <!-- Key Value Prop -->
+          <div>
+             <h3 style="color: var(--gold-light); font-family: var(--font-heading); font-size: 2.8rem; margin: 0 0 1rem 0; line-height: 1.1; text-shadow: 0 0 30px rgba(212,175,55,0.3);">Onchain Bitcoin Marketplace<br><span style="color: var(--text-primary);">for All Assets</span></h3>
+             <div style="color: var(--text-secondary); font-size: 1.15rem; line-height: 1.6;">
+               DIBA (Digital Bitcoin Assets) operates as the premiere venue for discovering, issuing, and trading compliant assets on top of the world's most secure base layer. Fully decentralized, fully scalable.
+             </div>
+          </div>
+
+          <!-- Highlight Cards -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem;">
+            
+            <div class="glass" style="padding: 1.5rem 2rem; border-left: 4px solid var(--text-primary); background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(15,21,40,0.5) 100%); display: flex; align-items: flex-start; gap: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='translateX(0)'">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div>
+                <div style="font-weight: 700; color: var(--text-primary); font-size: 1.25rem; font-family: var(--font-heading);">Early POCs || RGB21</div>
+                <div style="color: var(--text-secondary); font-size: 1rem; margin-top: 0.5rem; line-height: 1.5;">Demonstrated the world's first true smart-contract deployment for Bitcoin. Pioneered atomic execution frameworks for high-value artwork and digital collectibles.</div>
+              </div>
+            </div>
+
+            <div class="glass" style="padding: 1.5rem 2rem; border-left: 4px solid var(--gold-light); background: linear-gradient(90deg, rgba(212,175,55,0.05) 0%, rgba(15,21,40,0.5) 100%); display: flex; align-items: flex-start; gap: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='translateX(0)'">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div>
+                <div style="font-weight: 700; color: var(--text-primary); font-size: 1.25rem; font-family: var(--font-heading);">Institutional Products</div>
+                <div style="color: var(--text-secondary); font-size: 1rem; margin-top: 0.5rem; line-height: 1.5;">Enterprise-grade issuance rails targeting treasuries, sovereign debt, and private equities with natively integrated compliance frameworks (KYC/AML).</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bold Metrics -->
+          <div style="display: flex; gap: 3.5rem; margin-top: 0.5rem; padding-top: 2rem; border-top: 1px solid rgba(212,175,55,0.2);">
+            
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+              <div style="font-family: var(--font-heading); font-size: 4rem; color: var(--text-primary); line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 0.25rem;">20<span style="font-size: 2.5rem;">k+</span></div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem;">Users</div>
+            </div>
+            
+            <div style="width: 1px; background: linear-gradient(180deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.5) 50%, rgba(212,175,55,0) 100%);"></div>
+
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+              <div style="font-family: var(--font-heading); font-size: 4rem; color: var(--text-primary); line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.1); margin-bottom: 0.25rem;">300<span style="font-size: 2.5rem;">M sats</span></div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem;">Revenue ARR</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Side: Massive UI Image -->
+        <div style="flex: 1.3; display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Glowing background behind dashboard -->
+          <div style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(212,175,55,0.2) 0%, transparent 60%); z-index: 0; filter: blur(60px);"></div>
+          
+          <!-- Image container -->
+          <div style="position: relative; z-index: 1; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.15), inset 0 2px 2px rgba(255,255,255,0.2); width: 100%; max-width: 650px; overflow: hidden; transform: perspective(1000px) rotateY(-4deg) scale(1.02); transition: transform 0.5s ease;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.05)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-4deg) scale(1.02)'">
+            <img src="images/diba-marketplace.png" alt="DIBA Marketplace Interface" style="width: 100%; height: auto; display: block; object-fit: cover;">
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SLIDE 6 -> PRODUCT SUITE ============ -->
+  <div class="slide" id="slide-7" data-slide="7">
+    <div class="slide-inner">
       <div class="slide-header">
-        <div class="slide-number">04</div>
+        <div class="slide-number">05</div>
         <h2 class="h1">Capital Markets Stack</h2>
         <div class="divider"></div>
         <p class="subtitle">A vertically integrated ecosystem for Bitcoin-native financial assets.</p>
@@ -525,10 +583,10 @@
   </div>
 
   <!-- ============ SLIDE 7 -> BITMASK DEEP DIVE ============ -->
-  <div class="slide" id="slide-7" data-slide="7">
+  <div class="slide" id="slide-8" data-slide="8">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">05</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">06</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">BitMask Institutional</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -635,10 +693,10 @@
   </div>
 
   <!-- ============ SLIDE 8 -> TEAM ============ -->
-  <div class="slide" id="slide-8" data-slide="8">
+  <div class="slide" id="slide-9" data-slide="9">
     <div class="slide-inner">
       <div class="slide-header" style="border: none; padding-bottom: 0; margin-bottom: 2.5rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">06</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">07</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Leadership</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -695,10 +753,10 @@
   </div>
 
   <!-- ============ SLIDE 9 -> TRACTION ============ -->
-  <div class="slide" id="slide-9" data-slide="9">
+  <div class="slide" id="slide-10" data-slide="10">
     <div class="slide-inner">
       <div class="slide-header">
-        <div class="slide-number">07</div>
+        <div class="slide-number">08</div>
         <h2 class="h1">Traction &amp; Milestones</h2>
         <div class="divider"></div>
         <p class="subtitle">Establishing category leadership in the Bitcoin smart contract era.</p>
@@ -798,10 +856,10 @@
   </div>
 
   <!-- ============ SLIDE 10 -> GO-TO-MARKET FLYWHEEL ============ -->
-  <div class="slide" id="slide-10" data-slide="10">
+  <div class="slide" id="slide-11" data-slide="11">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">08</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">09</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Go-to-Market Flywheel</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -870,10 +928,10 @@
   </div>
 
   <!-- ============ SLIDE 11 -> COMPETITIVE MOAT ============ -->
-  <div class="slide" id="slide-11" data-slide="11">
+  <div class="slide" id="slide-12" data-slide="12">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">09</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">10</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Competitive Moat</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -933,10 +991,10 @@
   </div>
 
   <!-- ============ SLIDE 12 -> COMPETITIVE ANALYSIS ============ -->
-  <div class="slide" id="slide-12" data-slide="12">
+  <div class="slide" id="slide-13" data-slide="13">
     <div class="slide-inner">
       <div class="slide-header">
-        <div class="slide-number">10</div>
+        <div class="slide-number">11</div>
         <h2 class="h1">Competitive Analysis</h2>
         <div class="divider"></div>
         <p class="subtitle">Feature comparison across competing infrastructure approaches.</p>
@@ -1052,10 +1110,10 @@
   </div>
 
   <!-- ============ SLIDE 13 -> REVENUE MODEL ============ -->
-  <div class="slide" id="slide-13" data-slide="13">
+  <div class="slide" id="slide-14" data-slide="14">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">11</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">12</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Revenue Model</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -1135,10 +1193,10 @@
   </div>
 
   <!-- ============ SLIDE 14 -> STRATEGIC PARTNERSHIPS ============ -->
-  <div class="slide" id="slide-14" data-slide="14">
+  <div class="slide" id="slide-15" data-slide="15">
     <div class="slide-inner">
       <div class="slide-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 2rem;">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">12</div>
+        <div class="slide-number" style="margin-bottom: 0.5rem;">13</div>
         <div style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
           <h2 class="h1" style="margin: 0; padding: 0; line-height: 1; white-space: nowrap;">Strategic Partnerships</h2>
           <p class="subtitle" style="margin: 0; border: none; padding: 0; font-size: clamp(1rem, 1.2vw, 1.15rem); color: #FFFFFF; font-weight: 400; letter-spacing: 0.02em; transform: translateY(-3px);">
@@ -1187,10 +1245,10 @@
   </div>
 
   <!-- ============ SLIDE 15 -> THE ASK ============ -->
-  <div class="slide" id="slide-15" data-slide="15">
+  <div class="slide" id="slide-16" data-slide="16">
     <div class="slide-inner">
       <div class="funding-hero">
-        <div class="slide-number">13</div>
+        <div class="slide-number">14</div>
         <div class="funding-amount">$2.1M – $5.0M</div>
         <div class="funding-status">Institutional Round Open</div>
         <div class="funding-grid">
@@ -1226,7 +1284,7 @@
   </div>
 
   <!-- ============ SLIDE 16 -> CONTACT ============ -->
-  <div class="slide" id="slide-16" data-slide="16">
+  <div class="slide" id="slide-17" data-slide="17">
     <div class="slide-inner">
       <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 2rem; width: 100%; max-width: var(--slide-max-width); margin: 0 auto; text-align: center;">
 
