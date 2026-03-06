@@ -1563,6 +1563,14 @@ body {
 
 /* --- Print --- */
 @media print {
+  @page {
+    size: 1600px 900px;
+    margin: 0;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   .nav-controls,
   .fullscreen-btn,
   .email-gate-overlay,

@@ -1346,6 +1346,76 @@
 
 <button class="fullscreen-btn" id="fullscreenBtn" aria-label="Toggle fullscreen">⛶</button>
 
+<!-- PDF Download Button -->
+<button id="pdfBtn" aria-label="Download deck as PDF" title="Download full deck as PDF" onclick="downloadPDF()" style="
+  position: fixed;
+  top: 1.5rem;
+  right: 4rem;
+  z-index: 200;
+  width: auto;
+  height: 40px;
+  padding: 0 1.1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(212,175,55,0.5);
+  background: rgba(10, 14, 26, 0.85);
+  backdrop-filter: blur(20px);
+  color: #f4d03f;
+  font-size: 0.78rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+" onmouseover="this.style.background='rgba(212,175,55,0.15)'; this.style.borderColor='#f4d03f';" onmouseout="this.style.background='rgba(10,14,26,0.85)'; this.style.borderColor='rgba(212,175,55,0.5)';">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+  <span id="pdfBtnLabel">Download PDF</span>
+</button>
+
+<script>
+async function downloadPDF() {
+  const btn = document.getElementById('pdfBtn');
+  const label = document.getElementById('pdfBtnLabel');
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  btn.style.cursor = 'not-allowed';
+  label.textContent = 'Generating…';
+
+  try {
+    const response = await fetch('/api/export-pdf');
+    if (!response.ok) throw new Error('Server error: ' + response.status);
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'DIBA_Institutional_Deck.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    label.textContent = '✓ Downloaded!';
+    setTimeout(() => { label.textContent = 'Download PDF'; btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }, 3000);
+  } catch (err) {
+    console.error('PDF error:', err);
+    label.textContent = 'Failed – retry';
+    btn.style.borderColor = '#f87171';
+    btn.style.color = '#f87171';
+    setTimeout(() => {
+      label.textContent = 'Download PDF'; btn.disabled = false; btn.style.opacity = '1';
+      btn.style.cursor = 'pointer'; btn.style.borderColor = 'rgba(212,175,55,0.5)'; btn.style.color = '#f4d03f';
+    }, 3000);
+  }
+}
+</script>
+
 <!-- Email Gate -->
 <div class="email-gate-overlay" id="emailGateOverlay">
   <div class="email-gate-card">
