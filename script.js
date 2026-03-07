@@ -7,7 +7,7 @@
 // State
 // ===================================
 let currentSlide = 1;
-const totalSlides = 17;
+const totalSlides = 16;
 
 // ===================================
 // Session & Email Gate
@@ -118,6 +118,10 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const currentSlideEl = document.getElementById('currentSlide');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
+const productTag = document.getElementById('productTag');
+
+// Slides that show the #Product tag
+const PRODUCT_SLIDES = new Set([5, 6]);
 
 // ===================================
 // Navigation
@@ -125,26 +129,42 @@ const fullscreenBtn = document.getElementById('fullscreenBtn');
 function goToSlide(n) {
   if (n < 1 || n > totalSlides) return;
   if (n >= 2 && !hasAccess()) { showEmailGate(); return; }
+  if (n === currentSlide) return;
 
   updateTimeSpent();
-  
-  // Remove active from all slides
-  slides.forEach(s => {
-    s.classList.remove('active');
-  });
-  
-  const target = document.querySelector(`[data-slide="${n}"]`);
-  if (target) {
-    // Small delay for transition effect
-    requestAnimationFrame(() => {
-      target.classList.add('active');
-      currentSlide = n;
-      updateUI();
-      updateURL();
-      trackSlideView(n);
-    });
+
+  const direction = n > currentSlide ? 1 : -1;
+  const incoming = document.querySelector(`[data-slide="${n}"]`);
+  const outgoing = document.querySelector(`[data-slide="${currentSlide}"]`);
+
+  if (!incoming) return;
+
+  // Update state first
+  currentSlide = n;
+  updateUI();
+  updateURL();
+  trackSlideView(n);
+
+  // Immediately hide outgoing (no lingering ghost)
+  if (outgoing && outgoing !== incoming) {
+    outgoing.classList.remove('active');
+    outgoing.style.cssText = '';
   }
+
+  // Mount incoming (display:flex via .active), start off-screen
+  incoming.style.cssText = `opacity:0;transform:translateX(${direction * 50}px);transition:none;`;
+  incoming.classList.add('active');
+
+  // Two rAF ensures the browser has painted the initial position before animating
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      incoming.style.cssText = `opacity:1;transform:translateX(0);transition:opacity 0.32s ease,transform 0.32s cubic-bezier(0.4,0,0.2,1);`;
+      // Clean up inline styles after animation finishes
+      setTimeout(() => { incoming.style.cssText = ''; }, 350);
+    });
+  });
 }
+
 
 function trackSlideView(n) {
   const sessionId = sessionStorage.getItem(SESSION_KEY);
@@ -168,6 +188,8 @@ function updateUI() {
   currentSlideEl.textContent = displaySlide < 10 ? '0' + displaySlide : displaySlide;
   prevBtn.disabled = currentSlide === 1;
   nextBtn.disabled = currentSlide === totalSlides;
+  // Show #Product tag only on BitMask + DIBA Marketplace slides
+  if (productTag) productTag.style.opacity = PRODUCT_SLIDES.has(currentSlide) ? '1' : '0';
 }
 
 function updateURL() {

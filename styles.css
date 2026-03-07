@@ -116,20 +116,17 @@ body {
   position: absolute;
   inset: 0;
   bottom: var(--footer-height);
-  display: none;
+  display: none;          /* Hidden by default: no stacking, no ghosting */
   align-items: center;
   justify-content: center;
   padding: 4rem;
   background: var(--bg-primary);
   overflow: hidden;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--t-smooth);
 }
 
 .slide.active {
   display: flex;
-  opacity: 1;
   z-index: 10;
   pointer-events: auto;
 }
@@ -161,12 +158,31 @@ body {
   width: 100%;
   height: 100%;
   max-width: var(--slide-max-width);
-  max-height: var(--slide-max-height); /* Keeps vertical distance tight on large setups */
+  max-height: var(--slide-max-height);
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Auto-balances all space vertically inside the maximum height */
-  margin: auto; /* Absolute center alignment within `.slide` viewport */
+  justify-content: center;
+  margin: auto;
+  padding-left: 2.5rem; /* Room for the gold left-bar eyebrow */
+  padding-right: 0;
 }
+
+/* Full-bleed slides override — no padding */
+#slide-1 .slide-inner,
+#slide-5 .slide-inner,
+#slide-6 .slide-inner,
+#slide-16 .slide-inner,
+#slide-17 .slide-inner {
+  padding-left: 0 !important;
+}
+
+/* Ensure all header h2/h1/p align left */
+.slide-header .h1,
+.slide-header .h2,
+.slide-header .subtitle {
+  text-align: left;
+}
+
 
 /* --- Typography --- */
 .heading-display {
@@ -251,12 +267,26 @@ body {
 /* --- Slide Header --- */
 .slide-header {
   flex-shrink: 0;
-  margin-bottom: var(--sp-lg);
-  text-align: center;
+  margin-bottom: 2rem;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+/* Gold left accent bar */
+.slide-header::before {
+  content: "";
+  position: absolute;
+  left: -2.5rem;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffcb12 0%, rgba(255,203,18,0) 100%);
+  border-radius: 0 2px 2px 0;
 }
 
 .slide-number {
@@ -265,13 +295,13 @@ body {
 
 /* --- Slide Body --- */
 .slide-body {
-  flex: 1; /* Stretch to fill the bottom of the bounded canvas */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center the payload naturally in the remaining space */
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  gap: 2rem; /* Give internal flex bodies consistent spacing */
+  gap: 2rem;
 }
 
 /* --- Glass Card --- */
@@ -460,12 +490,120 @@ body {
 }
 
 /* =========================================
+   APPLE-LEVEL DESIGN UNIFICATION
+   ========================================= */
+
+/* Enforce consistent header title + subtitle inline row */
+.slide-header-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Universal h1 in slide header */
+.slide-header .h1 {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.01em;
+}
+
+/* Universal subtitle in slide header */
+.slide-header .subtitle {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  transform: translateY(-2px);
+}
+
+/* ── Unified Glass Card ── */
+.glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: var(--sp-lg);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.glass:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* Gold top-accent variant used across cards */
+.glass[style*="border-top"] {
+  border-radius: 14px;
+}
+
+/* ── Unified body text in cards ── */
+.glass p,
+.glass div[style*="font-size: 0.95rem"],
+.glass div[style*="font-size: 1rem"],
+.glass div[style*="font-size: 1.05rem"] {
+  color: rgba(255,255,255,0.58);
+  line-height: 1.65;
+}
+
+/* ── Consistent card heading ── */
+.glass div[style*="font-family: var(--font-heading)"],
+.glass h3 {
+  letter-spacing: -0.01em;
+}
+
+/* ── Feature text universal ── */
+.feature-text {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* ── Label/eyebrow universal ── */
+.label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── Slide body grid/flex children fill width ── */
+.slide-body > div,
+.slide-body > section {
+  width: 100%;
+}
+
+/* ── Consistent grid gaps ── */
+.grid-2 { gap: 2.5rem; }
+.grid-3 { gap: 1.5rem; }
+.grid-60-40 { gap: 3rem; grid-template-columns: 3fr 2fr; }
+
+/* ── Slide top gradient accent (subtle, not visible bar) ── */
+.slide.active::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,203,18,0.25), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================
    SCREENS / SLIDES
    ========================================= */
 
 /* --- Cover Slide --- */
 .cover {
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -1322,151 +1460,187 @@ body {
   top: 0.4em;
 }
 
-/* --- Responsive (Optimized for 2 Screens: Desktop & Mobile) --- */
-
-/* Mobile (<= 900px) */
+/* ============================================
+   MOBILE — Unified Premium Experience (≤900px)
+   ============================================ */
 @media (max-width: 900px) {
-  /* Mobile slide wrappers: Let content breathe and scroll naturally */
+
+  /* ─── Base Slide Shell ─── */
   .slide {
     height: auto !important;
-    min-height: 100vh; /* Allow it to be taller than viewport */
-    padding: 1rem 0 !important; /* Minimal vertical padding so top-bars fit */
-    align-items: flex-start; /* Start from top, not center */
-    overflow-y: visible !important; /* Never obscure content */
+    min-height: 100svh;
+    padding: 0 !important;
+    align-items: flex-start;
+    overflow-y: visible !important;
   }
-  
+
   .slide-inner {
     height: auto !important;
-    min-height: 100vh; 
-    justify-content: flex-start; /* Align content to the top */
-    padding: 2rem 1.5rem 6rem 1.5rem !important; /* Padding matches breathing room */
+    min-height: 100svh;
+    justify-content: flex-start;
+    padding: 5rem 1.25rem 6rem !important;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem; /* Large gap between major elements */
+    gap: 2rem;
   }
 
-  /* Force standard grid structures into a single column */
-  .grid-2,
-  .grid-3,
-  .grid-4,
-  .grid-60-40,
-  .two-col,
-  .team-grid,
-  .funding-grid,
-  .stat-row {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+  /* ─── NEW Full-Bleed Slides (5 & 6): Stack vertically ─── */
+  #slide-5 .slide-inner,
+  #slide-6 .slide-inner {
+    padding: 0 !important;
+    gap: 0;
   }
 
-  /* Deeply target custom inline grids to FORCE stacking */
-  .slide-body [style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-
-  /* Deeply target horizontal flex containers (like the new metrics bar) */
-  .slide-body [style*="justify-content: space-between"][style*="display: flex"],
-  .slide-body .glass[style*="display: flex"][style*="align-items: center"] {
+  /* The outer flex row → column */
+  #slide-5 .slide-inner > div,
+  #slide-6 .slide-inner > div {
     flex-direction: column !important;
-    gap: 1.5rem !important;
-    align-items: stretch !important;
     height: auto !important;
   }
 
-  /* Remove right borders from inline dividers when stacking, replace with bottom border */
-  .slide-body div[style*="border-right"] {
-    border-right: none !important;
-    border-bottom: 1px solid var(--border-strong) !important;
-    padding-bottom: 1.5rem !important;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-    border-left: none !important; /* Ensure it's not gaining left borders */
-    border-image: none !important; /* wipe out border images/custom borders */
-  }
-  
-  /* Remove bottom border on the last item */
-  .slide-body div[style*="border-right"]:last-child {
-    border-bottom: none !important;
-    padding-bottom: 1.5rem !important; /* Keep padding consistent on last item */
+  /* Image panel: fixed height, full width */
+  #slide-5 .slide-inner > div > div:first-child,
+  #slide-6 .slide-inner > div > div:last-child {
+    flex: none !important;
+    width: 100% !important;
+    height: 56vw !important;
+    max-height: 320px !important;
+    min-height: 200px !important;
+    border-radius: 0 !important;
+    padding: 1rem !important;
   }
 
-  /* Hide custom connection lines passing through timelines and stat separators */
-  .slide-body [style*="height: 2px"][style*="background: linear-gradient"],
+  /* Content panel: full width, sensible padding */
+  #slide-5 .slide-inner > div > div:last-child,
+  #slide-6 .slide-inner > div > div:first-child {
+    flex: none !important;
+    width: 100% !important;
+    padding: 2rem 1.25rem 5rem !important;
+    gap: 1.5rem !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  /* Eyebrow lines */
+  #slide-5 .slide-inner div[style*="width: 32px"],
+  #slide-6 .slide-inner div[style*="width: 32px"] {
+    width: 24px !important;
+  }
+
+  /* Headings inside new slides */
+  #slide-5 h2, #slide-6 h2 {
+    font-size: 2rem !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* UTEXO badge on slide 5 */
+  #slide-5 div[style*="bottom: 2rem"][style*="left: 2rem"] {
+    bottom: 1rem !important;
+    left: 1rem !important;
+    padding: 0.4rem 1rem !important;
+  }
+
+  /* Stat bar: stack on mobile */
+  #slide-5 div[style*="border-radius: 14px"][style*="overflow: hidden"],
+  #slide-6 div[style*="border-radius: 14px"][style*="overflow: hidden"] {
+    flex-direction: row !important;  /* keep side by side on mobile — it's compact enough */
+  }
+
+  /* ─── Standard Slide Grids → Single Column ─── */
+  .grid-2, .grid-3, .grid-4,
+  .grid-60-40, .two-col,
+  .team-grid, .funding-grid, .stat-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .slide-body [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* ─── Flex rows → columns ─── */
+  .slide-body {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    padding: 0 !important;
+  }
+
+  /* ─── Glass Cards ─── */
+  .slide-body .glass {
+    min-width: 100%;
+    margin: 0 !important;
+    padding: 1.25rem !important;
+    border-left: 3px solid var(--gold-light) !important;
+    border-top: none !important;
+  }
+
+  /* ─── Metric separators: horizontal → hide ─── */
+  .slide-body [style*="width: 1px"][style*="background"],
   #slide-3 [style*="width: 1px"][style*="background: linear-gradient"] {
     display: none !important;
   }
 
-  /* Reset layout constraints on custom glass blocks */
-  .slide-body .glass {
-    min-width: 100%;
-    margin-right: 0 !important;
-    border-left: 1px solid var(--border-strong) !important;
-    border-top: 3px solid var(--gold-light) !important;
-    padding: 1.5rem !important;
-    margin-left: 0 !important;
+  .slide-body div[style*="border-right"] {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-strong) !important;
+    padding-bottom: 1.25rem !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border-left: none !important;
   }
 
-  /* Typography Scaling for Mobile */
-  h1, .h1 { font-size: 2.5rem !important; }
-  h2, .h2 { font-size: 1.8rem !important; }
-  h3, .h3 { font-size: 1.5rem !important; }
-  .heading-display { font-size: clamp(3rem, 10vw, 4rem) !important; line-height: 1.05; }
-
-  /* Ensure text doesn't overflow */
-  p, li, .feature-text {
-    font-size: 1.05rem; /* slightly larger body text for legibility */
-    line-height: 1.6;
+  .slide-body div[style*="border-right"]:last-child {
+    border-bottom: none !important;
   }
 
-  /* Header adjustments */
+  /* ─── Typography ─── */
+  h1, .h1       { font-size: 2.2rem !important; line-height: 1.1 !important; }
+  h2, .h2       { font-size: 1.75rem !important; }
+  h3, .h3       { font-size: 1.4rem !important; }
+  .heading-display { font-size: clamp(2.8rem, 10vw, 4rem) !important; line-height: 1.05; }
+  p, li, .feature-text { font-size: 1rem; line-height: 1.65; }
+  .subtitle     { font-size: 1rem !important; }
+
+  /* ─── Slide Header ─── */
   .slide-header {
-    margin-bottom: 0 !important; /* Managed by the new slide gap */
+    margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
 
-  /* Intelligent Mobile Storytelling / Re-ordering */
-  /* Reorder Architecture (Slide 5): Context/Metrics first, Stack diagrams second */
-  #slide-5 .slide-body {
-    flex-direction: column-reverse !important;
-  }
-  
-  /* Slide 5 Specific Spacing Fixes */
-  #slide-5 .slide-body {
-    flex-direction: column-reverse !important;
-  }
-  
-  #slide-5 .slide-body .glass {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center;
-    padding: 2rem 1.5rem !important; /* Restore clean padding */
-    gap: 1rem !important; /* Control spacing between icon/number and text */
-  }
-  
-  #slide-5 .slide-body .glass > div {
-    margin-right: 0 !important; /* Strip original horizontal margins */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .slide-number {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.3em;
   }
 
-  /* Reorder Competitive Moat (Slide 11): "Why Competitors Struggle" first, "Our Moat" second */
+  /* ─── Slide-specific reorders ─── */
+  /* BitMask (old slide 5 ref): image above content */
+  #slide-5 .slide-body { flex-direction: column-reverse !important; }
+
+  /* Competitive Moat */
   #slide-11 .grid-60-40 {
     display: flex !important;
     flex-direction: column-reverse !important;
   }
-  
-  /* Slide 4 Mobile Overrides */
+
+  /* Market Size slide 3 */
+  #slide-3 .grid-2 > div:first-child > div:last-child {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  #slide-3 .tam-visual { transform: scale(1) !important; }
+
+  /* Slide 4 / 10 metric rows */
   #slide-4 .slide-body > div:last-child,
   #slide-10 .slide-body > div:last-child {
     display: flex !important;
     flex-direction: column !important;
-    gap: 1.5rem !important;
+    gap: 1.25rem !important;
     text-align: center;
-    padding: 1.5rem !important;
+    padding: 1.25rem !important;
   }
-  
+
   #slide-4 .slide-body > div:last-child > div:first-child,
   #slide-10 .slide-body > div:last-child > div:first-child {
     border-right: none !important;
@@ -1475,91 +1649,122 @@ body {
     padding-bottom: 1rem !important;
   }
 
-  /* Reorder Market Size (Slide 3): Ensure chart data is prominent, but stat rows don't get buried */
-  #slide-3 .grid-2 > div:first-child > div:last-child {
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
+  /* Competition table */
+  .comp-table { font-size: 0.72rem; }
+  .comp-table th, .comp-table td { padding: 0.45rem 0.2rem; }
+
+  #slide-12 .slide-body > div:first-child {
+    overflow-x: auto !important;
+    padding-bottom: 1rem !important;
   }
-  #slide-3 .tam-visual {
-    transform: scale(1) !important; /* Scale back the massive glowing ring constraint on thin phones */
+  #slide-12 table { min-width: 800px !important; }
+
+  /* ─── UI Chrome ─── */
+  .fullscreen-btn {
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.1rem !important;
   }
 
-  /* Premium Mobile UI Adjustments */
+  /* Hide PDF button on mobile — not useful without Puppeteer */
+  #pdfBtn { display: none !important; }
+
+  /* Product tag: smaller on mobile */
+  #productTag {
+    font-size: 0.65rem !important;
+    padding: 0.3rem 0.75rem !important;
+    top: 0.85rem !important;
+    left: 0.85rem !important;
+  }
+
+  /* Footer: hide */
+  .deck-footer { display: none; }
+
+  /* ─── Premium Mobile Nav ─── */
   .nav-controls {
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    bottom: 2rem; /* Better lift */
-    background: rgba(15, 21, 40, 0.85); /* Slightly darker for better contrast */
-    padding: 0.75rem 1.25rem;
-    border-radius: 100px;
-    border: 1px solid var(--gold-light);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: fixed !important;
+    bottom: 1.25rem !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    background: rgba(10, 14, 26, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    padding: 0.6rem 1.25rem !important;
+    border-radius: 100px !important;
+    border: 1px solid rgba(255, 203, 18, 0.35) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 16px rgba(255,203,18,0.12) !important;
+    display: flex !important;
     flex-direction: row !important;
-    gap: 1.5rem;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.25rem !important;
     width: max-content !important;
+    z-index: 300 !important;
   }
 
   .nav-btn {
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 52px !important; 
-    min-height: 52px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid var(--border-strong) !important;
-    color: var(--gold-light) !important;
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #ffcb12 !important;
+    font-size: 1.4rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
+    transition: background 0.15s ease, transform 0.1s ease !important;
   }
-  
+
   .nav-btn:active {
-    background: var(--gold-light) !important;
-    color: var(--bg-primary) !important;
-    transform: scale(0.95);
+    background: #ffcb12 !important;
+    color: #0a0e1a !important;
+    transform: scale(0.93) !important;
   }
-  
-  .nav-counter {
-    font-size: 1.1rem !important;
+
+  .slide-counter {
     font-family: var(--font-heading) !important;
-    color: #ffffff !important;
-    letter-spacing: 0.05em;
-  }
-  .fullscreen-btn {
-    top: 1rem;
-    right: 1rem;
-  }
-  .deck-footer {
-    display: none;
-  }
-  
-  /* Competition Table Overhaul */
-  .comp-table {
-    font-size: 0.75rem;
-  }
-  .comp-table th, .comp-table td {
-    padding: 0.5rem 0.25rem;
+    font-size: 1rem !important;
+    color: #fff !important;
+    letter-spacing: 0.04em;
+    min-width: 50px;
+    text-align: center;
   }
 
-  /* Slide 12 (Competitive Analysis) Mobile Scroll */
-  #slide-12 .slide-body > div:first-child {
-    overflow-x: auto !important;
-    padding-bottom: 1rem !important; /* give room for the scrollbar */
-  }
-  #slide-12 table {
-    min-width: 800px !important; /* forces the table to scroll rather than crush */
+  #currentSlide {
+    color: #ffcb12 !important;
+    font-weight: 700;
   }
 
-  /* Slide 6 Mobile Adjustments */
-  #slide-6 .slide-body .glass > div[style*="font-size: 8rem"] {
-    font-size: 5rem !important; /* Shrink the large watermarks slightly on mobile */
+  /* ─── Ask slide (16): stack columns on mobile ─── */
+  #slide-16 .slide-inner > div {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  #slide-16 .slide-inner > div > div:first-child {
+    width: 100% !important;
+    padding: 3rem 1.5rem 2rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  #slide-16 .slide-inner > div > div:last-child {
+    width: 100% !important;
+    padding: 2rem 1.5rem 5rem !important;
+  }
+
+  #slide-16 [style*="font-size: clamp(5rem"] {
+    font-size: clamp(4rem, 18vw, 5.5rem) !important;
   }
 }
+
 
 /* --- Print --- */
 @media print {
