@@ -1582,14 +1582,18 @@
 
 <script>
 async function downloadPDF() {
-  const btn = document.getElementById('pdfBtn');
+  const btn   = document.getElementById('pdfBtn');
   const label = document.getElementById('pdfBtnLabel');
   if (btn.classList.contains('loading')) return;
+
+  // Read viewer email & session from localStorage (set by email gate)
+  const viewerEmail = localStorage.getItem('deck_viewer_email') || '';
+  const sessionId   = sessionStorage.getItem('deck_session_id') || '';
 
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
   if (!isLocal) {
-    // Production (Vercel) fallback: Download the pre-rendered static PDF
+    // Production (Vercel): serve static PDF & log download event to API
     const a = document.createElement('a');
     a.href = 'assets/DIBA_Institutional_Deck.pdf';
     a.download = 'DIBA_Institutional_Deck.pdf';
@@ -1598,29 +1602,48 @@ async function downloadPDF() {
     a.remove();
     label.textContent = '✓ Downloaded!';
     setTimeout(() => { label.textContent = 'Download PDF'; }, 3000);
+
+    // Log download event so admin dashboard sees who downloaded
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: sessionId,
+        started: new Date().toISOString(),
+        email: viewerEmail || null,
+        version: 'v3-institutional',
+        pdf_downloaded: true,
+        pdf_downloaded_at: new Date().toISOString(),
+        lastActivity: new Date().toISOString(),
+      })
+    }).catch(() => {});
     return;
   }
 
-  btn.style.width = btn.offsetWidth + 'px'; // Lock width
+  btn.style.width = btn.offsetWidth + 'px';
   btn.classList.add('loading');
   btn.disabled = true;
   btn.style.cursor = 'not-allowed';
   label.textContent = 'Preparing PDF...';
 
-  // Add progress bar directly to the button
   const progress = document.createElement('div');
   progress.style.cssText = 'position:absolute;bottom:0;left:0;height:3px;background:#f4d03f;width:0%;transition:width 15s cubic-bezier(0.1, 0, 0.4, 1);z-index:1;';
   btn.appendChild(progress);
   setTimeout(() => progress.style.width = '90%', 50);
 
   try {
-    const response = await fetch('/api/export-pdf');
+    // Pass email + session to server so it embeds them in the PDF's tracking pixel
+    const params = new URLSearchParams();
+    if (viewerEmail) params.set('email', viewerEmail);
+    if (sessionId)   params.set('session', sessionId);
+
+    const response = await fetch(`/api/export-pdf?${params.toString()}`);
     if (!response.ok) throw new Error('Export service unreachable');
 
     const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
     a.download = `DIBA_Institutional_Deck_v3_${new Date().toISOString().slice(0,10)}.pdf`;
     document.body.appendChild(a);
     a.click();
@@ -1631,7 +1654,21 @@ async function downloadPDF() {
     progress.style.width = '100%';
     label.textContent = '✓ Ready!';
 
-    
+    // Flag this session as having downloaded the PDF
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: sessionId,
+        started: new Date().toISOString(),
+        email: viewerEmail || null,
+        version: 'v3-institutional',
+        pdf_downloaded: true,
+        pdf_downloaded_at: new Date().toISOString(),
+        lastActivity: new Date().toISOString(),
+      })
+    }).catch(() => {});
+
     setTimeout(() => {
       btn.classList.remove('loading');
       btn.disabled = false;

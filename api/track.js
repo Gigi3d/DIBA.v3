@@ -23,7 +23,9 @@ module.exports = async (req, res) => {
       slide_time_ms: s.slideTimeMs || {},
       slides_viewed: s.slidesViewed || [],
       last_slide: s.lastSlide || 1,
-      email_submitted_at: s.emailSubmittedAt || null
+      email_submitted_at: s.emailSubmittedAt || null,
+      pdf_downloaded: s.pdf_downloaded || false,
+      pdf_downloaded_at: s.pdf_downloaded_at || null,
     });
 
   if (error) {
