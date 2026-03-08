@@ -1567,35 +1567,55 @@
 async function downloadPDF() {
   const btn = document.getElementById('pdfBtn');
   const label = document.getElementById('pdfBtnLabel');
+  if (btn.classList.contains('loading')) return;
+
+  btn.style.width = btn.offsetWidth + 'px'; // Lock width
+  btn.classList.add('loading');
   btn.disabled = true;
-  btn.style.opacity = '0.6';
   btn.style.cursor = 'not-allowed';
-  label.textContent = 'Generating…';
+  label.textContent = 'Preparing PDF...';
+
+  // Add progress bar directly to the button
+  const progress = document.createElement('div');
+  progress.style.cssText = 'position:absolute;bottom:0;left:0;height:3px;background:#f4d03f;width:0%;transition:width 15s cubic-bezier(0.1, 0, 0.4, 1);z-index:1;';
+  btn.appendChild(progress);
+  setTimeout(() => progress.style.width = '90%', 50);
 
   try {
     const response = await fetch('/api/export-pdf');
-    if (!response.ok) throw new Error('Server error: ' + response.status);
+    if (!response.ok) throw new Error('Export service unreachable');
 
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'DIBA_Institutional_Deck.pdf';
+    a.download = `DIBA_Institutional_Deck_v3_${new Date().toISOString().slice(0,10)}.pdf`;
     document.body.appendChild(a);
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
 
-    label.textContent = '✓ Downloaded!';
-    setTimeout(() => { label.textContent = 'Download PDF'; btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }, 3000);
+    progress.style.transition = 'width 0.3s ease';
+    progress.style.width = '100%';
+    label.textContent = '✓ Ready!';
+    
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      label.textContent = 'Download PDF';
+      btn.style.width = 'auto';
+      progress.remove();
+    }, 2000);
   } catch (err) {
     console.error('PDF error:', err);
-    label.textContent = 'Failed – retry';
+    label.textContent = 'Retry Export';
     btn.style.borderColor = '#f87171';
-    btn.style.color = '#f87171';
     setTimeout(() => {
-      label.textContent = 'Download PDF'; btn.disabled = false; btn.style.opacity = '1';
-      btn.style.cursor = 'pointer'; btn.style.borderColor = 'rgba(212,175,55,0.5)'; btn.style.color = '#f4d03f';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      label.textContent = 'Download PDF';
+      btn.style.borderColor = 'rgba(212,175,55,0.5)';
+      progress.remove();
     }, 3000);
   }
 }
