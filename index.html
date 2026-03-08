@@ -1258,56 +1258,45 @@
         </div>
       </div>
       <div class="slide-body">
-        <!-- Grid updated to 3-col or flexible flow for the new major partner -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; width: 100%;">
+        <div class="partnership-grid">
           
           <!-- New Featured Partner: UTexo -->
-          <div class="glass" style="grid-column: span 2; padding: 2.75rem; border: 1px solid var(--gold-light); background: linear-gradient(110deg, rgba(212, 175, 55, 0.18) 0%, rgba(15, 21, 40, 0.25) 100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.01)'; this.style.boxShadow='0 25px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,175,55,0.25)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none';">
-            <div style="position: absolute; top: 1.5rem; right: 2rem; background: #22a079; color: #fff; padding: 0.5rem 1.25rem; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 4px 15px rgba(34, 160, 121, 0.4); display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.2);">
+          <div class="partnership-card featured" onmouseover="this.style.transform='translateY(-8px) scale(1.01)'; this.style.boxShadow='0 25px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212,175,55,0.25)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none';">
+            <div class="partnership-badge">
               <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; animation: pulse 2s infinite;"></span>
               $7.5M Round Led by Tether
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <div class="label" style="color: var(--gold-light);">Liquid Capital & Settlement Partner</div>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2.4rem; color: #fff; margin-bottom: 1.2rem; line-height: 1.1; letter-spacing: -0.02em;">UTexo <span style="font-size: 0.95rem; vertical-align: middle; color: var(--text-muted); opacity: 0.8; margin-left: 0.5rem; font-weight: 400; font-family: var(--font-body);">(RGB Association Member)</span></h3>
-            <p style="font-size: 1.2rem; color: #fff; line-height: 1.6; max-width: 90%; font-weight: 300; letter-spacing: 0.01em;">
+            <div class="label" style="color: var(--gold-light);">Liquid Capital & Settlement Partner</div>
+            <h3 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 2.4rem, 2.4rem); color: #fff; margin-bottom: 0.8rem; line-height: 1.1; letter-spacing: -0.02em;">UTexo <span style="font-size: 0.95rem; vertical-align: middle; color: var(--text-muted); opacity: 0.8; margin-left: 0.5rem; font-weight: 400; font-family: var(--font-body);">(RGB Member)</span></h3>
+            <p style="font-size: clamp(1rem, 1.15rem, 1.2rem); color: #fff; line-height: 1.6; max-width: 90%; font-weight: 300; letter-spacing: 0.01em; margin: 0;">
               Strategic alliance with UTEXO following their <strong style="color: var(--gold-light);">Tether-led $7.5M round</strong> to pioneer native USDT on Bitcoin. This partnership secures the <strong style="color: var(--gold-light);">deep, critical liquidity</strong> required for DIBA’s massive scale and success.
             </p>
             <!-- Background Decoration -->
             <div style="position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
           </div>
 
-          <div class="glass" style="padding: 2.5rem; border-top: 3px solid var(--gold-light); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(15, 21, 40, 0) 100%); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <div class="label" style="color: var(--gold-light);">Infrastructure Partner</div>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;">Hut8 Mining (NASDAQ: HUT)</h3>
-            <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6;">Joint venture to build Carbonado <span style="color: var(--gold-light);">→</span> the decentralized data availability layer for all Bitcoin L2 assets. Leveraging Hut8's mighty mining infrastructure for permanent, censorship-resistant storage.</p>
+          <div class="partnership-card" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="label" style="color: var(--gold-light);">Infrastructure Partner</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary); margin: 0; line-height: 1.2;">Hut8 Mining (NASDAQ: HUT)</h3>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Joint venture to build Carbonado <span style="color: var(--gold-light);">→</span> the decentralized data availability layer for Bitcoin assets. Leveraging Hut8's mighty mining footprint.</p>
           </div>
 
-          <div class="glass" style="padding: 2.5rem; border-top: 3px solid var(--gold-light); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(15, 21, 40, 0) 100%); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <div class="label" style="color: var(--gold-light);">Protocol Governance</div>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;">RGB Association</h3>
-            <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6;">Founding member and core contributor. Direct influence on the protocol standard that will power the next generation of absolutely secure Bitcoin smart contracts and asset issuance.</p>
+          <div class="partnership-card" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="label" style="color: var(--gold-light);">Protocol Governance</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary); margin: 0; line-height: 1.2;">RGB Association</h3>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Founding member and core contributor. Direct influence on the protocol standard powering secure Bitcoin smart contracts.</p>
           </div>
 
-          <div class="glass" style="padding: 2.5rem; border-top: 3px solid var(--gold-light); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(15, 21, 40, 0) 100%); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <div class="label" style="color: var(--gold-light);">Lead Investor</div>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;">Draper Associates</h3>
-            <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6;">First cheque from Tim Draper's early-stage fund <span style="color: var(--gold-light);">→</span> renowned for early bets on Tesla, Skype, and Bitcoin itself. Complete strategic alignment on the Bitcoin-maximalist institutional infrastructure thesis.</p>
+          <div class="partnership-card" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="label" style="color: var(--gold-light);">Lead Investor</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary); margin: 0; line-height: 1.2;">Draper Associates</h3>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">First cheque from Tim Draper. Renowned for early bets on Tesla, Skype, and Bitcoin. Strategic alignment on institutional infrastructure.</p>
           </div>
 
-          <div class="glass" style="padding: 2.5rem; border-top: 3px solid var(--gold-light); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(15, 21, 40, 0) 100%); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-              <div class="label" style="color: var(--gold-light);">Sovereign Pipeline</div>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;">Government Pilots</h3>
-            <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6;">Active MOUs and API sandbox deployments with sovereign entities to build Bitcoin-native supreme asset registries and central bank digital asset architecture. Demonstrating proven traction for multi-year B2G contracts.</p>
+          <div class="partnership-card" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            <div class="label" style="color: var(--gold-light);">Sovereign Pipeline</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary); margin: 0; line-height: 1.2;">Government Pilots</h3>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Active MOUs and API sandboxes with sovereign entities to build Bitcoin-native asset registries and digital asset architecture.</p>
           </div>
 
         </div>
