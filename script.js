@@ -145,6 +145,14 @@ function goToSlide(n) {
   updateURL();
   trackSlideView(n);
 
+  // Safety: immediately hide any other active slides to prevent stacking/ghosting
+  document.querySelectorAll('.slide.active').forEach(s => {
+    if (s !== incoming && s !== outgoing) {
+      s.classList.remove('active');
+      s.style.cssText = '';
+    }
+  });
+
   if (outgoing && outgoing !== incoming) {
     outgoing.style.pointerEvents = 'none';
     outgoing.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease, box-shadow 0.8s ease';

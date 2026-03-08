@@ -1478,7 +1478,7 @@ body {
     height: auto !important;
     min-height: 100svh;
     justify-content: flex-start;
-    padding: 5rem 1.25rem 6rem !important;
+    padding: 5rem 1.25rem 10rem !important; /* Increased padding to clear navigation bar */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -1627,9 +1627,16 @@ body {
   /* Market Size slide 3 */
   #slide-3 .grid-2 > div:first-child > div:last-child {
     margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important; /* Added margin to clear source box */
   }
-  #slide-3 .tam-visual { transform: scale(1) !important; }
+  #slide-3 .tam-visual { transform: scale(0.9) !important; }
+
+  /* Source boxes: adjust for mobile */
+  .slide-inner div[style*="margin-top: 1.5rem"][style*="text-align: right"] {
+    text-align: left !important;
+    margin-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
 
   /* Slide 4 / 10 metric rows */
   #slide-4 .slide-body > div:last-child,
@@ -1648,6 +1655,24 @@ body {
     padding-right: 0 !important;
     padding-bottom: 1rem !important;
   }
+
+  /* Team Profile Photos - Mobile Scale */
+  .team-card div[style*="height: 380px"] {
+    height: 280px !important;
+  }
+
+
+/* ─── Desktop Viewport Fixes ─── */
+@media (min-width: 901px) {
+  /* Prevent team bios from cutting off on 1440x900 screens */
+  .team-card div[style*="height: 380px"] {
+    height: clamp(280px, 40vh, 380px) !important;
+  }
+  
+  .team-bio {
+    font-size: clamp(0.85rem, 1.1vh, 1rem) !important;
+  }
+}
 
   /* Competition table */
   .comp-table { font-size: 0.72rem; }
@@ -1762,6 +1787,27 @@ body {
 
   #slide-16 [style*="font-size: clamp(5rem"] {
     font-size: clamp(4rem, 18vw, 5.5rem) !important;
+  }
+
+  /* Cover Slide Overlap Fixes */
+  .cover-logo { margin-bottom: 1.5rem !important; }
+  .cover-protocol { margin-bottom: 1.5rem !important; }
+  .cover-tagline { margin-bottom: 2rem !important; }
+  .investor-bar { gap: 0.75rem !important; }
+  .investor-names { gap: 0.5rem !important; }
+  .investor-chip { padding: 0.35rem 0.85rem !important; font-size: 0.7rem !important; }
+}
+
+/* ─── Desktop Viewport Fixes (Specific to the 1440x900 constraint) ─── */
+@media (min-width: 901px) {
+  /* Prevent team bios from cutting off on 1440x900 screens */
+  .team-card div[style*="height: 380px"] {
+    height: clamp(280px, 40vh, 380px) !important;
+  }
+  
+  .team-bio {
+    font-size: clamp(0.85rem, 1.1vh, 1.1rem) !important;
+    line-height: 1.55 !important;
   }
 }
 
