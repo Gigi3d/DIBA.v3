@@ -1569,6 +1569,21 @@ async function downloadPDF() {
   const label = document.getElementById('pdfBtnLabel');
   if (btn.classList.contains('loading')) return;
 
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+  if (!isLocal) {
+    // Production (Vercel) fallback: Download the pre-rendered static PDF
+    const a = document.createElement('a');
+    a.href = 'assets/DIBA_Institutional_Deck.pdf';
+    a.download = 'DIBA_Institutional_Deck.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    label.textContent = '✓ Downloaded!';
+    setTimeout(() => { label.textContent = 'Download PDF'; }, 3000);
+    return;
+  }
+
   btn.style.width = btn.offsetWidth + 'px'; // Lock width
   btn.classList.add('loading');
   btn.disabled = true;
@@ -1598,6 +1613,7 @@ async function downloadPDF() {
     progress.style.transition = 'width 0.3s ease';
     progress.style.width = '100%';
     label.textContent = '✓ Ready!';
+
     
     setTimeout(() => {
       btn.classList.remove('loading');
