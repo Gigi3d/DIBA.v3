@@ -533,6 +533,43 @@ body {
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
+/* --- Split Slide Layout System (Slides 15, 16) --- */
+.split-layout {
+  display: flex !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100svh !important;
+}
+
+.split-panel-left {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 5rem 4rem 5rem 5rem !important;
+  gap: 3rem !important;
+  border-right: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.split-panel-right {
+  width: 38% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding: 5rem 4rem !important;
+  gap: 2.5rem !important;
+  background: linear-gradient(160deg, rgba(255,203,18,0.04) 0%, rgba(8,12,23,0.4) 100%) !important;
+}
+
+/* Contact Card V2 (Beside Layout) */
+.contact-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3rem !important;
+  width: 100% !important;
+}
+
 .glass:hover {
   background: rgba(255,255,255,0.05);
   border-color: rgba(255,255,255,0.12);
@@ -1512,22 +1549,69 @@ body {
 @media (max-width: 900px) {
 
   /* ─── Base Slide Shell ─── */
-  .slide {
+  html, body {
+    overflow: auto !important;
+    height: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .presentation {
     height: auto !important;
     min-height: 100svh;
-    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 100svh;
+    padding: 0 0 25rem 0 !important; /* Force huge padding on the slide itself */
     align-items: flex-start;
     overflow-y: visible !important;
+    display: none !important;
+    box-sizing: border-box;
+  }
+
+  .slide.active {
+    display: block !important;
   }
 
   .slide-inner {
     height: auto !important;
-    min-height: 100svh;
+    min-height: 100svh !important;
     justify-content: flex-start;
-    padding: 5rem 1.25rem 10rem !important; /* Increased padding to clear navigation bar */
+    padding: 5rem 1.25rem 5rem !important; /* Base padding */
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
+    position: relative;
+    overflow: visible !important;
+  }
+
+  /* Global Mobile Spacer for absolute nav bar clearance */
+  .mobile-spacer {
+    height: 25rem !important;
+    width: 100%;
+    flex: none !important;
+    display: block !important;
+  }
+
+  /* Force internal flex containers to flow naturally for mobile scrolling */
+  .slide-inner > div {
+    height: auto !important;
+    min-height: 0 !important;
+    flex: none !important;
+  }
+
+  /* Guaranteed spacer at the end of every slide for nav bar clearance */
+  .slide-inner::after {
+    content: "";
+    display: block;
+    height: 15rem;
+    width: 100%;
+    flex: none;
+    order: 999;
   }
 
   /* ─── NEW Full-Bleed Slides (5 & 6): Stack vertically ─── */
@@ -1561,7 +1645,7 @@ body {
   #slide-6 .slide-inner > div > div:first-child {
     flex: none !important;
     width: 100% !important;
-    padding: 2rem 1.25rem 5rem !important;
+    padding: 2rem 1.25rem 14rem !important;
     border-left: none !important;
     border-right: none !important;
     border-top: 1px solid rgba(255,255,255,0.06) !important;
@@ -1822,35 +1906,37 @@ body {
     font-weight: 700;
   }
 
-  /* ─── Ask and Contact slides: stack columns on mobile ─── */
-  #slide-15 .slide-inner > div,
-  #slide-16 .slide-inner > div {
+  /* ─── Split Layout stacking ─── */
+  .split-layout {
     flex-direction: column !important;
     height: auto !important;
-    min-height: 100svh;
+    min-height: 100svh !important;
   }
 
-  #slide-15 .slide-inner > div > div,
-  #slide-16 .slide-inner > div > div {
+  .split-panel-left, 
+  .split-panel-right {
     width: 100% !important;
     flex: none !important;
-    padding: 3.5rem 1.5rem 2.5rem !important;
-  }
-
-  #slide-15 .slide-inner > div > div:first-child,
-  #slide-16 .slide-inner > div > div:first-child {
+    padding: 4rem 1.5rem !important;
     border-right: none !important;
     border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    min-height: auto !important;
   }
 
-  #slide-15 .slide-inner > div > div:last-child,
-  #slide-16 .slide-inner > div > div:last-child {
-    padding-bottom: 10rem !important; /* Extra padding for bottom navigation */
+  .split-panel-right {
+    padding-bottom: 20rem !important; /* The Magic Mobile Scroll Fix */
     background: rgba(255,203,18,0.02) !important;
   }
 
+  /* Contact Row stacking for mobile */
+  .contact-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.5rem !important;
+  }
+
   /* Scale down the big Ask number on mobile */
-  #slide-15 div[style*="font-size: clamp(5rem"] {
+  .ask-hero-number {
     font-size: 3.8rem !important;
     line-height: 1 !important;
   }
@@ -1859,6 +1945,7 @@ body {
   .partnership-grid {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
+    margin-bottom: 22rem !important; /* Clearance for Slide 14 */
   }
   .partnership-card.featured {
     grid-column: span 1 !important;
