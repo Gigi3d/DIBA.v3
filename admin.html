@@ -310,6 +310,54 @@
         </tbody>
       </table>
     </div>
+
+    <!-- PDF Intelligence Section -->
+    <div style="margin-top: 4rem;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-strong);">
+        <div>
+          <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 400;">PDF Intelligence</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Tracks opens &amp; link clicks from downloaded PDFs</p>
+        </div>
+        <button onclick="loadPdfData()">Refresh</button>
+      </div>
+
+      <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card glass">
+          <div class="stat-value" id="pdfOpens">—</div>
+          <div class="stat-label">PDF Opens</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" id="pdfUnique">—</div>
+          <div class="stat-label">Unique PDFs</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" id="pdfClicks">—</div>
+          <div class="stat-label">Link Clicks</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" id="pdfTopLink">—</div>
+          <div class="stat-label">Top Clicked Link</div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table id="pdfTable">
+          <thead>
+            <tr>
+              <th>PDF ID</th>
+              <th>Event</th>
+              <th>Email</th>
+              <th>Link / Details</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="pdfTableBody">
+            <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">Loading PDF events...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -430,13 +478,69 @@
       });
     }
 
-    window.addEventListener('load', loadData);
+    window.addEventListener('load', () => { loadData(); loadPdfData(); });
     
     window.addEventListener('storage', (e) => {
         if (e.key === SESSIONS_KEY) {
             loadData();
         }
     });
+
+    // ─── PDF Analytics ───────────────────────────────────────────────────────
+    async function loadPdfData() {
+      const tbody = document.getElementById('pdfTableBody');
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem;">Loading…</td></tr>';
+      try {
+        const res = await fetch('/api/pdf-events');
+        if (!res.ok) throw new Error('Failed to load PDF events');
+        const events = await res.json();
+
+        const opens   = events.filter(e => e.event_type === 'open');
+        const clicks  = events.filter(e => e.event_type === 'link_click');
+        const uniquePdfs = new Set(events.map(e => e.pdf_id)).size;
+
+        document.getElementById('pdfOpens').innerText  = opens.length;
+        document.getElementById('pdfUnique').innerText = uniquePdfs;
+        document.getElementById('pdfClicks').innerText = clicks.length;
+
+        // Find top clicked link label
+        const labelCounts = {};
+        clicks.forEach(c => { labelCounts[c.link_label] = (labelCounts[c.link_label] || 0) + 1; });
+        const topLabel = Object.entries(labelCounts).sort((a,b) => b[1]-a[1])[0];
+        document.getElementById('pdfTopLink').innerText = topLabel
+          ? topLabel[0].replace(/_/g,' ') + ' (' + topLabel[1] + ')'
+          : 'None yet';
+
+        tbody.innerHTML = '';
+        if (events.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem;">No PDF events yet. Share the deck and watch events appear here!</td></tr>';
+          return;
+        }
+
+        events.forEach(evt => {
+          const tr = document.createElement('tr');
+          const isOpen  = evt.event_type === 'open';
+          const badge   = isOpen
+            ? '<span style="background:rgba(255,203,18,0.12);color:#ffcb12;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;">OPEN</span>'
+            : '<span style="background:rgba(96,165,250,0.12);color:#60a5fa;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;">CLICK</span>';
+          const detail  = isOpen
+            ? '<span style="color:var(--text-muted);font-size:0.85rem;">Document opened</span>'
+            : `<a href="${evt.link_url}" target="_blank" style="color:#60a5fa;font-size:0.85rem;text-decoration:none;">${(evt.link_label||'').replace(/_/g,' ')}</a>`;
+          const shortId = (evt.pdf_id||'').slice(0,8);
+          tr.innerHTML = `
+            <td style="font-family:monospace;font-size:0.85rem;color:var(--text-muted);">${shortId}</td>
+            <td>${badge}</td>
+            <td class="email-cell">${evt.email || '<i>Unknown</i>'}</td>
+            <td>${detail}</td>
+            <td class="date-cell" style="font-size:0.8rem;">${formatDate(evt.occurred_at)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#ef4444;padding:2rem;">Error: ${err.message}</td></tr>`;
+      }
+    }
+
   </script>
 </body>
 </html>
