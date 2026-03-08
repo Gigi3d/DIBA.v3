@@ -139,28 +139,59 @@ function goToSlide(n) {
 
   if (!incoming) return;
 
-  // Update state first
   currentSlide = n;
   updateUI();
   updateURL();
   trackSlideView(n);
 
-  // Immediately hide outgoing (no lingering ghost)
   if (outgoing && outgoing !== incoming) {
-    outgoing.classList.remove('active');
-    outgoing.style.cssText = '';
+    outgoing.style.pointerEvents = 'none';
+    outgoing.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease, box-shadow 0.8s ease';
+    
+    if (direction === 1) {
+      outgoing.style.transform = 'translateX(-15%) scale(0.92)';
+      outgoing.style.filter = 'brightness(0.4)';
+      outgoing.style.opacity = '0';
+      outgoing.style.zIndex = '5';
+    } else {
+      outgoing.style.transform = 'translateX(100%)';
+      outgoing.style.opacity = '1';
+      outgoing.style.zIndex = '20';
+      outgoing.style.boxShadow = '-40px 0 80px rgba(0,0,0,0.8)';
+    }
   }
 
-  // Mount incoming (display:flex via .active), start off-screen
-  incoming.style.cssText = `opacity:0;transform:translateX(${direction * 50}px);transition:none;`;
   incoming.classList.add('active');
+  incoming.style.transition = 'none';
+  
+  if (direction === 1) {
+    incoming.style.transform = 'translateX(100%)';
+    incoming.style.opacity = '1';
+    incoming.style.zIndex = '20';
+    incoming.style.boxShadow = '-40px 0 80px rgba(0,0,0,0.8)';
+  } else {
+    incoming.style.transform = 'translateX(-15%) scale(0.92)';
+    incoming.style.filter = 'brightness(0.4)';
+    incoming.style.opacity = '0';
+    incoming.style.zIndex = '5';
+  }
 
-  // Two rAF ensures the browser has painted the initial position before animating
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      incoming.style.cssText = `opacity:1;transform:translateX(0);transition:opacity 0.32s ease,transform 0.32s cubic-bezier(0.4,0,0.2,1);`;
-      // Clean up inline styles after animation finishes
-      setTimeout(() => { incoming.style.cssText = ''; }, 350);
+      incoming.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease, box-shadow 0.8s ease';
+      
+      incoming.style.transform = 'translateX(0) scale(1)';
+      incoming.style.filter = 'brightness(1)';
+      incoming.style.opacity = '1';
+      if (direction === 1) incoming.style.boxShadow = '-10px 0 30px rgba(0,0,0,0)';
+
+      setTimeout(() => {
+        if (outgoing && outgoing !== incoming) {
+          outgoing.classList.remove('active');
+          outgoing.style.cssText = '';
+        }
+        incoming.style.cssText = '';
+      }, 820);
     });
   });
 }
