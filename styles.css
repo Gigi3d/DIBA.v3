@@ -1567,8 +1567,8 @@ body {
     position: relative !important;
     inset: auto !important;
     height: auto !important;
-    min-height: 100svh;
-    padding: 0 0 25rem 0 !important; /* Force huge padding on the slide itself */
+    min-height: auto !important;
+    padding: 0 !important;
     align-items: flex-start;
     overflow-y: visible !important;
     display: none !important;
@@ -1581,22 +1581,19 @@ body {
 
   .slide-inner {
     height: auto !important;
-    min-height: 100svh !important;
+    min-height: auto !important;
     justify-content: flex-start;
-    padding: 5rem 1.25rem 5rem !important; /* Base padding */
+    padding: 4rem 1.25rem 2rem !important;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
     position: relative;
     overflow: visible !important;
   }
 
-  /* Global Mobile Spacer for absolute nav bar clearance */
+  /* Hide the desktop-only spacer divs on mobile */
   .mobile-spacer {
-    height: 25rem !important;
-    width: 100%;
-    flex: none !important;
-    display: block !important;
+    display: none !important;
   }
 
   /* Force internal flex containers to flow naturally for mobile scrolling */
@@ -1606,15 +1603,7 @@ body {
     flex: none !important;
   }
 
-  /* Guaranteed spacer at the end of every slide for nav bar clearance */
-  .slide-inner::after {
-    content: "";
-    display: block;
-    height: 15rem;
-    width: 100%;
-    flex: none;
-    order: 999;
-  }
+  /* Nav clearance is handled per-panel, not globally */
 
   /* ─── NEW Full-Bleed Slides (5 & 6): Stack vertically ─── */
   #slide-5 .slide-inner,
@@ -1912,44 +1901,54 @@ body {
   .split-layout {
     display: flex !important;
     flex-direction: column !important;
-    width: 100% !important;     /* Force full width on mobile */
-    max-width: 100% !important;
-    height: auto !important;
-    min-height: 100svh !important;
-  }
-
-  .split-panel-left, 
-  .split-panel-right {
     width: 100% !important;
     max-width: 100% !important;
-    min-width: 100% !important;
-    flex: none !important;
-    padding: 3.5rem 1.5rem !important;
-    border-right: none !important;
-    border-left: none !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    height: auto !important;
     min-height: auto !important;
   }
 
+  .split-panel-left {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 2rem 1.5rem 2.5rem !important;
+    border: none !important;
+    min-height: auto !important;
+    gap: 1.8rem !important;
+  }
+
   .split-panel-right {
-    padding-bottom: 25rem !important; /* Deep scroll clearance for mobile */
-    background: rgba(8,12,23,0.6) !important;
-    border-bottom: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 2.5rem 1.5rem 12rem !important; /* 12rem bottom = nav clearance */
+    border: none !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    min-height: auto !important;
+    background: transparent !important;
+    gap: 2rem !important;
   }
 
   /* Contact Row stacking for mobile */
   .contact-row {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Center for mobile impact */
+    align-items: center !important;
     text-align: center !important;
-    gap: 2.5rem !important;
+    gap: 2rem !important;
     width: 100% !important;
   }
   
   .contact-info-block, 
   .contact-cta-block {
     width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
 
   /* Scale down the big Ask number on mobile */
