@@ -119,6 +119,7 @@ const nextBtn = document.getElementById('nextBtn');
 const currentSlideEl = document.getElementById('currentSlide');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
 const productTag = document.getElementById('productTag');
+const pdfBtn = document.getElementById('pdfBtn');
 
 // Slides that show the #Product tag
 const PRODUCT_SLIDES = new Set([5, 6]);
@@ -221,6 +222,18 @@ function updateUI() {
   nextBtn.disabled = currentSlide === totalSlides;
   // Show #Product tag only on BitMask + DIBA Marketplace slides
   if (productTag) productTag.style.opacity = PRODUCT_SLIDES.has(currentSlide) ? '1' : '0';
+  // Hide PDF button on cover slide
+  if (pdfBtn) {
+    if (currentSlide === 1) {
+      pdfBtn.style.opacity = '0';
+      pdfBtn.style.pointerEvents = 'none';
+      pdfBtn.style.transition = 'opacity 0.3s ease';
+    } else {
+      pdfBtn.style.opacity = '1';
+      pdfBtn.style.pointerEvents = 'auto';
+      pdfBtn.style.transition = 'opacity 0.3s ease';
+    }
+  }
 }
 
 function updateURL() {
