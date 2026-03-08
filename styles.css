@@ -1822,22 +1822,37 @@ body {
     font-weight: 700;
   }
 
-  /* ─── Ask slide (16): stack columns on mobile ─── */
+  /* ─── Ask and Contact slides: stack columns on mobile ─── */
+  #slide-15 .slide-inner > div,
   #slide-16 .slide-inner > div {
     flex-direction: column !important;
     height: auto !important;
+    min-height: 100svh;
   }
 
-  #slide-16 .slide-inner > div > div:first-child {
+  #slide-15 .slide-inner > div > div,
+  #slide-16 .slide-inner > div > div {
     width: 100% !important;
-    padding: 3rem 1.5rem 2rem !important;
+    flex: none !important;
+    padding: 3.5rem 1.5rem 2.5rem !important;
+  }
+
+  #slide-15 .slide-inner > div > div:first-child,
+  #slide-16 .slide-inner > div > div:first-child {
     border-right: none !important;
     border-bottom: 1px solid rgba(255,255,255,0.06) !important;
   }
 
+  #slide-15 .slide-inner > div > div:last-child,
   #slide-16 .slide-inner > div > div:last-child {
-    width: 100% !important;
-    padding: 2rem 1.5rem 5rem !important;
+    padding-bottom: 10rem !important; /* Extra padding for bottom navigation */
+    background: rgba(255,203,18,0.02) !important;
+  }
+
+  /* Scale down the big Ask number on mobile */
+  #slide-15 div[style*="font-size: clamp(5rem"] {
+    font-size: 3.8rem !important;
+    line-height: 1 !important;
   }
 
   /* Partnership Grid Mobile */
