@@ -78,21 +78,50 @@ app.get('/api/export-pdf', async (req, res) => {
 
     const { default: puppeteer } = await import('puppeteer-core');
     const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-    const TOTAL_SLIDES = 17;
+    const TOTAL_SLIDES = 16;
     const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
     // --- Phase 1: Capture all slides as screenshots ---
     const browser = await puppeteer.launch({
       executablePath: CHROME_PATH,
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security', '--disable-dev-shm-usage', '--window-size=1600,900'],
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox', 
+        '--disable-web-security', 
+        '--disable-dev-shm-usage', 
+        '--window-size=1600,900',
+        '--force-color-profile=srgb'
+      ],
       defaultViewport: { width: 1600, height: 900 }
     });
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 2 });
-    await page.goto('http://localhost:3000', { waitUntil: 'networkidle2', timeout: 30000 });
-    await sleep(2500);
+    
+    // Ensure accurate sizing and media matching
+    await page.emulateMediaType('screen');
+    
+    // Wait until network is completely idle
+    await page.goto('http://localhost:3000', { waitUntil: 'networkidle0', timeout: 60000 });
+    
+    // Ensure all fonts are fully loaded
+    await page.evaluateHandle('document.fonts.ready');
+    
+    // Force wait for all images
+    await page.evaluate(async () => {
+      const images = Array.from(document.querySelectorAll('img'));
+      await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+           img.onload = resolve;
+           img.onerror = resolve; // Continue even if an image fails
+        });
+      }));
+    });
+
+    // Provide extra breathing room for WebGL/Canvas/Lottie components to init
+    await sleep(5000);
 
     const slideBuffers = [];
     for (let i = 0; i < TOTAL_SLIDES; i++) {
@@ -107,32 +136,142 @@ app.get('/api/export-pdf', async (req, res) => {
           if (el) el.style.display = 'none';
         });
       }, i);
-      await sleep(700);
-      slideBuffers.push(await page.screenshot({ type: 'png', fullPage: false }));
-      console.log(`  ✅ Slide ${i + 1} captured`);
+
+      // Give the slide ample moment to render newly visible layers
+      await sleep(1000);
+      await page.evaluate(() => {
+        const slide = document.querySelector('.slide.active');
+        if (!slide) return;
+
+        // ── 1. Snap explicit [data-countup] elements ─────────────────────────
+        slide.querySelectorAll('[data-countup]').forEach(el => {
+          const prefix = el.dataset.prefix || '';
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix !== undefined ? el.dataset.suffix : '';
+          if (!isNaN(target)) {
+            el.textContent = prefix + target + suffix;
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.style.transition = 'none';
+          }
+        });
+
+        // ── 2. Snap auto-detected large-font stat numbers ────────────────────
+        // These are wrapped in a <span> by the smartCountUp engine mid-animation.
+        // We detect them by font-size and numeric text content.
+        function parseNumStr(s) {
+          s = (s || '').trim();
+          const m = s.match(/^(\$?)(\d+(?:\.\d+)?)(k|M|B|T)?(\+|%)?$/);
+          if (!m) return null;
+          return { prefix: m[1]||'', value: parseFloat(m[2]), unit: m[3]||'', extra: m[4]||'' };
+        }
+
+        // Target both the wrapper elements and any animation spans inserted inside them
+        slide.querySelectorAll('[style*="font-size"]').forEach(el => {
+          const fsStr = (el.style.fontSize || '');
+          const fs = parseFloat(fsStr);
+          const unit = fsStr.replace(/[\d.]/g, '');
+          if (!fs || (unit === 'rem' && fs < 1.8) || (unit === 'px' && fs < 26)) return;
+
+          // Check direct text nodes (before wrapping in span)
+          const rawText = Array.from(el.childNodes)
+            .filter(n => n.nodeType === Node.TEXT_NODE)
+            .map(n => n.textContent).join('').trim();
+          const parsed = parseNumStr(rawText);
+          if (parsed) {
+            // Not yet wrapped — snap the text node directly
+            Array.from(el.childNodes)
+              .filter(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim())
+              .forEach(tn => { tn.textContent = parsed.prefix + parsed.value + parsed.unit + parsed.extra; });
+            return;
+          }
+
+          // Check if there's an animation span inside (already wrapped)
+          const animSpan = Array.from(el.childNodes).find(n =>
+            n.nodeType === Node.ELEMENT_NODE && n.tagName === 'SPAN' && !n.dataset.countup
+          );
+          if (animSpan) {
+            const p2 = parseNumStr(animSpan.textContent);
+            if (p2) {
+              animSpan.textContent = p2.prefix + p2.value + p2.unit + p2.extra;
+              animSpan.style.opacity = '1';
+              animSpan.style.transform = 'translateY(0)';
+              animSpan.style.transition = 'none';
+            }
+          }
+        });
+
+        // ── 3. Remove all CSS transitions & animations to prevent ghosting ────
+        const styleTag = document.createElement('style');
+        styleTag.id = '_pdf_snap_style';
+        styleTag.textContent = `
+          .slide.active *, .slide.active *::before, .slide.active *::after {
+            animation-play-state: paused !important;
+            animation-duration: 0s !important;
+            transition: none !important;
+          }
+        `;
+        if (!document.getElementById('_pdf_snap_style')) {
+          document.head.appendChild(styleTag);
+        }
+      });
+
+      await sleep(1500);
+      
+      const links = await page.evaluate(() => {
+        const slide = document.querySelector('.slide.active');
+        if (!slide) return [];
+        return Array.from(slide.querySelectorAll('a[href]'))
+          .filter(a => {
+            const rect = a.getBoundingClientRect();
+            // Ignore hidden items
+            return rect.width > 0 && rect.height > 0 && 
+                   window.getComputedStyle(a).visibility !== 'hidden' &&
+                   a.href && !a.href.startsWith('javascript:');
+          })
+          .map(a => {
+            const rect = a.getBoundingClientRect();
+            return {
+              href: a.href,
+              title: a.title || a.textContent.trim() || 'link',
+              x: rect.x,
+              y: rect.y,
+              width: rect.width,
+              height: rect.height
+            };
+          });
+      });
+
+      const buffer = await page.screenshot({ type: 'png', fullPage: false, omitBackground: false });
+      slideBuffers.push({ buffer, links });
+      console.log(`  ✅ Slide ${i + 1} captured (${links.length} interactive links)`);
     }
     await browser.close();
 
     // --- Phase 2: Stitch into PDF with tracking embedded ---
-    const imagesHtml = slideBuffers.map((buf, i) => {
-      // On the LAST slide (contact), add clickable tracked link overlays
-      const isLastSlide = (i === TOTAL_SLIDES - 1);
-      const overlay = isLastSlide ? `
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
-          <a href="${trackedUrl('https://calendly.com/bitgidie', 'calendly_cta')}"
-             style="position:absolute;bottom:38%;left:57%;width:32%;height:8%;display:block;"
-             title="Request a Meeting"></a>
-          <a href="${trackedUrl('https://diba.io', 'diba_website')}"
-             style="position:absolute;bottom:27%;left:57%;width:12%;height:4%;display:block;"
-             title="diba.io"></a>
-          <a href="${trackedUrl('https://bitmask.app', 'bitmask_website')}"
-             style="position:absolute;bottom:27%;left:70%;width:16%;height:4%;display:block;"
-             title="bitmask.app"></a>
-          <a href="mailto:gideon@diba.io"
-             style="position:absolute;bottom:31%;left:57%;width:25%;height:4%;display:block;"
-             title="Email Gideon"></a>
-        </div>` : '';
-      return `<div class="page" style="position:relative;">${overlay}<img src="data:image/png;base64,${buf.toString('base64')}" /></div>`;
+    const imagesHtml = slideBuffers.map((slideData, i) => {
+      const { buffer, links } = slideData;
+      let overlayHtml = '';
+      
+      if (links && links.length > 0) {
+        overlayHtml = links.map(link => {
+          let dest = link.href;
+          // Apply tracking layer to outbound http links, leave mailto pristine
+          if (dest.startsWith('http')) {
+            dest = trackedUrl(dest, link.title);
+          }
+          // The block uses opacity 0.01 instead of completely transparent or hidden
+          // so the PDF engine is absolutely guaranteed to pick up the click area bounding box
+          return `<a href="${dest}" title="${link.title}" style="position:absolute;left:${link.x}px;top:${link.y}px;width:${link.width}px;height:${link.height}px;display:block;z-index:10;color:transparent;font-size:${Math.max(link.height, 12)}px;line-height:${link.height}px;text-decoration:none;overflow:hidden;opacity:0.01;">█</a>`;
+        }).join('\n');
+      }
+      
+      return `<div class="page" style="position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;">
+          ${overlayHtml}
+        </div>
+        <img src="data:image/png;base64,${buffer.toString('base64')}" />
+      </div>`;
     }).join('\n');
 
     // Invisible 1x1 tracking pixel + PDF metadata in <head>
@@ -144,9 +283,23 @@ app.get('/api/export-pdf', async (req, res) => {
       <style>
         *{margin:0;padding:0;box-sizing:border-box}
         @page{size:1600px 900px;margin:0}
-        body{width:1600px;background:#000}
+        body{
+          width:1600px;
+          background:#000;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
         .page{width:1600px;height:900px;display:flex;align-items:center;justify-content:center;page-break-after:always;overflow:hidden;position:relative;}
-        .page img{width:1600px;height:900px;display:block;object-fit:cover;position:relative;z-index:0;}
+        .page img{
+          width:1600px;
+          height:900px;
+          display:block;
+          object-fit:cover;
+          position:relative;
+          z-index:0;
+          image-rendering: high-quality;
+        }
         .page div{z-index:1;}
         #tracker{position:absolute;width:1px;height:1px;opacity:0.01;top:0;left:0;}
       </style>
@@ -161,7 +314,12 @@ app.get('/api/export-pdf', async (req, res) => {
     const browser2 = await puppeteer.launch({
       executablePath: CHROME_PATH,
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox', 
+        '--disable-dev-shm-usage',
+        '--force-color-profile=srgb'
+      ],
       defaultViewport: { width: 1600, height: 900 }
     });
     const page2 = await browser2.newPage();
