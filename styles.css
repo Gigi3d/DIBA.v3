@@ -1402,6 +1402,35 @@ body {
   font-weight: 800;
 }
 
+/* Flywheel Logic Bar Default (Desktop) */
+.flywheel-logic-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 2rem !important;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.15) 50%, rgba(212, 175, 55, 0.05) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem 2.5rem !important;
+  width: 100% !important;
+}
+
+.flywheel-logic-title {
+  font-family: var(--font-heading) !important;
+  font-size: 2rem !important;
+  color: var(--gold-light) !important;
+  white-space: nowrap !important;
+  border-right: 1px solid rgba(212, 175, 55, 0.3) !important;
+  padding-right: 2rem !important;
+}
+
+.flywheel-logic-text {
+  font-size: 1.05rem !important;
+  color: var(--text-primary) !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+}
+
 /* Fullscreen toggle */
 .fullscreen-btn {
   position: fixed;
@@ -1668,28 +1697,121 @@ body {
   .cover-tagline { font-size: 1rem !important; margin-bottom: 1.5rem !important; padding: 0 1rem; }
   .investor-chip { font-size: 0.75rem !important; padding: 0.4rem 0.8rem !important; }
 
-  /* Full-Bleed Slides (5 & 6) */
-  #slide-5 .slide-inner, #slide-6 .slide-inner { padding: 0 !important; }
-  #slide-5 img, #slide-6 img { max-height: 220px !important; width: 100% !important; object-fit: contain !important; }
-  
-  #slide-5 .slide-inner > div > div:first-child,
-  #slide-6 .slide-inner > div > div:last-child {
-    height: 260px !important;
-    padding: 1rem !important;
-    background: #080c17 !important;
+  /* ─── NEW EPIC Product Slides (5 & 6) ─── */
+  #slide-5 .slide-inner, #slide-6 .slide-inner {
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* The outer flex container */
+  #slide-5 .slide-inner > div {
+    flex-direction: column !important;
+    height: auto !important;
+    width: 100% !important;
   }
   
+  #slide-6 .slide-inner > div {
+    flex-direction: column-reverse !important; /* Image is last-child in HTML, bring to top */
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* 1. HERO Image Panel */
+  #slide-5 .slide-inner > div > div:first-child,
+  #slide-6 .slide-inner > div > div:last-child {
+    flex: none !important;
+    width: 100% !important;
+    height: 48vh !important; /* Large Hero area */
+    max-height: 420px !important;
+    min-height: 320px !important;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, #0a0e1a 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2.5rem !important;
+    position: relative !important;
+    border-bottom: 2px solid rgba(255, 203, 18, 0.25) !important;
+    overflow: visible !important;
+  }
+
+  #slide-5 img, #slide-6 img {
+    height: 90% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 20px 60px rgba(0,0,0,0.8)) !important;
+    z-index: 1;
+    transform: scale(1.15) !important;
+    transition: transform 0.5s ease-out;
+  }
+
+  /* Metadata Chips on Image */
+  #slide-5 div[style*="position: absolute; top: 2rem; left: 2rem"],
+  #slide-6 div[style*="position: absolute; top: 2rem; left: 2rem"] {
+    top: 1.25rem !important;
+    left: 1.25rem !important;
+    padding: 0.4rem 1rem !important;
+    background: rgba(10, 14, 26, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 10 !important;
+    border: 1px solid rgba(255, 203, 18, 0.5) !important;
+    border-radius: 100px;
+  }
+  
+  #slide-5 div[style*="bottom: 2rem"][style*="left: 2rem"] {
+    bottom: -1rem !important; /* Overlap into content area slightly */
+    left: 1.25rem !important;
+    right: auto !important;
+    padding: 0.8rem 1.25rem !important;
+    width: auto !important;
+    max-width: 180px;
+    background: var(--bg-primary) !important;
+    border: 1px solid var(--gold-light) !important;
+    z-index: 20 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 100px;
+  }
+  
+  /* UTEXO text inside chip */
+  #slide-5 div[style*="bottom: 2rem"][style*="left: 2rem"] div {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem !important;
+  }
+
+  /* 2. EPIC Content Panel */
   #slide-5 .slide-inner > div > div:last-child,
   #slide-6 .slide-inner > div > div:first-child {
-    padding: 2rem 1.25rem 10rem !important;
-    gap: 1.25rem !important;
+    flex: none !important;
+    width: 100% !important;
+    padding: 3.5rem 1.25rem 12rem !important;
+    background: #0a0e1a !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    border: none !important;
+  }
+
+  #slide-5 h2, #slide-6 h2 {
+    font-size: 2.2rem !important;
+    line-height: 1.05 !important;
+    color: #fff !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #slide-5 .glass, #slide-6 .glass {
+    padding: 1.5rem !important;
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    border-left: 4px solid var(--gold-light) !important;
   }
 
   /* Slide 14 Leadership */
   .team-card div[style*="height: 380px"] { height: 240px !important; }
-  .split-layout { flex-direction: column !important; }
-  .split-panel-left, .split-panel-right { width: 100% !important; padding: 2rem 1.25rem !important; border: none !important; }
-  .split-panel-right { padding-bottom: 11rem !important; border-top: 1px solid rgba(255,255,255,0.08) !important; }
+  /* (split-layout mobile rules moved to Slide 15/16 section below) */
 
   /* Partnership Grid Mobile */
   .partnership-grid {
@@ -1757,10 +1879,356 @@ body {
     text-align: center;
   }
 
+  /* ─── Comparison Table Mobile ─── */
+  .comparison-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    width: 100% !important;
+    border-radius: 8px !important;
+  }
+
+  .comparison-table {
+    display: table !important;
+    width: 650px !important; /* Ensure the table is wide enough to scroll */
+    border-collapse: separate !important;
+    border-spacing: 0;
+  }
+
+  .comparison-backdrop {
+    display: none !important; /* Conflicts with scrolling */
+  }
+
+  .comparison-table thead, 
+  .comparison-table tbody, 
+  .comparison-table tr {
+    display: table-row-group !important; /* Reset to standard table display */
+    width: auto !important;
+  }
+
+  .comparison-table tr {
+    display: table-row !important;
+  }
+
+  .comparison-table td, .comparison-table th {
+    min-width: 80px !important;
+    padding: 0.75rem 0.5rem !important;
+    font-size: 0.8rem !important;
+    white-space: normal !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  }
+
+  .comparison-table td:first-child, 
+  .comparison-table th:first-child {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 20 !important;
+    background: #0a0e1a !important; 
+    min-width: 130px !important;
+    border-right: 1px solid rgba(255,203,18,0.3) !important;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.5);
+  }
+
+  .comparison-table th {
+    background: #0a0e1a !important;
+    position: sticky !important;
+    top: 0 !important;
+  }
+
+  /* Highlight our column */
+  .comparison-table td:nth-child(2),
+  .comparison-table th:nth-child(2) {
+    background: rgba(212, 175, 55, 0.12) !important;
+    border-left: 1px solid rgba(212, 175, 55, 0.4) !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.4) !important;
+    color: var(--gold-light) !important;
+  }
+
+  /* Why Now Bar */
+  [style*="background: rgba(15, 21, 40, 0.8)"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1.25rem !important;
+    gap: 1rem !important;
+  }
+  
+  [style*="background: var(--gold-light); width: 6px"] {
+    width: 100% !important;
+    height: 4px !important;
+    box-shadow: 0 4px 10px var(--gold-light) !important;
+  }
+  
+  [style*="display: flex; align-items: center; gap: 1.5rem"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    padding: 0 !important;
+  }
+
+  [style*="Why Now"] {
+    font-size: 0.7rem !important;
+  }
+  
+  [style*="The institutional tokenization window"] {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+  }
+  /* Slide 7 Institutional */
+  #slide-7 .glass {
+    padding: 1.5rem !important;
+    gap: 1rem !important;
+  }
+  
+  #slide-7 h3.h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Slide 9 Traction Timeline */
+  #slide-9 .slide-body {
+    padding-top: 2rem !important;
+  }
+  
+  #slide-9 [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important; /* Large gap for vertical timeline feel */
+  }
+
+  /* Connecting Line for Timeline (Vertical on Mobile) */
+  #slide-9 [style*="position: absolute; top: 24px; left: 0; right: 0; height: 2px"] {
+    display: none !important; /* Hide horizontal line */
+  }
+
+  #slide-9 .milestone-vertical-line {
+     display: block !important;
+     position: absolute;
+     left: 24px;
+     top: 0;
+     bottom: 0;
+     width: 2px;
+     background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.6), rgba(212, 175, 55, 0.1));
+     z-index: 0;
+  }
+
+  #slide-9 [style*="display: flex; flex-direction: column; align-items: center"] {
+    align-items: flex-start !important;
+    text-align: left !important;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  #slide-9 .glass {
+    border-top: none !important;
+    border-left: 2px solid var(--gold-light) !important;
+  }
+  
   /* Chrome Cleanup */
-  .fullscreen-btn { width: 40px !important; height: 40px !important; top: 0.8rem !important; right: 0.8rem !important; }
-  #productTag { top: 0.8rem !important; left: 0.8rem !important; font-size: 0.65rem !important; }
+  .fullscreen-btn { width: 36px !important; height: 36px !important; top: 0.75rem !important; right: 0.75rem !important; }
+  #productTag { top: 0.75rem !important; left: 0.75rem !important; font-size: 0.6rem !important; padding: 0.25rem 0.75rem !important; }
   #pdfBtn, .deck-footer { display: none !important; }
+
+  /* Slide 12 Revenue Chart */
+  .revenue-bars {
+    height: 240px !important;
+    padding-top: 1.5rem !important;
+    gap: 1rem !important;
+    align-items: flex-end !important;
+    display: flex !important;
+  }
+  
+  .revenue-bar {
+    gap: 0.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    height: 100% !important;
+    flex: 1 !important;
+  }
+
+  .revenue-bar-value {
+    font-size: 0.8rem !important;
+    margin-bottom: 2px !important;
+    color: #fff !important;
+    font-family: var(--font-heading) !important;
+  }
+
+  .revenue-bar-fill {
+    width: 100% !important;
+    border-radius: 4px 4px 0 0 !important;
+  }
+
+  .revenue-bar-label {
+    font-size: 0.6rem !important;
+    margin-top: 4px !important;
+    color: var(--text-muted) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Slide 13 Flywheel */
+  .flywheel-phases {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  .flywheel-line {
+    display: none !important;
+  }
+
+  /* Logic Bar Refinement (Mobile) */
+  .flywheel-logic-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1.5rem !important;
+    gap: 1.25rem !important;
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.15) 100%) !important;
+  }
+
+  .flywheel-logic-title {
+    border-right: none !important;
+    padding-right: 0 !important;
+    font-size: 1.6rem !important;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3) !important;
+    padding-bottom: 0.5rem !important;
+    width: 100% !important;
+    white-space: normal !important;
+  }
+
+  .flywheel-logic-text {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  #slide-13 .glass {
+    border-top: none !important;
+    border-left: 3px solid var(--gold-light) !important;
+    margin-left: 1rem;
+  }
+
+  /* Slide 14 Leadership (Mobile Padding Fix) */
+  #slide-14 .slide-body {
+    padding-bottom: 15rem !important;
+  }
+
+  /* ─── Split Layout Mobile (Slides 15 & 16) ─── */
+  .split-layout {
+    flex-direction: column !important;
+    overflow: hidden !important; /* Prevent bleed */
+  }
+  
+  .split-panel-left, .split-panel-right {
+    width: 100% !important;
+    padding: 2.5rem 1.5rem !important;
+    border: none !important;
+    box-sizing: border-box !important;
+  }
+  
+  .split-panel-right {
+    padding-top: 2rem !important;
+    padding-bottom: 10rem !important; /* Clear nav */
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    background: linear-gradient(180deg, rgba(255,203,18,0.02) 0%, rgba(8,12,23,0.6) 100%) !important;
+  }
+
+  /* ─── Slide 15: The ASK ─── */
+  #slide-15 .split-panel-left {
+    gap: 2rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  #slide-15 .ask-hero-number {
+    font-size: clamp(3.2rem, 15vw, 5rem) !important;
+    line-height: 1 !important;
+  }
+
+  /* Tighten the deal terms */
+  #slide-15 [style*="display: flex; flex-direction: column; gap: 1.75rem"] {
+    gap: 1.25rem !important;
+  }
+
+  /* Unicorn exit card */
+  #slide-15 [style*="padding: 1.5rem; background: rgba(212, 175, 55, 0.08)"] {
+    padding: 1.25rem 1rem 1.25rem 1.5rem !important;
+    gap: 1rem !important;
+  }
+
+  #slide-15 [style*="width: 48px; height: 48px; border-radius: 50%; background: rgba(212, 175, 55, 0.15)"] {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Milestones compact */
+  #slide-15 .split-panel-right {
+    gap: 2rem !important;
+    padding-bottom: 8rem !important;
+  }
+
+  /* CTA button full width on mobile */  
+  #slide-15 .split-panel-right a[href*="calendly"] {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* ─── Slide 16: Vision + Contact ─── */
+  #slide-16 .split-panel-left {
+    gap: 1.5rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  #slide-16 h2 {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+
+  #slide-16 p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Contact card stack vertically */
+  .contact-row {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+  }
+
+  .contact-cta-block {
+    width: 100% !important;
+  }
+
+  .contact-cta-block a,
+  .cta-meeting-btn {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Website links */
+  #slide-16 .split-panel-right {
+    gap: 2rem !important;
+    padding-bottom: 6rem !important; /* Reduced dead space */
+  }
+
+  /* ─── Backer Chips ─── */
+  .backer-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+
+  .backer-chips span {
+    padding: 0.45rem 0.9rem !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50px !important;
+    font-size: 0.75rem !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.02em !important;
+  }
 
 }
 
