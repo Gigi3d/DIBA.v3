@@ -7,7 +7,7 @@
 // State
 // ===================================
 let currentSlide = 1;
-const totalSlides = 16;
+const totalSlides = 10;
 
 // ===================================
 // Session & Email Gate
@@ -122,7 +122,7 @@ const productTag = document.getElementById('productTag');
 const pdfBtn = document.getElementById('pdfBtn');
 
 // Slides that show the #Product tag
-const PRODUCT_SLIDES = new Set([5, 6]);
+const PRODUCT_SLIDES = new Set([6]);
 
 // ===================================
 // Navigation

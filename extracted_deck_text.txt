@@ -1,0 +1,591 @@
+D I B A  I N C .  ·  I N S T I T U T I O N A L  B R I E F  ·  2 0 2 6
+Bitcoin-Native Capital
+Markets Infrastructure.
+Private smart contracts on Bitcoin for the issuance, custody, and
+settlement of real-world assets at institutional scale.
+The Asset OS for institutions that require Bitcoin's trust assumptions.
+$400T
+Total global financial
+assets · McKinsey
+Global Institute
+$19T
+Tokenized asset market
+by 2031 · Boston
+Consulting Group
+44%
+CAGR: tokenized assets
+through 2031 · BCG
+0
+Successful base-layer
+exploits on Bitcoin in 15
+years
+PREPARED FOR: FUND MANAGERS · FAMILY OFFICES · SOVEREIGN FUNDS · PRIVATE CREDIT ISSUERS
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+BITCOIN-SETTLED CAPITAL MARKETS INFRASTRUCTURE: THE NETWORK
+C O N T E N T S
+01
+The Tokenization Thesis
+02
+The Problem With EVM Infrastructure
+03
+Why Bitcoin
+04
+RGB Protocol
+05
+Stablecoins: The First Migration
+06
+Bitcoin-Native Capital Markets
+07
+The Global Adoption Curve
+08
+DIBA Infrastructure Stack
+09
+Risk Framework
+10
+Why Work With DIBA
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+2
+0 1  /  T H E  TO K E N I Z AT I O N  T H E S I S
+Tokenization Extends the Bitcoin Promise.
+Bitcoin established a proven framework for peer-to-peer value transfer without reliance on
+centralized intermediaries. Tokenization builds upon this architecture. By utilizing this infrastructure,
+markets can migrate the instruments that underpin the global economy — bonds, equities, credit,
+and real assets — to a more efficient settlement rail.
+The access problem is structural. Approximately 80–82% of Americans have no meaningful
+exposure to institutional-grade financial instruments. Globally, this exclusion affects the vast majority
+of the population. This is not driven by investor preference, but by the operational limitations of
+legacy capital markets.
+81%
+of Americans have no access to institutional financial
+instruments
+ No access (81%)
+ Has access (19%)
+80–82%
+Americans without meaningful
+access to institutional financial
+instruments · Fed Survey of
+Consumer Finances
+99.75%
+Of the global population
+historically excluded from
+institutional capital markets.
+$50–80B
+Estimated addressable annual
+friction (reconciliation, settlement
+lag, intermediary fees).
+Every legacy financial instrument that migrates to a programmable, atomic-settlement rail eliminates
+a layer of operational cost. Moving even 5% of the $400 trillion global capital stack onto Bitcoin rails
+Each square = 1% of Americans · Fed Survey of Consumer Finances
+represents a $20 trillion market — larger than any single asset class created in the last twenty years.
+"The stablecoin sector alone could grow tenfold by 2030."
+— U.S. Treasury Secretary Scott Bessent, Treasury Market Conference, 2025
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+3
+0 2  /  T H E  P R O B L E M
+EVM Infrastructure Has a Structural Flaw
+Institutional Capital Cannot Ignore.
+After Bitcoin, Ethereum introduced programmable electronic value. The experiment yielded a large
+ecosystem. It also generated a body of evidence indicating that the design philosophy of placing
+contract logic in a shared, public execution environment accessible to every participant carries risks
+that scale with the size of the system.
+Re-entrancy attacks, oracle manipulation, maximal extractable value, sandwich attacks, and bridge
+exploits are not isolated vulnerabilities awaiting patches. They are predictable consequences of the
+architecture. The empirical data reflects this clearly.
+$9.8B+
+Lost to EVM/cross-
+chain exploits since
+2020, including $1.5B
+Bybit & $293M KelpDAO
+· DeFiLlama
+$4.1B+
+Stolen from bridges and
+cross-chain
+infrastructure, 2021–
+2026 · Chainalysis
+1,000+
+Documented DeFi
+exploits, 2020–2026 ·
+Immunefi
+0
+Successful base-layer
+breaches on Bitcoin in
+15 years
+SELECTED MAJOR EVM EXPLOITS, 2016–2026
+2016
+The DAO : $60M. Re-entrancy attack; Ethereum hard fork required.
+2020
+bZx Flash Loan : $25M. Oracle manipulation via flash loan.
+2021
+Poly Network : $610M. Cross-chain bridge logic exploit.
+2022
+Ronin Bridge : $625M. Lazarus Group validator key compromise.
+2022
+Wormhole : $320M. Signature verification bypass on Solana bridge.
+2023
+Euler Finance : $197M. Flash loan and donation attack on lending protocol.
+2024
+Radiant Capital : $50M. Malware-signed multi-sig transactions.
+2025
+Bybit Exchange : $1.5B. Largest single crypto theft on record; Lazarus Group compromised
+Safe multisig UI to drain ETH cold wallet.
+2026
+Kelp DAO (rsETH) : $293M. Lazarus Group (TraderTraitor) poisoned LayerZero RPC nodes via
+DDoS and injected a fraudulent cross-chain message; 116,500 rsETH drained from bridge.
+2026
+Aave: Emergency Freeze : Contagion from Kelp DAO; Aave governance force-froze all rsETH
+collateral markets to prevent cascading bad debt across the lending protocol.
+RISK VECTOR
+EVM / SOLIDITY
+RGB ON BITCOIN
+Smart contract exploits
+$6.5B+ lost, 2020–2025
+No onchain contract
+execution
+Bridge risk
+$3.8B stolen, 2021–2025
+No bridges required
+MEV / sandwich attacks
+Systemic and measurable
+Structurally impossible
+Oracle manipulation
+Multiple $100M+ incidents
+Not applicable
+Re-entrancy
+DAO hack: $60M (2016)
+Not applicable
+Base-layer exploit record
+Multiple consensus bugs
+across chains
+Zero in 15 years
+Settlement finality
+Probabilistic
+(reorganizations possible)
+Bitcoin proof-of-work
+finality
+Position privacy
+Public mempool exposure
+Client-side validation only
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+5–6
+0 3  /  W H Y  B I TC O I N
+Settlement Infrastructure Requires an
+Uncompromising Base Layer.
+Institutions evaluate settlement infrastructure based on predictability, security history, and
+counterparty risk profiles. Bitcoin provides a fifteen-year operational history without a base-layer
+security breach. For institutional risk committees, this represents the most tested settlement layer
+available.
+Issuer
+RGB Engine
+BitMask Wallet
+DIBA Market
+Carbonado Storage
+Lightning Network
+Every component settles atomically on Bitcoin L1. No bridges. No trusted intermediaries.
+01
+Deterministic Settlement
+RGB contracts settle on Bitcoin UTXOs. No bridge
+operator, no validator committee that can be censored
+or reorganised out of existence. Settlement is final.
+02
+T+0 on Everything
+Both legs of every trade settle in a single Bitcoin
+transaction. The buyer receives the asset. The seller
+receives payment. Either it happens completely, or it
+does not happen at all.
+03
+Regulatory-Grade Privacy
+Contract state is validated client-side by the asset
+holder. Only the cryptographic commitment goes
+onchain. Investor positions are not broadcast to a
+public mempool.
+04
+Fifteen Years. No Breach.
+Bitcoin has never suffered a successful base-layer
+exploit. Every EVM-compatible chain in production
+today has experienced either a consensus bug, a
+critical client vulnerability, or a catastrophic contract
+loss at scale.
+05
+Programmable Without Compromise
+RGB enables waterfall payments, subscription
+mechanics, maturity triggers, and KYC/AML gating.
+These features are validated off-chain by the parties to
+the contract, while the blockchain records only the
+final cryptographic commitment.
+BITCOIN
+Base-Layer Settlement
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+7–8
+0 4  /  R G B  P R OTO C O L
+Client-Validated Contracts on Bitcoin.
+RGB represents a decade of development aimed at creating private, scalable smart contract
+protocols that utilize Bitcoin for settlement without requiring consensus changes or compromising
+network efficiency.
+"Peter Todd's single-use seal primitives cryptographically anchor every token and asset state to a
+Bitcoin UTXO. Validation is private. Settlement is on Bitcoin."
+Source: RGB Protocol (originating from single-use seal commitments)
+Each state transition is validated client-side by the recipient, rather than by miners, validators, or a
+network of nodes maintaining a shared ledger. The blockchain records only a cryptographic
+commitment. The asset logic can systematically handle complex contractual demands: waterfall
+distributions, maturity triggers, investor gating, and transfer restrictions, with all execution occurring
+off-chain.
+HOW AN RGB ASSET TRANSFER WORKS
+1
+Issuer defines asset schema
+RGB contract written, anchored to a Bitcoin UTXO
+2
+Recipient shares a blinded UTXO
+Recipient generates a blind seal with no public address broadcast
+3
+State transition constructed off-chain
+Sender builds transition, validated privately by both parties
+4
+Commitment posted to Bitcoin
+Single OP_RETURN or Taproot output commits the state transition
+5
+Bitcoin block confirms
+Finality inherits Bitcoin's proof-of-work (T+0 relative to block confirmation)
+6
+Lightning routing (optional)
+For sub-second settlement, RGB transfers route through Lightning channels at near-zero cost
+⬡
+Client-Side Validation
+Validation by the asset
+holder, not the network
+⚡
+Lightning
+Near-instant settlement
+via Lightning Network
+routing
+⛔
+No Bridges
+No cross-chain trust.
+No bridge operator risk.
+🔗
+UTXO-Anchored
+Every asset state
+cryptographically bound
+to a Bitcoin UTXO
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+9–10
+0 5  /  S TA B L E C O I N S
+The Largest Smart Contract Use Case Is
+Moving to Bitcoin Rails.
+Stablecoins represent a primary use case for smart contracts on EVM chains. Tether, with over $118
+billion USDT in circulation as of Q1 2026, has initiated native USDT issuance on Bitcoin via RGB. This
+represents a significant institutional shift toward Bitcoin settlement infrastructure.
+$118B+
+USDT in circulation, Q1
+2026 · Tether Treasury
+48%
+Growth in global
+stablecoin transaction
+volume, 2023–2024 ·
+Visa Onchain
+30%
+Month-over-month
+stablecoin growth on
+Stripe, H1 2025
+10×
+Projected stablecoin
+sector growth by 2030 ·
+U.S. Treasury
+STABLECOIN ADOPTION RATE BY BUSINESS SEGMENT (% REPORTING CURRENT USE)
+Companies: Sub-Saharan Africa
+94%
+AI Companies
+69%
+SaaS Companies
+60%
+Companies: MENA
+55%
+Marketplaces
+31%
+Companies: Latin America
+30%
+Platforms
+29%
+Financial Services
+27%
+High cross-border volume (>$1M/mo)
+25%
+Global sample
+16%
+Source: Stripe Global Survey of ~2,000 business leaders, 2025. Stripe internal payment volume data H1 2025.
+"70% of customers paying in stablecoins on Stripe are net-new customers. For all other payment
+methods, that figure is 30%. The demand was always there. The rail was missing."
+Source: Stripe Research, 2025
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+11
+0 6  /  CA P I TA L  M A R K E T S
+Tokenization Is Real. Bitcoin Is Still Early.
+That Is the Opportunity.
+The tokenization of real-world assets is not speculative — it is already happening, predominantly on
+EVM-based infrastructure. Tokenised securities have crossed $19 billion in on-chain value, with
+private credit accounting for nearly three-quarters of that total. But the rails these assets currently
+run on carry the structural risks documented in Section 02.
+Bitcoin-native capital markets via RGB are at an earlier stage. The protocol is proven. Tether has
+already begun native USDT issuance on Bitcoin via RGB. The infrastructure is being built. The
+opportunity for institutions is to position ahead of the migration — not after the market has priced it
+in.
+EVM TOKENIZATION
+Live today: $19B on-chain, growing 44% CAGR
+BITCOIN / RGB
+Early stage: USDT live on RGB; Capital markets
+infrastructure in development
+$19B
+Tokenised RWAs on-
+chain today (primarily
+EVM) · RWA.xyz, 2025
+$19T
+BCG projection for total
+tokenised assets by
+2031
+$118B+
+USDT in circulation
+(now natively issuable
+on Bitcoin via RGB)
+Day 1
+Bitcoin asset capital
+markets (the
+infrastructure window is
+open now)
+WHAT BITCOIN SETTLEMENT ENABLES: SELECTED USE CASES
+USE CASE 01 · STABLECOINS
+Dollar-Denominated
+Settlement on Bitcoin
+Tether has begun issuing USDT natively on Bitcoin via RGB, becoming the
+first major stablecoin to leverage Bitcoin rails. This is not a peg or a
+wrapped token; it is a native issuance anchored to a Bitcoin UTXO, settled
+with Bitcoin finality, and validated client-side. Institutions can hold, transfer,
+and settle USD-equivalent value without EVM bridge risk.
+USE CASE 02 · PRIVATE
+CREDIT
+Loan Facilities with
+Programmable Logic
+RGB supports complex contract schemas including waterfall distributions,
+seniority tranches, maturity triggers, and default provisions. All logic is
+validated off-chain by the participating parties. This architecture removes
+trustees and reconciliation lag, with settlement finality anchored to the
+Bitcoin block. Private credit funds can manage instruments without
+custodial intermediaries.
+USE CASE 03 · SECURITIES
+Equities with Compliant
+Transfer Restrictions
+RGB21 schemas support automated KYC/AML gating, accredited investor
+verification, jurisdictional limits, and lock-up periods encoded directly into
+the contract rather than enforced by post-trade policy. Bonds can execute
+coupon automation and enforce transfer restrictions cryptographically, with
+ownership recorded on Bitcoin.
+USE CASE 04 · FUND UNITS
+LP Interests with Atomic
+Subscription
+LP interests and co-investment vehicles can be issued as RGB tokens.
+Subscription and redemption processes execute atomically: the investor
+delivers payment and the fund delivers the LP token synchronously within a
+single transaction. Secondary trades operate identically, eliminating T+2
+settlement lag and counterparty credit risk.
+USE CASE 05 · SOVEREIGN
+National Bond Registries
+Governments exploring digital bond issuance can anchor registries to
+Bitcoin, utilizing a ledger with an unbroken 15-year security record. The
+sovereign does not rely on third-party intermediaries. The contract state is
+held by the bondholder while Bitcoin provides absolute timestamping and
+settlement guarantees.
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+12–13
+07  /  A D O P T I O N  C U RV E
+Emerging Markets Accelerate Adoption.
+Outside the United States and Europe, customers are significantly less likely to hold credit cards.
+Where cards exist, authorization rates can run up to 30% lower than in developed markets. At the
+same time, these customers are twice as likely to hold crypto wallets. Stablecoins on Bitcoin are not
+a speculative product for this population. They are the most functional savings and payment tool
+available.
+2×
+More likely to hold a
+crypto wallet: Global
+South vs. Western
+markets
+30%
+Lower card
+authorization rates in
+parts of Africa, LATAM,
+Southeast Asia
+3.5B
+Unbanked or
+underbanked adults
+globally · World Bank
+Findex 2024
+$250B
+Annual remittance flows
+to Sub-Saharan Africa
+and LATAM · World
+Bank
+Companies serving Sub-Saharan Africa are 94% more likely to use stablecoins than the global
+sample. MENA: 69% more likely. Latin America: 69% more likely.
+Source: Stripe Global Survey, 2025
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+14
+0 8  /  I N F R A S T R U C T U R E  S TAC K
+A Fully Integrated Capital Markets Stack.
+DIBA offers a vertically integrated Bitcoin settlement framework. The wallet, marketplace, storage
+layer, and settlement engine are entirely unified. This architecture eliminates third-party middleware
+dependencies, bridge operator vulnerabilities, and external points of failure.
+I
+BitMask Wallet
+WALLET LAYER
+Non-custodial · Rust/WASM · Lightning-enabled · RGB asset support
+Non-custodial institutional wallet. Self-sovereign key management, RGB asset support, and
+Lightning Network access. Built in Rust, compiled to WebAssembly. Private keys never leave
+the client device. There is no DIBA server that, if compromised, would put client assets at
+risk.
+II
+DIBA Marketplace
+MARKET LAYER
+Peer-to-peer atomic swap · Primary issuance · Secondary trading
+Peer-to-peer atomic swap settlement. No custodial escrow, no intermediary wallet. Both
+legs of every trade execute in one Bitcoin transaction, or neither does. Primary issuance
+and secondary trading in a single interface.
+III
+Carbonado Storage
+STORAGE LAYER
+Encrypted contract state · Backed by Hut8 · Institutional SLA
+End-to-end encrypted contract state storage backed by Hut8, one of North America's
+largest publicly traded Bitcoin miners. No central server. No single point of failure.
+Institutional SLA with geographic redundancy.
+IV
+RGB Engine
+SETTLEMENT LAYER
+Client-side validation · UTXO-anchored · RGB20 + RGB21 standards
+Private smart contract infrastructure anchored to Bitcoin UTXOs via client-side validation.
+Contract state held by the asset holder. Only the cryptographic commitment touches the
+chain. Compatible with RGB20 (fungible) and RGB21 (non-fungible) standards.
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+15
+0 9  /  R I S K  F R A M E WO R K
+How Institutions Should Think About
+Bitcoin-Native Infrastructure.
+The institutional risk assessment for Bitcoin-settled capital markets differs fundamentally from EVM-
+based DeFi. The architectural vulnerabilities are distinct, the empirical track record is fundamentally
+different, and the regulatory trajectory provides superior clarity.
+Technology Risk
+MITIGATED
+RGB has been in development since 2016 and is supported by multiple independent audits. Bitcoin's
+base layer carries a 15-year zero-exploit record. Contract logic is validated entirely client-side,
+eliminating the shared public execution environments that expose EVM chains to systemic attack.
+Counterparty Risk
+STRUCTURALLY ELIMINATED
+Atomic swap settlement means no settlement lag, no escrow counterparty, and no custodian holding
+assets between execution and delivery. T+0, both legs, or no trade. That is the entire counterparty
+risk conversation.
+Regulatory Risk
+REDUCING
+The GENIUS Act (U.S., 2025) created the first federal stablecoin framework, while MiCA in Europe
+provides a clear path for tokenised asset issuance. Furthermore, Bitcoin is explicitly recognized as a
+commodity by U.S. regulators, representing the clearest regulatory classification of any digital asset.
+Liquidity Risk
+MANAGED
+Lightning Network provides 24/7 liquidity for asset transfers. Bitcoin's $1.3 trillion market cap is the
+deepest liquidity pool of any digital asset. Secondary trading via DIBA Marketplace with atomic
+settlement removes execution risk.
+Custody Risk
+SELF-SOVEREIGN
+BitMask Wallet is non-custodial. Private keys never leave the client device. This is not a policy
+position. It is the architecture.
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+16
+1 0  /  W H Y  D I B A
+The Gold Standard for Bitcoin-Native
+Finance.
+DIBA targets the institutional standard for programmable bearer instruments settled on Bitcoin. The
+infrastructure is engineered to process the full complexity of financial securities: private, auditable,
+and settled on the most comprehensively tested cryptographic ledger.
+$30T
+Projected tokenised asset market
+by 2034 · World Economic Forum
+4.75%
+Of global assets tokenised today
+— adoption remains early stage ·
+RWA.xyz
+$14B
+Private credit on-chain Q2 2025 —
+the segment DIBA is purpose-built
+for
+DIBA is the only team building the complete capital markets stack natively on Bitcoin. Not on a
+sidechain. Not through bridges. Not through compatibility layers. From issuance to custody to
+settlement, every component is Bitcoin-native and cryptographically verifiable.
+Base-Layer Settlement
+No reliance on sidechains, bridges, or EVM
+compatibility layers. Every component of the stack
+settles directly via the Bitcoin network or Lightning.
+The core security assumptions of the base layer
+remain intact.
+Vertical Integration
+Wallet, marketplace, storage, and RGB engine — all
+owned and operated by DIBA. No dependency on
+third-party middleware that could break, be acquired,
+or be shut down.
+Institutional Architecture
+Built for fund managers, family offices, and sovereigns
+from day one. Not retrofitted from a retail product.
+BitMask supports institutional key management, multi-
+signature custody, and compliance gating at the
+protocol level.
+Established Infrastructure
+DIBA developed the initial peer-to-peer marketplace
+for Bitcoin-settled assets. The underlying RGB tooling,
+Carbonado storage layer, and BitMask wallet reflect
+extensive institutional-grade infrastructure
+development.
+Compliant by Construction
+Non-custodial architecture means DIBA does not hold
+client assets. Transfer restrictions, KYC/AML gating,
+and accreditation checks are encoded directly into the
+RGB contract logic, preventing policy evasion or post-
+execution settlement failures.
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+17
+DIBA provides the infrastructure required to migrate traditional
+financial securities to Bitcoin settlement rails — delivering
+institutional-grade security, definitive settlement finality, and
+cryptographically verifiable ownership.
+R E Q U E S T  A  B R I E F I N G
+For fund managers, family offices, sovereigns,
+and private credit issuers exploring Bitcoin-
+native capital markets.
+info@diba.io · gideon@diba.io
+W H O  W E  W O R K  W I T H
+This document is prepared by DIBA Inc. for informational purposes only and does not constitute an offer to sell or solicitation to buy any
+security. Past performance of Bitcoin or any digital asset is not indicative of future results. Institutional investors should conduct
+independent due diligence. Statistics sourced from: Stripe Global Survey 2025, Visa Onchain Analytics, BCG Tokenization Report 2024,
+World Bank Global Findex 2024, DeFiLlama, Immunefi Bug Bounty Report, McKinsey Global Institute, RWA.xyz, Tether Treasury, World
+Economic Forum.
+DIBA
+Bitcoin-Native Capital Markets Infrastructure · Institutional Brief 2026
+18
+Mid-market asset managers, $100M–$5B AUM
+·
+Bitcoin-focused family offices and sovereign
+funds
+·
+Private credit issuers and regulated fund
+managers
+·
+Governments exploring sovereign bond
+issuance on Bitcoin
+·
+Banks and broker-dealers building Bitcoin
+settlement rails
+·
