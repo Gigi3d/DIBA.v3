@@ -1,1095 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DIBA — Bitcoin-Native Capital Markets · Investor Deck 2026</title>
-  <meta name="description" content="Private smart contracts on Bitcoin for the issuance, custody, and settlement of real-world assets at institutional scale.">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* ==============================================
-       SEQUOIA DECK — Slide-specific overrides
-       ============================================== */
-
-    /* ── Slide 2: Dual Problem — two-column punchy layout ── */
-    .problem-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      width: 100%;
-      height: 100%;
-      align-items: stretch;
-    }
-    .problem-col {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 2.5rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-    .problem-col.legacy { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(15,21,40,0) 100%); border-top: 3px solid rgba(255,255,255,0.2); }
-    .problem-col.evm    { background: linear-gradient(135deg, rgba(239,68,68,0.04) 0%, rgba(15,21,40,0) 100%); border-top: 3px solid rgba(239,68,68,0.5); }
-    .problem-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.25rem; }
-    .problem-headline { font-family: var(--font-heading); font-size: clamp(1.6rem, 2.5vw, 2.6rem); line-height: 1.1; margin-bottom: 0.5rem; color: #fff; }
-    .problem-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .problem-stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1.25rem 1rem; }
-    .problem-stat-num { font-family: var(--font-heading); font-size: 2.2rem; color: #fff; line-height: 1; }
-    .problem-stat-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45); margin-top: 0.3rem; }
-    .problem-bullet { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.6; display: flex; gap: 0.6rem; align-items: flex-start; }
-    .problem-bullet::before { content: '—'; color: rgba(255,255,255,0.25); flex-shrink: 0; padding-top: 0.05em; }
-    .problem-divider-bar { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); z-index: 10; }
-    .vs-badge { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-primary); border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; }
-
-    /* ── Slide 3: Solution ── */
-    .solution-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; height: 100%; align-items: stretch; }
-    .solution-left { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
-    .solution-right { display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
-    .rgb-feature { display: flex; align-items: flex-start; gap: 1rem; padding: 1.1rem 1.4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; transition: border-color 0.25s; }
-    .rgb-feature:hover { border-color: rgba(255,203,18,0.3); }
-    .rgb-feature-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,203,18,0.08); border: 1px solid rgba(255,203,18,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .zero-badge { background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(15,21,40,0) 100%); border: 1px solid rgba(34,197,94,0.25); border-radius: 12px; padding: 1.5rem 2rem; display: flex; gap: 1.5rem; align-items: center; }
-
-    /* ── Slide 4: Why Now ── */
-    .why-now-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .catalyst-card { padding: 2rem; border-radius: 14px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); position: relative; overflow: hidden; }
-    .catalyst-card.primary { border-color: rgba(255,203,18,0.3); background: linear-gradient(135deg, rgba(255,203,18,0.06) 0%, rgba(15,21,40,0) 100%); }
-    .catalyst-number { font-family: var(--font-heading); font-size: 3rem; color: #ffcb12; line-height: 1; }
-    .catalyst-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.6); margin-top: 0.2rem; }
-    .inflection-bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: linear-gradient(135deg, rgba(255,203,18,0.08) 0%, transparent 100%); border: 1px solid rgba(255,203,18,0.35); border-radius: 12px; }
-
-    /* ── Slide 5: Market Size ── */
-    .market-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .market-stat { text-align: center; padding: 2rem 1rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; border-top: 3px solid rgba(255,203,18,0.4); }
-    .market-stat-num { font-family: var(--font-heading); font-size: 2.5rem; color: #ffcb12; line-height: 1; margin-bottom: 0.5rem; }
-    .market-stat-desc { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
-    .market-thesis { margin-top: auto; padding: 1.5rem 2rem; border: 1px solid rgba(255,203,18,0.2); border-radius: 12px; background: rgba(255,203,18,0.04); }
-
-    /* ── Slide 6: Product ── */
-    .product-os { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .product-layer { padding: 1.75rem 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; border-top: 3px solid var(--gold-light); transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
-    .product-layer:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(255,203,18,0.1); }
-    .product-layer-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ffcb12; margin-bottom: 0.4rem; }
-    .product-layer-name { font-family: var(--font-heading); font-size: 1.5rem; color: #fff; margin: 0 0 0.75rem; }
-    .product-layer-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
-    .product-moat-bar { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 2rem; background: rgba(255,203,18,0.06); border: 1px solid rgba(255,203,18,0.25); border-radius: 10px; border-left: 5px solid #ffcb12; }
-
-    /* ── Slide 7: Traction ── */
-    .traction-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-    .traction-stat { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.75rem 1.25rem; text-align: center; }
-    .traction-num { font-family: var(--font-heading); font-size: 2.75rem; color: #ffcb12; line-height: 1; }
-    .traction-desc { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
-    .milestone-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-    .milestone-card { padding: 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; border-top: 2px solid rgba(255,203,18,0.4); }
-    .milestone-year { font-size: 0.7rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.15em; }
-    .milestone-title { font-family: var(--font-heading); font-size: 1.1rem; color: #fff; margin: 0.35rem 0 0.4rem; }
-    .milestone-body { font-size: 0.84rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
-
-    /* ── Slide 8: Competition ── */
-    .moat-split { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: stretch; }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .problem-split, .solution-split, .why-now-grid, .market-stats,
-      .product-os, .traction-grid, .milestone-row, .moat-split { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIBA — Bitcoin-Native Capital Markets · Institutional Deck 2026</title>
+<link rel="stylesheet" href="sequoia-deck.css">
 </head>
 <body>
-
 <div class="presentation">
 
-  <!-- ============ SLIDE 1 — COVER ============ -->
-  <div class="slide active" id="slide-1" data-slide="1">
-    <div class="slide-inner" style="display: flex; align-items: center; justify-content: center;">
-      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; width: 100%; max-width: 780px;">
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="slide-1" data-slide="1">
+<div style="display:flex;width:100%;height:100%;">
 
-        <!-- Logo -->
-        <img src="images/diba-bitmask-logo-1.png" alt="DIBA × BitMask" class="cover-logo" style="width: 140px; margin-bottom: 2.5rem;">
-
-        <!-- Two-line hero heading -->
-        <h1 style="font-family: var(--font-heading); font-size: clamp(4rem, 8vw, 7rem); line-height: 1; letter-spacing: -0.03em; margin: 0 0 1.75rem; font-weight: 800;">
-          <span style="color: #ffffff; display: block;">Onchain</span>
-          <span style="color: #ffcb12; display: block;">Assets &amp; Securities</span>
-        </h1>
-
-        <!-- Pill badge -->
-        <div style="display: inline-flex; align-items: center; padding: 0.5rem 1.5rem; border: 1px solid rgba(255,203,18,0.45); border-radius: 50px; background: rgba(255,203,18,0.05); margin-bottom: 1.5rem;">
-          <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ffcb12; font-family: var(--font-mono);">Private Smart Contracts on Bitcoin</span>
-        </div>
-
-        <!-- Subtitle -->
-        <p style="font-size: 1.05rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin: 0 0 2.25rem; max-width: 520px;">
-          Private smart contracts on <strong style="color: #ffcb12; font-weight: 600;">Bitcoin</strong> for the issuance, custody,<br>and settlement of real-world assets at institutional scale.
-        </p>
-
-        <!-- BACKED BY -->
-        <div style="margin-bottom: 2.25rem;">
-          <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-family: var(--font-mono); margin-bottom: 0.85rem;">Backed By</div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;">
-            <span style="padding: 0.4rem 1.1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; background: rgba(255,255,255,0.04);">Draper Associates</span>
-            <span style="padding: 0.4rem 1.1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; background: rgba(255,255,255,0.04);">Waterdrip Capital</span>
-            <span style="padding: 0.4rem 1.1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; background: rgba(255,255,255,0.04);">Actai Ventures</span>
-            <span style="padding: 0.4rem 1.1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; background: rgba(255,255,255,0.04);">Martial Eagle Fund</span>
-            <span style="padding: 0.4rem 1.1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; background: rgba(255,255,255,0.04);">Fulgur Ventures</span>
-          </div>
-        </div>
-
-        <!-- Draper Quote Box -->
-        <div style="max-width: 460px; border-left: 4px solid #ffcb12; background: rgba(20, 25, 42, 0.9); border-radius: 0 10px 10px 0; padding: 1.1rem 1.5rem; text-align: left;">
-          <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.65; font-style: italic; margin: 0 0 0.5rem;">
-            &ldquo;Tim Draper backed DIBA at inception &mdash; the same instinct that led him to <strong style="color: #ffcb12; font-style: normal;">Bitcoin</strong> at $6.&rdquo;
-          </p>
-          <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ffcb12; font-family: var(--font-mono);">Draper Associates &nbsp;·&nbsp; Lead Investor</div>
-        </div>
-
+  <!-- LEFT: dark, typographic -->
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 6rem;background:var(--ink);border-right:1px solid var(--line);">
+    <div style="margin-bottom:2.5rem;">
+      <img src="images/diba-bitmask-logo-1.png" alt="DIBA" style="height:38px;width:auto;opacity:0.9;">
+    </div>
+    <div style="font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;">Investor Pitch Deck &middot; 2026</div>
+    <h1 style="font-family:var(--sans);font-size:clamp(3rem,6vw,5.5rem);font-weight:900;letter-spacing:-0.04em;line-height:0.95;margin-bottom:1.75rem;">
+      <span style="display:block;color:#fff;">Capital Markets</span>
+      <span style="display:block;color:var(--gold);">on Bitcoin.</span>
+    </h1>
+    <div class="rule-gold" style="margin-bottom:1.5rem;"></div>
+    <div style="margin-bottom:1.75rem;padding:1rem 1.25rem;background:rgba(232,184,75,0.06);border:1px solid var(--gold-line);border-left:3px solid var(--gold);border-radius:8px;max-width:420px;">
+      <div style="font-family:var(--mono);font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.35rem;">Institutional Round &middot; Open Now</div>
+      <div style="font-size:0.95rem;color:#fff;font-weight:600;line-height:1.45;">DIBA is raising to build a <span style="color:var(--gold);">$2 billion per year</span> regulated Bitcoin capital markets business.</div>
+    </div>
+    <p style="font-size:1.05rem;color:var(--t-mid);line-height:1.7;max-width:420px;margin-bottom:3rem;">Private smart contracts on Bitcoin for the issuance, custody, and atomic settlement of real-world assets at institutional scale.</p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;">
+      <div style="font-family:var(--mono);font-size:0.58rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--t-low);margin-bottom:0.25rem;">Backed By</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <span class="pill pill-dim">Draper Associates</span>
+        <span class="pill pill-dim">Waterdrip Capital</span>
+        <span class="pill pill-dim">Fulgur Ventures</span>
+        <span class="pill pill-dim">Actai Ventures</span>
+        <span class="pill pill-dim">Martial Eagle Fund</span>
       </div>
     </div>
   </div>
 
-  <!-- ============ SLIDE 2 — THE PROBLEM ============ -->
-  <div class="slide" id="slide-2" data-slide="2">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">01</div>
-        <h2 class="h1" style="margin: 0;">The Problem</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">Traditional finance excludes billions. Alternative rails have lost $14B+ to structural exploits.</p>
+  <!-- RIGHT: gold accent panel -->
+  <div style="width:38%;display:flex;flex-direction:column;justify-content:space-between;padding:5rem 4rem;background:linear-gradient(160deg,rgba(232,184,75,0.07) 0%,var(--ink-mid) 100%);">
+    <div>
+      <div style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-low);margin-bottom:3rem;">Why Now</div>
+      <div style="display:flex;flex-direction:column;gap:2rem;">
+        <div style="border-left:2px solid var(--gold-line);padding-left:1.25rem;">
+          <div style="font-size:2.2rem;font-weight:800;letter-spacing:-0.04em;color:#fff;">$118B</div>
+          <div style="font-size:0.72rem;color:var(--t-mid);margin-top:0.3rem;line-height:1.4;">USDT now issuing natively on Bitcoin via RGB. The stablecoin migration has begun.</div>
+        </div>
+        <div style="border-left:2px solid var(--gold-line);padding-left:1.25rem;">
+          <div style="font-size:2.2rem;font-weight:800;letter-spacing:-0.04em;color:#fff;">$19T</div>
+          <div style="font-size:0.72rem;color:var(--t-mid);margin-top:0.3rem;line-height:1.4;">Tokenized asset market by 2031. BCG and Ripple projection.</div>
+        </div>
+        <div style="border-left:2px solid var(--gold-line);padding-left:1.25rem;">
+          <div style="font-size:2.2rem;font-weight:800;letter-spacing:-0.04em;color:var(--gold);">RGB</div>
+          <div style="font-size:0.72rem;color:var(--t-mid);margin-top:0.3rem;line-height:1.4;">Private Turing-complete smart contracts, native on Bitcoin and scalable on the Lightning Network.</div>
+        </div>
       </div>
-      <div class="slide-body" style="gap: 1.5rem;">
-
-        <div style="display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; width: 100%; align-items: stretch;">
-
-          <!-- LEFT: Legacy TradFi -->
-          <div class="problem-col legacy">
-            <div>
-              <div class="problem-eyebrow" style="color: rgba(255,255,255,0.4);">Legacy Capital Markets</div>
-              <div class="problem-headline">Slow, Siloed &amp; Expensive</div>
-              <div style="font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.6;">DTCC, SWIFT, and Euroclear process global capital on infrastructure built in the 1970s. Every transaction extracts its toll.</div>
-            </div>
-            <div class="problem-stat-row">
-              <div class="problem-stat">
-                <div class="problem-stat-num">$17B+</div>
-                <div class="problem-stat-label">Annual Post-Trade Overhead</div>
-              </div>
-              <div class="problem-stat">
-                <div class="problem-stat-num">T+2</div>
-                <div class="problem-stat-label">Settlement Lag · Still Standard</div>
-              </div>
-              <div class="problem-stat" style="grid-column: 1 / -1;">
-                <div class="problem-stat-num">93%</div>
-                <div class="problem-stat-label">High-yield products are geographically siloed, locking out global capital</div>
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-              <div class="problem-bullet">Three-day settlement cycles mean capital locks up and can't compound.</div>
-              <div class="problem-bullet">Every intermediary layer extracts fees and adds counterparty risk.</div>
-            </div>
-          </div>
-
-          <!-- VS divider -->
-          <div style="display: flex; align-items: center; justify-content: center;">
-            <div class="vs-badge">VS</div>
-          </div>
-
-          <!-- RIGHT: EVM Structural Flaws -->
-          <div class="problem-col evm">
-            <div>
-              <div class="problem-eyebrow" style="color: rgba(239,68,68,0.7);">EVM-Based "Alternative"</div>
-              <div class="problem-headline">Structurally Broken for Institutions</div>
-              <div style="font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.6;">Ethereum's shared public execution environment is a feature for retail, but an existential risk for institutional capital at scale.</div>
-            </div>
-            <div class="problem-stat-row">
-              <div class="problem-stat" style="border-color: rgba(239,68,68,0.15);">
-                <div class="problem-stat-num" style="color: rgba(239,68,68,0.8);">$9.8B+</div>
-                <div class="problem-stat-label">EVM cross-chain exploits since 2020 · DeFi Llama</div>
-              </div>
-              <div class="problem-stat" style="border-color: rgba(239,68,68,0.15);">
-                <div class="problem-stat-num" style="color: rgba(239,68,68,0.8);">$4.1B+</div>
-                <div class="problem-stat-label">Stolen from bridges &amp; cross-chain infra · Chainalysis</div>
-              </div>
-              <div class="problem-stat" style="border-color: rgba(239,68,68,0.15);">
-                <div class="problem-stat-num" style="color: rgba(239,68,68,0.8);">1,000+</div>
-                <div class="problem-stat-label">Documented DeFi exploits 2020–2025 · Immunefi</div>
-              </div>
-              <div class="problem-stat" style="border-color: rgba(239,68,68,0.15);">
-                <div class="problem-stat-num" style="color: rgba(239,68,68,0.8);">MEV</div>
-                <div class="problem-stat-label">Sandwich attacks are not bugs — they are architectural</div>
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-              <div class="problem-bullet">Re-entrancy, oracle manipulation, and extraction are systemic, not isolated.</div>
-              <div class="problem-bullet">No institution can hold fiduciary assets on an MEV-extractable chain.</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 81% PICTOGRAM ROW -->
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.1rem 1.75rem; display: flex; align-items: center; gap: 2rem;">
-          <!-- Label -->
-          <div style="flex-shrink: 0; max-width: 200px;">
-            <div style="font-size: 1rem; font-family: var(--font-heading); color: #fff; line-height: 1.3; margin-bottom: 0.25rem;">81% of people have no access to institutional financial instruments</div>
-            <div style="font-size: 0.62rem; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.35rem; font-family: var(--font-mono);">Federal Reserve · Survey of Consumer Finances</div>
-          </div>
-          <!-- Icons: 16 red (excluded) + 4 grey (have access) = 20 people → 80% ≈ 81% -->
-          <div style="display: flex; flex-wrap: nowrap; gap: 0.35rem; align-items: center; flex: 1;">
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(220,38,38,0.9)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(220,38,38,0.9)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <!-- 4 grey = have access -->
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(255,255,255,0.18)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(255,255,255,0.18)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(255,255,255,0.18)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <svg width="26" height="34" viewBox="0 0 26 34"><circle cx="13" cy="7.5" r="5" fill="rgba(255,255,255,0.18)"/><path d="M3 33c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" stroke-linecap="round"/></svg>
-          </div>
-          <!-- Legend -->
-          <div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 0.5rem; padding-left: 1.25rem; border-left: 1px solid rgba(255,255,255,0.07);">
-            <div style="display: flex; align-items: center; gap: 0.5rem;"><div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(220,38,38,0.9);"></div><span style="font-size: 0.7rem; color: rgba(255,255,255,0.45); font-family: var(--font-mono); letter-spacing: 0.06em;">No access · 81%</span></div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;"><div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18);"></div><span style="font-size: 0.7rem; color: rgba(255,255,255,0.25); font-family: var(--font-mono); letter-spacing: 0.06em;">Have access · 19%</span></div>
-          </div>
-        </div>
-
-        <!-- BOTTOM VERDICT -->
-        <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.1rem 2rem; background: linear-gradient(90deg, rgba(255,203,18,0.06) 0%, transparent 100%); border: 1px solid rgba(255,203,18,0.2); border-radius: 10px; border-left: 4px solid #ffcb12;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div style="font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.5;"><strong style="color: #fff;">The gap in the market:</strong> No settlement system offers Bitcoin-grade security <em>and</em> programmatic flexibility — while also serving the 81% currently locked out. <strong style="color: #ffcb12;">Until now.</strong></div>
-        </div>
-
-      </div>
+    </div>
+    <div style="border-top:1px solid var(--line);padding-top:1.5rem;">
+      <p style="font-size:0.88rem;font-style:italic;color:var(--t-mid);line-height:1.6;margin-bottom:0.75rem;">&ldquo;Tim Draper backed DIBA at inception. The same conviction that led him to Bitcoin at $6.&rdquo;</p>
+      <div style="font-family:var(--mono);font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);">Draper Associates &middot; Lead Investor</div>
     </div>
   </div>
 
-  <!-- ============ SLIDE 3 — THE SOLUTION ============ -->
-  <div class="slide" id="slide-3" data-slide="3">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">02</div>
-        <h2 class="h1" style="margin: 0;">The Solution</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">Tokenization extends the Bitcoin promise.</p>
+</div>
+</div>
+
+<!-- SLIDE 2: THE PROBLEM -->
+<div class="slide" id="slide-2" data-slide="2">
+<div class="slide-inner">
+  <div class="slide-header">
+    <div class="slide-eyebrow">01 &middot; The Problem</div>
+    <div class="slide-title">Two broken systems. One large opportunity.</div>
+    <div class="slide-subtitle">Legacy post-trade infrastructure excludes 81% of participants. EVM-based alternatives introduce systemic risk that no fiduciary can accept.</div>
+  </div>
+  <div class="slide-body" style="gap:1rem;">
+    <div class="g2" style="flex:1;align-items:stretch;position:relative;">
+
+      <!-- LEFT: TradFi -->
+      <div style="display:flex;flex-direction:column;gap:0.75rem;padding:1.5rem;background:rgba(255,255,255,0.02);border:1px solid var(--line);border-top:3px solid rgba(255,255,255,0.2);border-radius:10px;position:relative;overflow:hidden;">
+
+        <!-- Hand-drawn corner bracket decoration (top-left) -->
+        <svg style="position:absolute;top:10px;right:14px;opacity:0.18;pointer-events:none;" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M4 44 L4 4 L44 4" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"
+            style="stroke-dasharray:none;" pathLength="100"
+            d="M5 43 C5 42 4.5 10 5 5 C5.5 4 12 4.2 44 4"/>
+          <!-- Sketchy re-trace -->
+          <path d="M5 43 C5.2 41 4.8 15 5.3 5.5 C6 4.2 18 3.8 43 4.2" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <!-- Hand-drawn wavy underline under the title -->
+        <svg style="position:absolute;top:68px;left:1.5rem;pointer-events:none;opacity:0.35;" width="220" height="10" viewBox="0 0 220 10" fill="none">
+          <path d="M2 7 C20 3 38 9 58 6 C78 3 96 8 116 5 C136 2 154 8 174 5 C194 3 210 7 220 6" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M2 8.5 C25 5 45 9.5 65 7 C85 4 100 9 120 6.5" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <div style="font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-low);">Legacy Capital Markets</div>
+        <div style="font-size:1.4rem;font-weight:800;letter-spacing:-0.03em;color:#fff;">Slow, Siloed &amp; Exclusive</div>
+        <div class="g2" style="gap:0.6rem;margin-top:0.25rem;">
+          <div class="card" style="padding:1rem;text-align:center;">
+            <div class="stat-num" style="font-size:1.8rem;color:#fff;">$17B+</div>
+            <div class="stat-label">Annual Post-Trade Overhead</div>
+          </div>
+          <div class="card" style="padding:1rem;text-align:center;">
+            <div class="stat-num" style="font-size:1.8rem;color:#fff;">T+2</div>
+            <div class="stat-label">Settlement Lag. Still Standard.</div>
+          </div>
+          <div class="card" style="padding:1rem;text-align:center;grid-column:1/-1;">
+            <div class="stat-num" style="font-size:1.8rem;color:#fff;">81%</div>
+            <div class="stat-label">Americans excluded from institutional-grade products</div>
+          </div>
+        </div>
+        <div style="font-size:0.82rem;color:var(--t-mid);line-height:1.6;border-top:1px solid var(--line);padding-top:0.75rem;">DTCC, SWIFT, and Euroclear process global capital on infrastructure built in the 1970s. Each intermediary layer extracts margin and adds counterparty exposure. Settlement takes two days. Access remains geographically constrained.</div>
       </div>
-      <div class="slide-body" style="gap: 1.25rem;">
 
-        <!-- THESIS STRIP — compact single row -->
-        <div style="display: flex; gap: 1.5rem; align-items: stretch;">
-          <div style="flex: 1; padding: 1.1rem 1.5rem; border-left: 4px solid #ffcb12; background: linear-gradient(90deg, rgba(255,203,18,0.05) 0%, transparent 60%); border: 1px solid rgba(255,203,18,0.15); border-left: 4px solid #ffcb12; border-radius: 10px;">
-            <p style="font-size: 0.84rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin: 0;">Bitcoin established peer-to-peer value transfer without intermediaries. Tokenization builds on this — migrating bonds, equities, credit, and real assets to a more efficient settlement rail.</p>
+      <!-- RIGHT: EVM -->
+      <div style="display:flex;flex-direction:column;gap:0.75rem;padding:1.5rem;background:rgba(224,82,82,0.04);border:1px solid rgba(224,82,82,0.15);border-top:3px solid rgba(224,82,82,0.6);border-radius:10px;position:relative;overflow:hidden;">
+
+        <!-- Hand-drawn scribble-circle around $9.8B — danger indicator -->
+        <svg style="position:absolute;top:108px;left:18px;pointer-events:none;opacity:0.28;" width="130" height="58" viewBox="0 0 130 58" fill="none">
+          <path d="M65 4 C90 2 122 10 125 28 C128 46 105 56 65 55 C25 54 4 46 3 28 C2 12 28 4 65 4 Z" stroke="rgba(224,82,82,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M65 6 C88 3 118 12 122 28 C126 44 103 54 65 53 C27 52 6 44 5 28 C4 14 30 6 65 6 Z" stroke="rgba(224,82,82,0.5)" stroke-width="1" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <!-- Hand-drawn rough X in top-right corner -->
+        <svg style="position:absolute;top:12px;right:14px;pointer-events:none;opacity:0.22;" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M4 4 C8 9 18 19 24 24" stroke="rgba(224,82,82,0.9)" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M5 5 C9 10 17 18 23 23" stroke="rgba(224,82,82,0.4)" stroke-width="1" stroke-linecap="round"/>
+          <path d="M24 4 C19 9 9 19 4 24" stroke="rgba(224,82,82,0.9)" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M23 5 C18 10 10 18 5 23" stroke="rgba(224,82,82,0.4)" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+
+        <div style="font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(224,82,82,0.7);">EVM-Based &ldquo;Alternatives&rdquo;</div>
+        <div style="font-size:1.4rem;font-weight:800;letter-spacing:-0.03em;color:#fff;">Structurally Broken for Institutions</div>
+        <div class="g2" style="gap:0.6rem;margin-top:0.25rem;">
+          <div class="card" style="padding:1rem;text-align:center;border-color:rgba(224,82,82,0.15);">
+            <div class="stat-num" style="font-size:1.8rem;color:var(--red);">$9.8B+</div>
+            <div class="stat-label">EVM cross-chain exploits since 2020</div>
           </div>
-          <div style="flex: 1; padding: 1.1rem 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-            <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.5); font-family: var(--font-mono); margin-bottom: 0.4rem;">The Access Problem Is Structural</div>
-            <p style="font-size: 0.84rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin: 0;">80–82% of Americans have no exposure to institutional-grade instruments. This is not preference — it is the <strong style="color: rgba(255,255,255,0.8);">operational limitation of legacy markets.</strong></p>
+          <div class="card" style="padding:1rem;text-align:center;border-color:rgba(224,82,82,0.15);">
+            <div class="stat-num" style="font-size:1.8rem;color:var(--red);">$4.1B+</div>
+            <div class="stat-label">Stolen from bridges · Chainalysis</div>
+          </div>
+          <div class="card" style="padding:1rem;text-align:center;border-color:rgba(224,82,82,0.15);grid-column:1/-1;">
+            <div class="stat-num" style="font-size:1.8rem;color:var(--red);">1,000+</div>
+            <div class="stat-label">Documented DeFi exploits 2020–2025 · Immunefi</div>
           </div>
         </div>
-
-        <!-- RGB PROTOCOL ARCHITECTURE — full width, centered -->
-        <div style="width: 100%; border: 1px solid rgba(255,255,255,0.06); background: rgba(10,14,26,0.5); border-radius: 12px; padding: 1.25rem 1.5rem;">
-
-          <!-- Header -->
-          <div style="text-align: center; margin-bottom: 1rem;">
-            <div style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; font-weight: 700;">RGB protocol architecture on Bitcoin</div>
-            <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4);">Three-layer model: scalability, privacy, and settlement</div>
-          </div>
-
-          <!-- Layer 3: Purple -->
-          <div style="background: rgba(129,140,248,0.04); border: 1px solid rgba(129,140,248,0.2); border-radius: 6px; padding: 0.7rem 1rem; margin-bottom: 0.35rem;">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-              <div>
-                <div style="font-weight: 700; color: #818cf8; font-size: 0.78rem;">Layer 3 · Scaled RGB assets</div>
-                <div style="font-size: 0.65rem; color: rgba(129,140,248,0.6);">Superposition over Lightning Network</div>
-              </div>
-              <div style="display: flex; align-items: center; gap: 1rem;">
-                <svg width="50" height="20" viewBox="0 0 100 40">
-                  <line x1="10" y1="20" x2="30" y2="8" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="10" y1="20" x2="30" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="30" y1="8" x2="50" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="30" y1="32" x2="50" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="50" y1="20" x2="70" y2="8" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="50" y1="20" x2="70" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><line x1="70" y1="8" x2="90" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-                  <circle cx="10" cy="20" r="4" fill="#ef4444"/><circle cx="30" cy="8" r="4" fill="#3b82f6"/><circle cx="30" cy="32" r="4" fill="#3b82f6"/><circle cx="50" cy="20" r="4" fill="#22c55e"/><circle cx="70" cy="8" r="4" fill="#f59e0b"/><circle cx="70" cy="32" r="4" fill="#22c55e"/><circle cx="90" cy="20" r="4" fill="#ef4444"/>
-                </svg>
-                <div style="background: rgba(129,140,248,0.1); border-radius: 4px; padding: 0.35rem 0.75rem; text-align: center;">
-                  <div style="font-weight: 700; color: #a5b4fc; font-size: 0.78rem;">400M TPS</div>
-                  <div style="font-size: 0.58rem; color: rgba(165,180,252,0.6);">Theoretical throughput via Lightning</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Arrows -->
-          <div style="display: flex; justify-content: center; gap: 4rem; padding: 0.2rem 0;">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </div>
-
-          <!-- Layer 2: Green -->
-          <div style="background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.2); border-radius: 6px; padding: 0.7rem 1rem; margin-bottom: 0.35rem;">
-            <div style="font-weight: 700; color: #34d399; font-size: 0.78rem;">Layer 2 · Client-side validation</div>
-            <div style="font-size: 0.65rem; color: rgba(52,211,153,0.6); margin-bottom: 0.5rem;">Asset evolution · off-chain smart contracts</div>
-            <div style="display: flex; gap: 0.5rem;">
-              <div style="flex: 1; background: rgba(52,211,153,0.08); border-radius: 4px; padding: 0.45rem 0.6rem; text-align: center;">
-                <div style="font-weight: 700; color: #6ee7b7; font-size: 0.72rem;">Private execution</div>
-                <div style="font-size: 0.58rem; color: rgba(110,231,183,0.6); line-height: 1.3;">State lives with owner, not on a public ledger</div>
-              </div>
-              <div style="flex: 1; background: rgba(52,211,153,0.08); border-radius: 4px; padding: 0.45rem 0.6rem; text-align: center;">
-                <div style="font-weight: 700; color: #6ee7b7; font-size: 0.72rem;">Asset independence</div>
-                <div style="font-size: 0.58rem; color: rgba(110,231,183,0.6); line-height: 1.3;">Each RGB asset is isolated; no shared state</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Arrows -->
-          <div style="display: flex; justify-content: center; gap: 4rem; padding: 0.2rem 0;">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </div>
-
-          <!-- Layer 1: Gold -->
-          <div style="background: rgba(255,203,18,0.04); border: 1px solid rgba(255,203,18,0.2); border-radius: 6px; padding: 0.7rem 1rem;">
-            <div style="font-weight: 700; color: #ffcb12; font-size: 0.78rem;">Layer 1 · Bitcoin base layer</div>
-            <div style="font-size: 0.65rem; color: rgba(255,203,18,0.5); margin-bottom: 0.5rem;">Single-use seals · deterministic cryptography</div>
-            <div style="display: flex; gap: 0.5rem;">
-              <div style="flex: 1; background: rgba(255,203,18,0.08); border-radius: 4px; padding: 0.45rem 0.6rem; text-align: center;">
-                <div style="font-weight: 700; color: #fde047; font-size: 0.72rem;">UTXO-anchored seals</div>
-                <div style="font-size: 0.58rem; color: rgba(253,224,71,0.6); line-height: 1.3;">Bound to Bitcoin UTXOs; no double-spend</div>
-              </div>
-              <div style="flex: 1; background: rgba(255,203,18,0.08); border-radius: 4px; padding: 0.45rem 0.6rem; text-align: center;">
-                <div style="font-weight: 700; color: #fde047; font-size: 0.72rem;">Non-custodial wallet</div>
-                <div style="font-size: 0.58rem; color: rgba(253,224,71,0.6); line-height: 1.3;">Owner holds key; inherits Bitcoin security</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Flow footer -->
-          <div style="text-align: center; padding-top: 0.65rem; margin-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06);">
-            <div style="font-size: 0.6rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em;">Bitcoin L1 settlement &rarr; client-side validation &rarr; Lightning-scaled assets</div>
-          </div>
-        </div>
-
-        <!-- THREE FEATURE CARDS — horizontal row -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
-          <div style="padding: 1rem 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div style="font-weight: 700; color: #fff; font-size: 0.88rem;">Client-Side Validation</div>
-            </div>
-            <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">State transitions validated by recipients, not miners. The blockchain records only a cryptographic commitment.</div>
-          </div>
-          <div style="padding: 1rem 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div style="font-weight: 700; color: #fff; font-size: 0.88rem;">Institutional Smart Contracts</div>
-            </div>
-            <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">Waterfall distributions, maturity triggers, investor gating, and transfer restrictions — all off-chain, settled on Bitcoin.</div>
-          </div>
-          <div style="padding: 1rem 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              </div>
-              <div style="font-weight: 700; color: #fff; font-size: 0.88rem;">T+0 Atomic Settlement</div>
-            </div>
-            <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">Assets and cash move simultaneously. No bridges. No trusted intermediaries. No settlement risk.</div>
-          </div>
-        </div>
-
+        <div style="font-size:0.82rem;color:var(--t-mid);line-height:1.6;border-top:1px solid rgba(224,82,82,0.12);padding-top:0.75rem;">MEV extraction, re-entrancy vulnerabilities, and oracle manipulation are not edge cases. They are structural properties of shared public execution environments. No fiduciary can hold client assets on such a chain.</div>
       </div>
     </div>
-  </div>
 
-  <!-- ============ SLIDE 4 — WHY NOW (Stablecoins Migration + Emerging Markets, merged) ============ -->
-  <div class="slide" id="slide-4" data-slide="4">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">03</div>
-        <h2 class="h1" style="margin: 0;">Why Now</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">The inflection point has arrived. Tether just proved it.</p>
-      </div>
-      <div class="slide-body" style="gap: 1.5rem;">
+    <!-- BOTTOM VERDICT with hand-drawn arrow -->
+    <div style="display:flex;align-items:center;gap:1.5rem;padding:1.1rem 1.75rem;background:rgba(232,184,75,0.05);border:1px solid var(--gold-line);border-left:4px solid var(--gold);border-radius:8px;position:relative;">
 
-        <!-- TETHER INFLECTION BANNER -->
-        <div class="inflection-bar" style="display: flex; gap: 1.5rem; align-items: center; padding: 1.5rem 2rem; background: linear-gradient(135deg, rgba(255,203,18,0.08) 0%, transparent 100%); border: 1px solid rgba(255,203,18,0.35); border-radius: 14px; border-left: 5px solid #ffcb12;">
-          <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(255,203,18,0.1); border: 2px solid rgba(255,203,18,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <div>
-            <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.7); margin-bottom: 0.2rem;">The Watershed Moment</div>
-            <div style="font-size: 1.1rem; color: #fff; font-weight: 600; line-height: 1.4;">Tether ($118B USDT in circulation) has initiated <strong style="color: #ffcb12;">native USDT issuance on Bitcoin via RGB.</strong> The migration of stablecoins to Bitcoin rails has begun.</div>
-          </div>
-        </div>
+      <!-- Hand-drawn pointing arrow on left edge -->
+      <svg style="position:absolute;left:-2px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:0;" width="1" height="1" viewBox="0 0 1 1"></svg>
 
-        <div class="why-now-grid">
-          <!-- Card 1 -->
-          <div class="catalyst-card primary">
-            <div class="catalyst-number">$118B</div>
-            <div class="catalyst-label">USDT — Now Issuing on Bitcoin</div>
-            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 0.75rem;">When the world's dominant stablecoin migrates to Bitcoin rails, every institution that handles USDT must build or buy Bitcoin settlement infrastructure. That's every bank.</div>
-          </div>
+      <!-- Hand-drawn underline on "DIBA closes that gap" — will appear subtly under the gold text -->
+      <div style="font-size:0.95rem;color:var(--t-hi);line-height:1.5;"><strong style="color:#fff;">The gap:</strong> No settlement infrastructure offers Bitcoin-grade security <em>and</em> programmable asset logic, while unlocking access for the 81% currently excluded from institutional capital markets. <strong style="color:var(--gold);">DIBA closes that gap.</strong></div>
 
-          <!-- Card 2 -->
-          <div class="catalyst-card primary">
-            <div class="catalyst-number">$100B+</div>
-            <div class="catalyst-label">Bitcoin ETF AUM — Institutional Bridge</div>
-            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 0.75rem;">BlackRock, Fidelity, and sovereign wealth funds already hold Bitcoin. The next logical step is on-chain asset infrastructure on the same base layer they already trust.</div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="catalyst-card">
-            <div class="catalyst-number">2×</div>
-            <div class="catalyst-label">More Likely to Hold Crypto Than Cards · Emerging Markets</div>
-            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 0.75rem;">Outside the US and Europe, customers are twice as likely to hold crypto wallets than credit cards. Stablecoins on Bitcoin are their most functional savings and payment tool — not speculation.</div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="catalyst-card">
-            <div class="catalyst-number">42+</div>
-            <div class="catalyst-label">Central Banks Exploring Digital Registries</div>
-            <div style="font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 0.75rem;">El Salvador, UAE, and African nations are actively exploring Bitcoin asset registries. They need neutral, proven settlement infrastructure. DIBA is the only full-stack option.</div>
-          </div>
-        </div>
-
-        <!-- WHY NOT 5 YEARS AGO -->
-        <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem 2rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;">
-          <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.3); flex-shrink: 0;">Why not 5 years ago?</div>
-          <div style="width: 1px; height: 32px; background: rgba(255,255,255,0.1);"></div>
-          <div style="font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.5;">Taproot activation (2021) unlocked programmability. RGB reached production-grade stability (2023). Tether's commitment (2024) validates the market. The technology is proven. The window is open now.</div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 5 — MARKET SIZE ============ -->
-  <div class="slide" id="slide-5" data-slide="5">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">04</div>
-        <h2 class="h1" style="margin: 0;">Market Size</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">Capturing 5% of a $400T stack equals a $20T market. Larger than any single asset class in two decades.</p>
-      </div>
-      <div class="slide-body" style="gap: 2rem;">
-
-        <div class="market-stats">
-          <div class="market-stat">
-            <div class="market-stat-num">$400T</div>
-            <div class="market-stat-desc">Total Global Financial Assets · McKinsey Global Institute</div>
-          </div>
-          <div class="market-stat">
-            <div class="market-stat-num">$19T</div>
-            <div class="market-stat-desc">Tokenized Asset Market by 2033 · BCG + Ripple</div>
-          </div>
-          <div class="market-stat">
-            <div class="market-stat-num">53%</div>
-            <div class="market-stat-desc">CAGR for Tokenized RWAs · BCG Forecast</div>
-          </div>
-          <div class="market-stat">
-            <div class="market-stat-num">81%</div>
-            <div class="market-stat-desc">Americans Excluded from Institutional-Grade Products · Fed SCF</div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: stretch;">
-
-          <!-- Addressable verticals -->
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.6);">Addressable Verticals</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">Government Bonds</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Treasury, sovereign debt</div></div>
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">Private Credit</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">CLOs, CDOs, corporate loans</div></div>
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">Real Estate</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Fractional, mortgage-backed</div></div>
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">Private Equity</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Fund units, LP interests</div></div>
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">Commodities</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Gold, oil, agriculture</div></div>
-              <div style="padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;"><strong style="color:#fff; font-size:0.9rem;">CBDC &amp; FX</strong><div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Global settlement infra</div></div>
-            </div>
-          </div>
-
-          <!-- The thesis pulled quote -->
-          <div style="display: flex; flex-direction: column; justify-content: center; padding: 2.5rem; background: linear-gradient(135deg, rgba(255,203,18,0.06) 0%, transparent 100%); border: 1px solid rgba(255,203,18,0.25); border-radius: 14px; gap: 1.5rem;">
-            <div style="font-family: var(--font-heading); font-size: 2.8rem; color: #ffcb12; line-height: 1;">$20T</div>
-            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.5);">If only 5% migrates to Bitcoin rails</div>
-            <div style="width: 40px; height: 2px; background: rgba(255,203,18,0.3);"></div>
-            <div style="font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.7;">Moving even 5% of the global capital stack onto Bitcoin rails establishes a scale that exceeds any single asset class created over the last two decades.</div>
-            <div style="font-size: 0.72rem; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em;">Source: BCG + Ripple 2025 · McKinsey Global Institute</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 6 — PRODUCT STACK (End-to-End Asset OS) ============ -->
-  <div class="slide" id="slide-6" data-slide="6">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">05</div>
-        <h2 class="h1" style="margin: 0;">The Asset OS</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">A vertically integrated Bitcoin settlement framework. No third-party middleware. No bridges. No gaps.</p>
-      </div>
-      <div class="slide-body" style="gap: 1.25rem;">
-
-        <!-- TWO-COLUMN: Image left + Product stack right -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: stretch;">
-
-          <!-- LEFT: Product screenshot -->
-          <div style="position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,203,18,0.2); background: #000; display: flex; flex-direction: column;">
-            <img src="images/diba-marketplace.png" alt="DIBA Marketplace" style="width: 100%; flex: 1; object-fit: cover; object-position: top center; display: block; opacity: 0.9;">
-            <div style="position: absolute; top: 0.75rem; left: 0.75rem; padding: 0.35rem 0.75rem; background: rgba(10,14,26,0.85); border: 1px solid rgba(255,203,18,0.3); border-radius: 6px; backdrop-filter: blur(8px);">
-              <div style="font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #ffcb12; font-family: var(--font-mono);">Live Product</div>
-            </div>
-            <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 0.85rem 1rem; background: linear-gradient(transparent, rgba(10,14,26,0.97));">
-              <div style="font-family: var(--font-heading); font-size: 1.1rem; color: #fff; margin-bottom: 0.2rem;">BitMask + DIBA Marketplace</div>
-              <div style="font-size: 0.72rem; color: rgba(255,255,255,0.5);">Institutional portfolio dashboard · Tokenized RWA securities · Non-custodial wallet</div>
-            </div>
-          </div>
-
-          <!-- RIGHT: Four product layers stacked -->
-          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-
-            <!-- Layer 01: BitMask -->
-            <div style="display: flex; gap: 0.85rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid #ffcb12; align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-              </div>
-              <div style="flex: 1; min-width: 0;">
-                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.2rem;">
-                  <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.5); font-family: var(--font-mono);">Asset Layer · 01</div>
-                </div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">BitMask</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Non-custodial institutional wallet. Self-sovereign key management, atomic swaps, multi-sig governance.</div>
-                <div style="display: inline-block; margin-top: 0.4rem; padding: 0.25rem 0.6rem; background: rgba(255,255,255,0.03); border-radius: 4px; font-size: 0.65rem; color: rgba(255,203,18,0.7); font-weight: 600;">10k+ Global Downloads</div>
-              </div>
-            </div>
-
-            <!-- Layer 02: DIBA -->
-            <div style="display: flex; gap: 0.85rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid #ffcb12; align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="20" width="20" height="2"/><rect x="4" y="10" width="4" height="10"/><rect x="10" y="10" width="4" height="10"/><rect x="16" y="10" width="4" height="10"/><polygon points="12 2 2 8 22 8 12 2"/></svg>
-              </div>
-              <div style="flex: 1; min-width: 0;">
-                <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.5); font-family: var(--font-mono);">Market Layer · 02</div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">DIBA</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Decentralized marketplace for tokenized securities. Primary issuance and secondary trading with compliance at the protocol level.</div>
-                <div style="display: inline-block; margin-top: 0.4rem; padding: 0.25rem 0.6rem; background: rgba(255,255,255,0.03); border-radius: 4px; font-size: 0.65rem; color: rgba(255,203,18,0.7); font-weight: 600;">20k+ Users · Live Now</div>
-              </div>
-            </div>
-
-            <!-- Layer 03: Carbonado -->
-            <div style="display: flex; gap: 0.85rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid rgba(255,203,18,0.3); align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-              </div>
-              <div style="flex: 1; min-width: 0;">
-                <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.5); font-family: var(--font-mono);">Storage Layer · 03</div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">Carbonado</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Bitcoin's encrypted data availability layer. Strategic partnership with Hut8 <span style="color:rgba(255,255,255,0.25); font-size:0.9em;">(NASDAQ: HUT)</span>.</div>
-                <div style="display: inline-block; margin-top: 0.4rem; padding: 0.25rem 0.6rem; background: rgba(255,255,255,0.03); border-radius: 4px; font-size: 0.65rem; color: rgba(255,203,18,0.7); font-weight: 600;">Strategic JV with Hut8</div>
-              </div>
-            </div>
-
-            <!-- Layer 04: RGB Engine -->
-            <div style="display: flex; gap: 0.85rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid rgba(255,203,18,0.3); align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div style="flex: 1; min-width: 0;">
-                <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,203,18,0.5); font-family: var(--font-mono);">Settlement Layer · 04</div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">RGB Engine</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Private smart contract infrastructure anchored to Bitcoin PoW. Client-side validation with zero-knowledge partial disclosure.</div>
-                <div style="display: inline-block; margin-top: 0.4rem; padding: 0.25rem 0.6rem; background: rgba(255,255,255,0.03); border-radius: 4px; font-size: 0.65rem; color: rgba(255,203,18,0.7); font-weight: 600;">DIBA: Founding Member</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- MOAT BAR -->
-        <div class="product-moat-bar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <div>
-            <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.6); margin-bottom: 0.1rem;">Ecosystem Moat</div>
-            <div style="font-size: 1rem; color: #fff; font-weight: 600;">DIBA owns and provides an <span style="color: #ffcb12;">end-to-end, fully integrated technology stack.</span> Wallet + Marketplace + Storage + Settlement — zero third-party dependency.</div>
-          </div>
-          <div style="margin-left: auto; text-align: right; flex-shrink: 0;">
-            <div style="font-size: 1.5rem; font-family: var(--font-heading); color: #fff; line-height: 1;">Rust + WASM</div>
-            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em;">100% Proprietary Core</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 7 — REVENUE & TRACTION ============ -->
-  <div class="slide" id="slide-7" data-slide="7">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">06</div>
-        <h2 class="h1" style="margin: 0;">Revenue & Traction</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">Category leadership established. Three revenue streams scaling with USDT settlement volume.</p>
-      </div>
-      <div class="slide-body" style="gap: 1.1rem;">
-
-        <!-- HERO METRICS ROW -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
-          <div style="padding: 0.9rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; text-align: center; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="font-family: var(--font-heading); font-size: 1.8rem; color: #ffcb12; line-height: 1;">10k+</div>
-            <div style="font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); margin-top: 0.3rem;">BitMask Downloads</div>
-          </div>
-          <div style="padding: 0.9rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; text-align: center; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="font-family: var(--font-heading); font-size: 1.8rem; color: #ffcb12; line-height: 1;">20k+</div>
-            <div style="font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); margin-top: 0.3rem;">Marketplace Users</div>
-          </div>
-          <div style="padding: 0.9rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; text-align: center; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="font-family: var(--font-heading); font-size: 1.8rem; color: #ffcb12; line-height: 1;">5</div>
-            <div style="font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); margin-top: 0.3rem;">Institutional Backers</div>
-          </div>
-          <div style="padding: 0.9rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; text-align: center; border-top: 3px solid rgba(255,203,18,0.4);">
-            <div style="font-family: var(--font-heading); font-size: 1.8rem; color: #ffcb12; line-height: 1;">300M <span style="font-size: 0.9rem; color: rgba(255,203,18,0.7);">sats</span></div>
-            <div style="font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); margin-top: 0.3rem;">Revenue ARR</div>
-          </div>
-        </div>
-
-        <!-- REVENUE MODEL + PROJECTED ARR -->
-        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 1rem; align-items: stretch;">
-          
-          <!-- LEFT: Revenue streams -->
-          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-            <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.5); font-family: var(--font-mono); margin-bottom: 0.1rem;">Revenue Model</div>
-
-            <div style="display: flex; gap: 0.75rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid #ffcb12; align-items: flex-start;">
-              <div style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              </div>
-              <div style="flex: 1;">
-                <div style="font-weight: 700; color: #fff; font-size: 0.88rem; margin-bottom: 0.15rem;">Transaction Fees</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">0.1-5% marketplace exchange fees + BitMask micro-transaction fees. Scales natively with <strong style="color: rgba(255,255,255,0.65);">USDT settlement volume</strong>.</div>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 0.75rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid rgba(255,203,18,0.4); align-items: flex-start;">
-              <div style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div style="flex: 1;">
-                <div style="font-weight: 700; color: #fff; font-size: 0.88rem; margin-bottom: 0.15rem;">SDK Licensing</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Annual SaaS licensing for B2B white-label integrations. Predictable recurring revenue as mid-market banks onboard.</div>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 0.75rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; border-left: 3px solid rgba(255,203,18,0.4); align-items: flex-start;">
-              <div style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div style="flex: 1;">
-                <div style="font-weight: 700; color: #fff; font-size: 0.88rem; margin-bottom: 0.15rem;">Sovereign Contracts</div>
-                <div style="font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45;">Multi-year government infrastructure contracts for national digital asset registry deployment and maintenance.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: Revenue projection chart -->
-          <div style="background: rgba(5,8,15,0.5); border: 1px solid rgba(255,203,18,0.2); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,203,18,0.5); font-family: var(--font-mono);">Projected Revenue Mix</div>
-              <div style="font-size: 0.65rem; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.1rem;">Est. Gross ARR</div>
-            </div>
-            <div class="revenue-bars" style="align-items: flex-end; padding-bottom: 0.5rem; margin-top: 1rem;">
-              <div class="revenue-bar">
-                <div class="revenue-bar-value" style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff;">$0.3M</div>
-                <div class="revenue-bar-fill" style="height: 14px; background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.2) 100%); border-radius: 4px 4px 0 0; opacity: 0.7;"></div>
-                <div class="revenue-bar-label" style="margin-top: 0.25rem;">2026</div>
-              </div>
-              <div class="revenue-bar">
-                <div class="revenue-bar-value" style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff;">$3M</div>
-                <div class="revenue-bar-fill" style="height: 45px; background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.2) 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                <div class="revenue-bar-label" style="margin-top: 0.25rem;">2027</div>
-              </div>
-              <div class="revenue-bar">
-                <div class="revenue-bar-value" style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff;">$12M</div>
-                <div class="revenue-bar-fill" style="height: 85px; background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.2) 100%); border-radius: 4px 4px 0 0; opacity: 0.9;"></div>
-                <div class="revenue-bar-label" style="margin-top: 0.25rem;">2028</div>
-              </div>
-              <div class="revenue-bar">
-                <div class="revenue-bar-value" style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--gold-light);">$45M</div>
-                <div class="revenue-bar-fill" style="height: 130px; background: linear-gradient(180deg, var(--gold-light) 0%, rgba(212,175,55,0.2) 100%); border-radius: 4px 4px 0 0; box-shadow: 0 -5px 15px rgba(212,175,55,0.3);"></div>
-                <div class="revenue-bar-label" style="margin-top: 0.25rem; font-weight: 800; color: #fff;">2029</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- MILESTONE TIMELINE -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;">
-          <div style="padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; border-top: 2px solid rgba(255,203,18,0.3);">
-            <div style="font-size: 0.65rem; font-weight: 700; color: #ffcb12; font-family: var(--font-mono); margin-bottom: 0.25rem;">2021</div>
-            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 0.15rem;">First Mover</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.35); line-height: 1.4;">World's first marketplace for private digital assets on Bitcoin via RGB.</div>
-          </div>
-          <div style="padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; border-top: 2px solid rgba(255,203,18,0.3);">
-            <div style="font-size: 0.65rem; font-weight: 700; color: #ffcb12; font-family: var(--font-mono); margin-bottom: 0.25rem;">2022</div>
-            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 0.15rem;">Hut8 JV</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.35); line-height: 1.4;">Joint venture with Hut8 (NASDAQ: HUT) to build Carbonado data availability.</div>
-          </div>
-          <div style="padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; border-top: 2px solid rgba(255,203,18,0.3);">
-            <div style="font-size: 0.65rem; font-weight: 700; color: #ffcb12; font-family: var(--font-mono); margin-bottom: 0.25rem;">2023</div>
-            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 0.15rem;">Protocol Core</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.35); line-height: 1.4;">Founding member of RGB Association. Core contributors to smart contract standard.</div>
-          </div>
-          <div style="padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; border-top: 2px solid #ffcb12;">
-            <div style="font-size: 0.65rem; font-weight: 700; color: #ffcb12; font-family: var(--font-mono); margin-bottom: 0.25rem;">2025-26</div>
-            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 0.15rem;">Sovereign Pilots</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.35); line-height: 1.4;">Active strategic engagements exploring national asset registry tokenization.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 8 — COMPETITION / THE MOAT ============ -->
-  <div class="slide" id="slide-8" data-slide="8">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">07</div>
-        <h2 class="h1" style="margin: 0;">Competitive Moat</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">The only full-stack sovereign infrastructure for Bitcoin capital markets.</p>
-      </div>
-      <div class="slide-body" style="gap: 1.5rem;">
-
-        <div class="moat-split">
-
-          <!-- LEFT: Three pillars -->
-          <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="glass" style="flex: 1; padding: 1.4rem 1.5rem; border-left: 4px solid var(--gold-light); border-radius: 0 12px 12px 0; display: flex; flex-direction: column; gap: 0.4rem;">
-              <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-light);">Protocol Control</div>
-              <div style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; line-height: 1.15;">RGB Founding Member</div>
-              <div style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">DIBA's team actively architects the base protocol. We are not just a user of RGB — we are setting its global standard.</div>
-            </div>
-            <div class="glass" style="flex: 1; padding: 1.4rem 1.5rem; border-left: 4px solid var(--gold-light); border-radius: 0 12px 12px 0; display: flex; flex-direction: column; gap: 0.4rem;">
-              <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-light);">Vertical Integration</div>
-              <div style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; line-height: 1.15;">Full-Stack Ownership</div>
-              <div style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">Wallet + Marketplace + Storage + Settlement. No third-party middleware. Every component is Bitcoin-native and cryptographically verifiable.</div>
-            </div>
-            <div class="glass" style="flex: 1; padding: 1.4rem 1.5rem; border-left: 4px solid var(--gold-light); border-radius: 0 12px 12px 0; display: flex; flex-direction: column; gap: 0.4rem;">
-              <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-light);">Regulatory Trajectory</div>
-              <div style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; line-height: 1.15;">Superior Clarity</div>
-              <div style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5;">Bitcoin's 15-year regulatory track record dwarfs any EVM alternative. Institutional risk committees already have Bitcoin frameworks.</div>
-            </div>
-          </div>
-
-          <!-- RIGHT: Capability matrix -->
-          <div class="comparison-container" style="background: rgba(15, 21, 40, 0.4); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden; position: relative;">
-            <div class="comparison-backdrop" style="position: absolute; width: 22%; top: 0; bottom: 0; left: 34%; background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); box-shadow: 0 0 30px rgba(212, 175, 55, 0.15); pointer-events: none; z-index: 0;"></div>
-            <table class="comparison-table" style="width: 100%; height: 100%; border-collapse: collapse; position: relative; z-index: 1;">
-              <thead>
-                <tr style="border-bottom: 2px solid rgba(255, 255, 255, 0.1);">
-                  <th style="width: 34%; text-align: left; padding: 0.9rem 1.5rem; color: var(--text-secondary); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Capability</th>
-                  <th style="width: 22%; text-align: center; padding: 0.9rem 0.5rem; color: var(--gold-light); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">BitMask / RGB</th>
-                  <th style="width: 11%; text-align: center; padding: 0.9rem 0.5rem; color: var(--text-muted); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;">ETH L2s</th>
-                  <th style="width: 11%; text-align: center; padding: 0.9rem 0.5rem; color: var(--text-muted); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;">Stacks</th>
-                  <th style="width: 11%; text-align: center; padding: 0.9rem 0.5rem; color: var(--text-muted); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;">Liquid</th>
-                  <th style="width: 11%; text-align: center; padding: 0.9rem 0.5rem; color: var(--text-muted); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;">Ordinals</th>
-                </tr>
-              </thead>
-              <tbody style="font-size: 0.9rem;">
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Bitcoin-Native Security</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-secondary); font-size: 1.2rem;">~</td>
-                  <td style="text-align: center; color: var(--text-secondary); font-size: 1.2rem;">~</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15);">
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Privacy by Default</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Smart Contracts</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-secondary); font-size: 1.2rem;">~</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15);">
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Zero MEV Attacks</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Regulatory Compliance</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-secondary); font-size: 1.2rem;">~</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                </tr>
-                <tr>
-                  <td style="padding: 0.9rem 1.5rem; font-weight: 600; color: var(--text-primary);">Institutional Wallet</td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,0.2);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center;"><div style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                  <td style="text-align: center; color: var(--text-muted); font-size: 1.2rem;">×</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 9 — TEAM ============ -->
-  <div class="slide" id="slide-9" data-slide="9">
-    <div class="slide-inner">
-      <div class="slide-header">
-        <div class="slide-number" style="margin-bottom: 0.5rem;">08</div>
-        <h2 class="h1" style="margin: 0;">Team & Core Contributors</h2>
-        <p class="subtitle" style="margin: 0; border: none; padding: 0;">Built by pioneers in <strong style="color:#fff;">Bitcoin</strong> smart contracts and institutional infrastructure.</p>
-      </div>
-      <div class="slide-body" style="display: flex; flex-direction: column; gap: 1.5rem;">
-
-        <!-- LEADERSHIP SECTION -->
-        <div>
-          <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.35); font-family: var(--font-mono); margin-bottom: 0.75rem;">Leadership</div>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-
-            <!-- Gideon -->
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,203,18,0.2); border-radius: 12px; display: flex; flex-direction: column; gap: 0.6rem;">
-              <img src="assets/gn.jpg" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,203,18,0.3);">
-              <div>
-                <div style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 0.15rem;">Gideon Nweze</div>
-                <div style="font-size: 0.6rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-mono);">Founder & CEO</div>
-              </div>
-              <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">Gideon is an experienced founder and an early core contributor to the <strong style="color:rgba(255,255,255,0.7);">RGB</strong> protocol. He applies first-principles engineering to solve the trilemma of scalable, confidential, and programmable <strong style="color:rgba(255,255,255,0.7);">Bitcoin</strong>.</div>
-            </div>
-
-            <!-- Stanley -->
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,203,18,0.2); border-radius: 12px; display: flex; flex-direction: column; gap: 0.6rem;">
-              <img src="assets/sa.jpg" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,203,18,0.3);">
-              <div>
-                <div style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 0.15rem;">Stanley Ibe Arua</div>
-                <div style="font-size: 0.6rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-mono);">Chief Technology Officer</div>
-              </div>
-              <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">Stanley is a 100x full-stack engineer with 11+ years building high-availability banking systems and central bank infrastructure. Bridges TradFi compliance requirements with trustless cryptographic systems.</div>
-            </div>
-
-            <!-- Anastasiia -->
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,203,18,0.2); border-radius: 12px; display: flex; flex-direction: column; gap: 0.6rem;">
-              <img src="assets/ai_new.jpg" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,203,18,0.3);">
-              <div>
-                <div style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 0.15rem;">Anastasiia Ilicheva</div>
-                <div style="font-size: 0.6rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-mono);">VP, Growth</div>
-              </div>
-              <div style="font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55;">Anastasiia is a marketing and partnership genius. She drives strategic international market positioning and sovereign partnerships. Translating deep technical capabilities into institutional value propositions that close.</div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- OPEN SOURCE CORE CONTRIBUTORS -->
-        <div>
-          <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.35); font-family: var(--font-mono); margin-bottom: 0.75rem;">Open Source Core Contributors (BitMask Core)</div>
-          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem;">
-
-            <!-- Hunter Beast -->
-            <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-              <img src="https://avatars.githubusercontent.com/u/285690?v=4" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-              <div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.82rem; line-height: 1.2;">Hunter Beast</div>
-                <div style="font-size: 0.55rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono);">Rust & Bitcoin</div>
-              </div>
-            </div>
-
-            <!-- Jose D Robles -->
-            <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-              <img src="https://avatars.githubusercontent.com/u/17494309?v=4" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-              <div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.82rem; line-height: 1.2;">Jose D Robles</div>
-                <div style="font-size: 0.55rem; font-weight: 700; color: #ffcb12; text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono);">Eng Lead, DIBA</div>
-              </div>
-            </div>
-
-            <!-- Armando CD -->
-            <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-              <img src="https://avatars.githubusercontent.com/u/471380?v=4" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-              <div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.82rem; line-height: 1.2;">Armando CD</div>
-                <div style="font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono);">Core Developer</div>
-              </div>
-            </div>
-
-            <!-- Francisco Calderón -->
-            <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-              <img src="https://avatars.githubusercontent.com/u/228364?v=4" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-              <div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.82rem; line-height: 1.2;">Francisco Calderón</div>
-                <div style="font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono);">Software Engineer</div>
-              </div>
-            </div>
-
-            <!-- Dan Gould -->
-            <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;">
-              <img src="https://avatars.githubusercontent.com/u/8525467?v=4" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-              <div>
-                <div style="font-weight: 700; color: #fff; font-size: 0.82rem; line-height: 1.2;">Dan Gould</div>
-                <div style="font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-mono);">Core Developer</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ SLIDE 10 — THE ASK ============ -->
-  <div class="slide" id="slide-10" data-slide="10">
-    <div class="slide-inner">
-      <div class="split-layout">
-
-        <div class="split-panel-left">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div style="width: 28px; height: 2px; background: #ffcb12;"></div>
-            <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; font-family: var(--font-mono); text-transform: uppercase; color: #ffcb12;">The Ask · 2026</span>
-          </div>
-          <div>
-            <div class="ask-hero-number" style="font-family: var(--font-heading); font-size: clamp(5rem, 10vw, 8rem); color: #fff; line-height: 0.9; letter-spacing: -0.03em; font-weight: 700;">$5.0<span style="color: #ffcb12;">M</span></div>
-            <div style="font-size: 1rem; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.08em; font-family: var(--font-mono); text-transform: uppercase; margin-top: 1rem;">Institutional Round · Open Now</div>
-          </div>
-          <div style="width: 100%; height: 1px; background: linear-gradient(90deg, rgba(255,203,18,0.3), transparent);"></div>
-          <div style="display: flex; flex-direction: column; gap: 1.75rem;">
-            <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-              </div>
-              <div>
-                <div style="font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.35); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem;">Vehicle</div>
-                <div style="font-size: 1.05rem; color: #fff; font-weight: 600; line-height: 1.4;">YC-Style SAFE + Token Warrant</div>
-              </div>
-            </div>
-            <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,203,18,0.1); border: 1px solid rgba(255,203,18,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffcb12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              </div>
-              <div>
-                <div style="font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.35); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem;">Use of Proceeds</div>
-                <div style="font-size: 1.05rem; color: #fff; font-weight: 600; line-height: 1.4;">Compliance $1M &nbsp;·&nbsp; Product $2M &nbsp;·&nbsp; Growth $2M</div>
-              </div>
-            </div>
-            <div style="display: flex; gap: 1.5rem; align-items: center; padding: 1.5rem; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 12px; box-shadow: 0 4px 25px rgba(212, 175, 55, 0.15); position: relative; overflow: hidden; margin-top: 0.5rem;">
-              <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 5px; background: var(--gold-light); box-shadow: 0 0 15px var(--gold-light);"></div>
-              <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(90deg, rgba(212, 175, 55, 0.15) 0%, transparent 40%); pointer-events: none;"></div>
-              <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><circle cx="14" cy="10" r="1"></circle></svg>
-              </div>
-              <div style="position: relative; z-index: 1;">
-                <div style="font-size: 0.85rem; font-weight: 800; color: var(--gold-light); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">Unicorn Exit <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold-light)"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
-                <div style="font-size: 1.1rem; color: #fff; font-weight: 600; line-height: 1.4;">Tier-1 institutional acquisition &nbsp;·&nbsp; Protocol token event</div>
-              </div>
-            </div>
-          </div>
-          <div class="backers-container">
-            <div class="label" style="margin-bottom: 0.75rem; opacity: 0.5;">Already Backing</div>
-            <div class="backer-chips">
-              <span>Draper Associates</span><span>Waterdrip Capital</span><span>Fulgur Ventures</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="split-panel-right">
-          <div style="width: 100%; display: flex; flex-direction: column; gap: 0; border-left: 2px solid rgba(255,203,18,0.2); padding-left: 1.5rem;">
-            <div style="display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 2rem; position: relative;">
-              <div style="position: absolute; left: calc(-1.5rem - 6px); top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #ffcb12; border: 2px solid #ffcb12; box-shadow: 0 0 12px rgba(255,203,18,0.5);"></div>
-              <div style="font-size: 0.72rem; font-weight: 700; color: #ffcb12; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.15em;">$1M Allocated</div>
-              <div style="font-size: 1.05rem; color: #fff; font-weight: 600;">Regulatory &amp; Compliance Infrastructure</div>
-              <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.5;">Securing global licensing, legal frameworks, and institutional-grade compliance architecture across priority jurisdictions.</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 2rem; position: relative;">
-              <div style="position: absolute; left: calc(-1.5rem - 6px); top: 4px; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,203,18,0.4); border: 2px solid #ffcb12;"></div>
-              <div style="font-size: 0.72rem; font-weight: 700; color: rgba(255,203,18,0.6); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.15em;">$2M Allocated</div>
-              <div style="font-size: 1.05rem; color: rgba(255,255,255,0.85); font-weight: 600;">Core Product &amp; Protocol Development</div>
-              <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.5;">Accelerating R&amp;D across the BitMask SDK, DIBA marketplace, and the RGB smart contract layer powering institutional-grade tokenisation.</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.35rem; position: relative;">
-              <div style="position: absolute; left: calc(-1.5rem - 6px); top: 4px; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,203,18,0.15); border: 2px solid rgba(255,203,18,0.4);"></div>
-              <div style="font-size: 0.72rem; font-weight: 700; color: rgba(255,203,18,0.4); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.15em;">$2M Allocated</div>
-              <div style="font-size: 1.05rem; color: rgba(255,255,255,0.6); font-weight: 600;">Hyper-Growth, Marketing &amp; Strategic Partnerships</div>
-              <div style="font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.5;">Scaling global go-to-market execution, sovereign partnership pipelines, and enterprise business development across EMEA and APAC.</div>
-            </div>
-          </div>
-          <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.07);"></div>
-          <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%;">
-            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0;">Ready to be part of the next chapter of Bitcoin-native capital markets?</p>
-            <a href="https://calendly.com/bitgidie" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:0.6rem;padding:1rem 2rem;border-radius:50px;background:#ffcb12;color:#0a0e1a;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;box-shadow:0 0 32px rgba(255,203,18,0.25);transition:all 0.2s ease;width:100%;" onmouseover="this.style.background='#ffe066';this.style.boxShadow='0 0 48px rgba(255,203,18,0.45)';" onmouseout="this.style.background='#ffcb12';this.style.boxShadow='0 0 32px rgba(255,203,18,0.25)';">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              Request a Meeting
-            </a>
-            <div style="text-align:center; font-size: 0.78rem; color: rgba(255,255,255,0.25);">gideon@diba.io</div>
-          </div>
-          <div class="mobile-spacer"></div>
-        </div>
-      </div>
+      <!-- Hand-drawn swoosh annotation top-right of verdict -->
+      <svg style="position:absolute;right:20px;top:6px;pointer-events:none;opacity:0.25;" width="60" height="30" viewBox="0 0 60 30" fill="none">
+        <path d="M2 28 C10 20 25 8 45 3 C50 2 56 3 58 6" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M52 3 L58 6 L54 10" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
     </div>
   </div>
 
 </div>
 
-<!-- Footer -->
-<footer class="deck-footer">
-  <div>Confidential <span style="color: #ffcb12;">-></span> © 2026 DIBA × BitMask</div>
-  <div class="footer-center">Tokenization on Bitcoin</div>
-  <div>Sequoia Arc · 10 Slides</div>
-</footer>
-
-<!-- Navigation -->
-<nav class="nav-controls">
-  <button class="nav-btn" id="prevBtn" aria-label="Previous slide">‹</button>
-  <div class="slide-counter"><span class="current" id="currentSlide">00</span> / 10</div>
-  <button class="nav-btn" id="nextBtn" aria-label="Next slide">›</button>
-</nav>
-
-<button class="fullscreen-btn" id="fullscreenBtn" aria-label="Toggle fullscreen">⛶</button>
-
-<!-- Email Gate -->
-<div class="email-gate-overlay" id="emailGateOverlay">
-  <div class="email-gate-card">
-    <h2 class="h2">Unlock Full Deck</h2>
-    <p class="subtitle">Enter your business email to continue.</p>
-    <form id="emailGateForm">
-      <input type="email" id="emailInput" placeholder="name@company.com" autocomplete="email" required>
-      <button type="submit">Continue</button>
-    </form>
-    <p class="email-error" id="emailError"></p>
-  </div>
-</div>
-
-<script src="script.js"></script>
-<script>
-// Override totalSlides for this deck
-const _sequoiaTotal = 10;
-// Patch: the imported script.js uses totalSlides = 10 so it matches.
-</script>
-</body>
-</html>

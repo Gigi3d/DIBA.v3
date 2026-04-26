@@ -7,7 +7,7 @@
 // State
 // ===================================
 let currentSlide = 1;
-const totalSlides = 10;
+const totalSlides = 11;
 
 // ===================================
 // Session & Email Gate
